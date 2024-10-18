@@ -7,7 +7,7 @@ mainBrain.py : programma main
 
 FunctionforProcess : Contiene tutte funzioni necessarie per processare la mesh
 
-Process_Mesh - processing_functions.py : classe contenente le funzioni da FunctionforProcess per processare la mesh, classe usata da mainBrain.py per operare sulla mesh
+Process_Mesh - processing_functions_v_prec.py    |    processing_functions.py : classe contenente le funzioni da FunctionforProcess per processare la mesh, classe usata da mainBrain.py per operare sulla mesh
 
 FunzioniUtili - Utils.py : contiene un set di funzioni utilizzate da FunctionforProcess ed Process_Mesh
     
