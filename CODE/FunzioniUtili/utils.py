@@ -1,8 +1,14 @@
 import os
 import open3d as o3d
 import numpy as np
+import datetime
 
 output_path="OUTPUT_SOURCE/"
+output_log={
+    1: "log_blender/",
+    2: "log_processing/"
+}
+extension_log=".txt"
 
 def check_file_exists(file_path):
     file_exists = os.path.exists(file_path)
@@ -97,3 +103,23 @@ def initialize_mesh(vet, nr, fac):
     faces_int32 = fac.astype(np.int32)
     mesh.triangles = o3d.utility.Vector3iVector(faces_int32)
     return mesh
+
+def write_to_log(file_name, message, where_at=1):
+    with open(output_log[where_at]+file_name+extension_log, 'a') as log_file:
+        current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        log_file.write(f"{current_time}\n")
+        log_file.write("--------------------------------------------\n")
+        log_file.write("DETAILS:\n")
+        log_file.write(f"{message}\n")
+        log_file.write("--------------------------------------------\n")
+
+    print("File log creato!")
+
+def is_folder_empty():
+    if not os.path.isdir(output_log[1]):
+        raise FileNotFoundError(f"La cartella '{output_log[1]}' non esiste.")
+
+    if len(os.listdir(output_log[1])) == 0:
+        print("Empty")
+    else:
+        print("Not Empty")
