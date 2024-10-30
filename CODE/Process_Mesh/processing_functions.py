@@ -13,6 +13,8 @@ class Processing_Mesh_PoC:
     nvert = 0
     pcd = o3d.geometry.PointCloud()
     mesh = o3d.geometry.TriangleMesh()
+    message_to_log = ""
+    islands_on_mesh = None
 
     def __init__(self, dataname: str):
         self.dataname = dataname
@@ -34,25 +36,54 @@ class Processing_Mesh_PoC:
         return vertices, normals, faces
 
     def create_point_cloud(self):
+        self.message_to_log += "\nPoint Of Cloud Created\n"
         self.pcd = utl.create_point_cloud(self.vertex, self.normal)
-        utl.visualize_3d_screen(self.pcd, self.dataname)
+        # utl.visualize_3d_screen(self.pcd, self.dataname)
 
     def remove_zero_area_faces_call(self):
         # Rimuovi le facce con area nulla
         self.face, n_facesremoved = self.remove_zero_area_faces()
-        print("Numero facce rimosse: " + str(n_facesremoved))
+
+        self.message_to_log += "\nApplied: Remove Zero Area Faces Algorithm\n"
+        self.message_to_log += f"Zero Area Faces removed: {n_facesremoved}\n\n"
 
     def scaling_mesh(self, scaling_factor=1.0):
         self.vertex, self.normal = self.scale_mesh(scaling_factor)
         self.vertex = utl.convert_array_tofloat64(self.vertex)
         self.normal = utl.convert_array_tofloat64(self.normal)
         self.pcd = utl.create_point_cloud(self.vertex, self.normal)
-        utl.visualize_3d_screen(self.pcd, "Scaled Point Cloud")
+
+        self.message_to_log += "\nApplied: Scaling Algorithm\n"
+        self.message_to_log += f"Mesh scaled by: x{scaling_factor} factor\n\n"
+        # utl.visualize_3d_screen(self.pcd, "Scaled Point Cloud")
+
+    def scaling_mesh_unit_box(self):
+        self.vertex, self.normal, scale_factor = self.scale_mesh_to_unit_box()
+        self.vertex = utl.convert_array_tofloat64(self.vertex)
+        self.normal = utl.convert_array_tofloat64(self.normal)
+        self.pcd = utl.create_point_cloud(self.vertex, self.normal)
+
+        self.message_to_log += "\nApplied: Scaling Algorithm UNIT BOX\n"
+        self.message_to_log += f"Mesh scaled by: x{scale_factor} factor\n\n"
+
+    def scaling_mesh_unit_sphere(self):
+        self.vertex, self.normal, scale_factor = self.scale_mesh_to_unit_sphere()
+        self.vertex = utl.convert_array_tofloat64(self.vertex)
+        self.normal = utl.convert_array_tofloat64(self.normal)
+        self.pcd = utl.create_point_cloud(self.vertex, self.normal)
+
+        self.message_to_log += "\nApplied: Scaling Algorithm UNIT SPHERE\n"
+        self.message_to_log += f"Mesh scaled by: x{scale_factor} factor\n\n"
+
 
     def save_mesh(self, nome=""):
-        utl.save_off_format(self.dataname + nome + self.extension_file, self.vertex, self.normal, self.face)
+        file_name = nome + "_" +self.dataname + self.extension_file
+        self.message_to_log += f"File saved as: {file_name}"
+
+        utl.save_off_format(file_name, self.vertex, self.normal, self.face)
 
     def initialize_mesh(self):
+        self.message_to_log += "\nMesh Initialized\n"
         self.mesh = utl.initialize_mesh(self.vertex, self.normal, self.face)
 
     def visualize_mesh(self, nome=""):
@@ -60,10 +91,12 @@ class Processing_Mesh_PoC:
 
     def repair_mesh(self, profondita=9, n_decimation=190000):
         #Modo più semplice libreria Pymesh
+        self.message_to_log += "\nApplied: Repair Mesh Algorithm\n"
 
         holes = self.find_holes_in_mesh(self.mesh)
 
         print("Ci sono: " + str(len(holes)) + " buchi nella mesh")
+        self.message_to_log += f"There are: " + str(len(holes)) + " holes in the mesh\n"
         # Converti np.int32 a int
         # holes_int contiene gli spigoli/edges (coppia di indici che fanno riferimento ai vertici)
         # holes_int = [[(int(edge[0]), int(edge[1])) for edge in hole] for hole in holes]
@@ -77,27 +110,39 @@ class Processing_Mesh_PoC:
         normali_estratte = np.asarray(mesh_poisson.vertex_normals)
 
         print("Punti Poisson: " + str(len(punti_estratti)))
+
+        self.message_to_log += f"\nAFTER RECOSTRUCTION:\nNumber of Points on Mesh: {str(len(punti_estratti))}"
+
         pcd_da_poisson = utl.create_point_cloud(punti_estratti, normali_estratte)
 
-        utl.visualize_3d_screen(pcd_da_poisson, "PCD DA POISSON")
+        # utl.visualize_3d_screen(pcd_da_poisson, "PCD DA POISSON")
 
         mesh_decimated = self.decimate_mesh_and_process(mesh_poisson, n_decimation)
+
         holes = self.find_holes_in_mesh(mesh_decimated)
         print("Ci sono: " + str(len(holes)) + " buchi nella mesh")
+
+        self.message_to_log += f"\nThere are: " + str(len(holes)) + " holes in the mesh\n"
+
         print("Punti Poisson DECIMATED: " + str(len(np.asarray(mesh_decimated.vertices))))
+
+        self.message_to_log += (f"AFTER DECIMATION:\nNumber of Points on Mesh: "
+                                f"{str(len(np.asarray(mesh_decimated.vertices)))}\n")
 
         self.vertex = np.asarray(mesh_decimated.vertices)
         self.normal = np.asarray(mesh_decimated.vertex_normals)
         self.face = np.asarray(mesh_decimated.triangles)
 
         pcd_da_poisson_decimated = utl.create_point_cloud(self.vertex, self.normal)
-        utl.visualize_3d_screen(pcd_da_poisson_decimated, "PCD DA POISSON DECIMATED")
+        # utl.visualize_3d_screen(pcd_da_poisson_decimated, "PCD DA POISSON DECIMATED")
 
-    def rimozione_not_connected_component(self, densita=1.02, n_punti_vicini=1):
-        filtered_points, face_list = self.find_cluster_connected(densita, n_punti_vicini)
+    def rimozione_not_connected_component(self, distance=1.02, n_punti_vicini=1):
+        self.message_to_log += "\nApplied: Remove Not Connected Component Algorithm\n"
+
+        filtered_points, face_list = self.find_cluster_connected(distance, n_punti_vicini)
         self.vertex, self.normal = utl.extract_vertices_and_normals(filtered_points)
         self.face = np.array(face_list)
-        utl.visualize_3d_screen(filtered_points, "Filtered Points " + self.dataname)
+        # utl.visualize_3d_screen(filtered_points, "Filtered Points " + self.dataname)
         self.controllo_not_connected_component()
 
     def controllo_not_connected_component(self):
@@ -111,18 +156,22 @@ class Processing_Mesh_PoC:
         main_island = max(island_on_mesh, key=len)  # La mesh principale è l'isola più grande
         other_islands = [island for island in island_on_mesh if island != main_island]
         print("Ci sono: " + str(len(other_islands)) + " isole nella mesh")
+        self.message_to_log += f"\nCi sono: " + str(len(other_islands)) + " isole nella mesh\n\n"
         # # for i, island in enumerate(other_islands):
         # #     island = [int(vertex) for vertex in island]
         # #     print(f"Isola {i + 1}: {island}")
         # #
         other_islands = [[int(elemento) for elemento in riga] for riga in other_islands]
+        self.islands_on_mesh = other_islands
         print(other_islands)
 
+    def get_message_log(self):
+        return self.message_to_log
 
 
 
 
-    #     Funzioni specifiche per Processare la Mesh/POC
+#     Funzioni specifiche per Processare la Mesh/POC
 
     def remove_zero_area_faces(self):
         # Calcola le aree delle facce
@@ -266,3 +315,32 @@ class Processing_Mesh_PoC:
         scaled_normals = self.normal / np.linalg.norm(self.normal, axis=1)[:, np.newaxis]
 
         return scaled_vertices, scaled_normals
+
+    def scale_mesh_to_unit_box(self):
+        min_coord = np.min(self.vertex, axis=0)
+        max_coord = np.max(self.vertex, axis=0)
+
+        center_box = (min_coord+max_coord) / 2
+
+        dimension_box = max_coord - min_coord
+
+        scale_factor = 1.0 / np.max(dimension_box)
+
+        scaled_vertices = (self.vertex - center_box) * scale_factor
+
+        scaled_normals = self.normal / np.linalg.norm(self.normal, axis=1)[:, np.newaxis]
+
+        return scaled_vertices, scaled_normals, scale_factor
+
+    def scale_mesh_to_unit_sphere(self):
+        center = np.mean(self.vertex, axis=0)
+
+        max_distance = np.max(np.linalg.norm(self.vertex-center, axis=1))
+
+        scale_factor = 1.0 / max_distance
+
+        scaled_vertices = (self.vertex - center) * scale_factor
+
+        scaled_normals = self.normal / np.linalg.norm(self.normal, axis=1)[:, np.newaxis]
+
+        return scaled_vertices, scaled_normals, scale_factor
