@@ -1,29 +1,27 @@
-from CODE.Process_Mesh.processing_functions import Processing_Mesh_PoC
+from CODE.Process_Mesh.setup_processing_on_mesh import SetProcessingOnMesh
 
-dataname="000059_tumoredbrain_zero_area_faces_ncc"
+dataname="000058_tumoredbrain"
+logfile_name="loginfo"
 
-# INZIO MAIN
+# Quando si esegue il mainBrain la prima esecuzione effettuo le seguenti operazioni:
+#   Rimozione Facce ad Area Nulla
+#   Rimozione Componenti Connesse
+# Il file di Ouput deve essere spostato in input e su questo effettuare le ultime operazioni:
+#  Ricostruzione
+#  Scaling
+
+# Scaling Type:
+    # 0 : scaling su X Y e Z
+    # 1 : scaling UNIT BOX
+    # 2 : scaling UNIT SPHERE
+
 if __name__ == '__main__':
-    my_pm = Processing_Mesh_PoC(dataname)
-    if my_pm.check_mesh_file():
-        print("File Esiste: " + str(my_pm.check_mesh_file()))
-        vertex, normal, faces = my_pm.load_vert_normal_face()
+    my_setup = SetProcessingOnMesh(dataname=dataname, logfile_name=logfile_name)
 
-        my_pm.create_point_cloud()
-        my_pm.initialize_mesh()
-
-        # my_pm.controllo_not_connected_component()
-        # my_pm.visualize_mesh(nome="Mesh")
-
-        # my_pm.scaling_mesh(0.5)
-        my_pm.repair_mesh(profondita=9, n_decimation=160000)
-        my_pm.controllo_not_connected_component()
-        # my_pm.remove_zero_area_faces()
-        # my_pm.initialize_mesh()
-        # my_pm.visualize_mesh(nome="Mesh Riparata")
-
-        # my_pm.rimozione_not_connected_component()
-        # my_pm.visualize_mesh(nome="Mesh Filtrata")
-        # my_pm.save_mesh(nome="_riparata")
-    else:
-        print(f"File {dataname} non trovato")
+    if my_setup.check_file_existence():
+        # Default: 1.02 5
+        # Per Mesh Molto Aperte : eps alto ex: 1.5 e min_samples=1
+        my_setup.start_operation_processing(eps=1.02, min_samples=5, depth=9,
+                                            decimation_value=140000, scale_factor=1, scaling_type=0,
+                                            nome_off_file_output="cp",
+                                            is_ready_repair=True)
