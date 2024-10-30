@@ -1,21 +1,13 @@
 # Stage_MeshMedicali
-La [cartella] è così sviluppata
+Programma - Pipeline per Processare le mesh in formato .off, comunicare tramite l'API bpy con Blender ed effettuare il rendering dell'Immagine tramite script Python
 
-[CODE] contiene:
+Attualmente queste operazioni sono separate in tre main diversi:
 
-mainBrain.py : programma main
+main 1: processare la mesh
 
-FunctionforProcess : Contiene tutte funzioni necessarie per processare la mesh
+main 2: comunicare con Blender
 
-Process_Mesh - processing_functions_v_prec.py    |    processing_functions.py : classe contenente le funzioni da FunctionforProcess per processare la mesh, classe usata da mainBrain.py per operare sulla mesh
-
-FunzioniUtili - Utils.py : contiene un set di funzioni utilizzate da FunctionforProcess ed Process_Mesh
-    
-[INPUT_SOURCE OUTPUT_SOURCE]  : contenente i file che devono essere processati (INPUT_SOURCE) e i risultati ottenuti (OUTPUT_SOURCE)
-    
-PROBLEMA di Pymesh: l'installazione non avviene correttamente.
-
-FIXED RIMOZIONE COMPONENTI NON CONNESSE: nel file png che ho inserito, andando a modificare la n_decimation si riesce a ottenere una mesh senza componenti connesse.
+main 3: rendering Immagine
 
 
 
@@ -28,3 +20,13 @@ rimozione_not_connected_componente : circa 2.79 sec
 scaling : circa 0.23 sec
 
 repair_mesh : circa 4.62 sec
+
+
+
+
+[PIPELINE CON SINGOLO FILE MAIN]:
+
+Non riesco introdurre le funzionalità dei tre main in un singola main.
+Il problema è dovuto alla creazione del file .off.
+Il file è creato solo al termine dell'esecuzione del main
+[Domanda]: come avere il file già creato prima che il main termini?
