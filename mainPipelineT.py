@@ -3,6 +3,11 @@ from CODE.For_Blender_Functions.setup_environment_blender import SetEnvironmentB
 from CODE.For_Blender_Functions.out_set_render import Process_Rendering_Frame
 import os
 
+# N.B. : prima di Eseguire il codice, modificare il valore della dimensione schermo in
+# CODE/For_Blender_Functions/out_set_render.py
+# nella classe ScreenMonitorResolution modificare i valori di: res_x=1920, res_y=1080
+
+
 
 def get_user_input(testo, valore_originale):
     user_input = input(f"{testo} (valore predefinito: {valore_originale}): ")
