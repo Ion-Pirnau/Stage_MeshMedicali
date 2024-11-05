@@ -343,6 +343,22 @@ class SetEnvironmentBlender:
     def add_plane_on_base(self, size_plane=100):
         bpy.ops.mesh.primitive_plane_add(size=size_plane, location=self.location_plane_on_base)
 
+        material = bpy.data.materials.new(name="WhitePlane")
+        material.use_nodes = True
+
+        principled_bsdf_node = material.node_tree.nodes["Principled BSDF"]
+        principled_bsdf_node.inputs["Base Color"].default_value = (1,1,1,1)
+        principled_bsdf_node.inputs["Metallic"].default_value = 0.0
+        principled_bsdf_node.inputs["Roughness"].default_value = 0.1
+
+        obj_plane = bpy.context.active_object
+
+        if obj_plane.data.materials:
+            obj_plane.data.materials[0] = material
+        else:
+            obj_plane.data.materials.append(material)
+
+
     def save_blend_file(self, final_name):
         # Salvo il file .blend con la nuova mesh aggiunta
         self.nome_file_blend = f"{final_name}_" + self.nome_mesh + self.extension
