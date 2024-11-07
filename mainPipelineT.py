@@ -170,7 +170,12 @@ if __name__ == '__main__':
         # 1 : Trasparente / Glass
         # 2 : Wireframe
         # 3 : Custom
-        my_setup.setup_materials(material_value=0)
+        # 4 : Full-Transparency
+
+        # Tipo Material Plane:
+        # 0 : Biancp
+        # 1 : Bianco con Emission - better for Full-Transparency Material
+        my_setup.setup_materials(material_value=4, material_plane_value=1)
 
         # 0 : Cycles | 1: Eevee
         my_setup.setup_rendering_values(type_engine=0, type_device="GPU", n_samples=400,
