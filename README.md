@@ -28,4 +28,4 @@ repair_mesh : circa 4.62 sec
 
 Done
 
-[MATERIAL AND LIGHT-SET]: 4 Material and 4 Light Set 
+[MATERIAL AND LIGHT-SET]: 5 Material for the Brain, 2 Material for the Plane Base and 4 Light Set 
