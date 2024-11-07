@@ -133,8 +133,8 @@ class SetEnvironmentBlender:
         self.file_format = file_format
         self.screen_percentage = screen_percentage
 
-    def setup_materials(self, material_value=0):
-        self.mat_choosed = CreationMaterial(material_value)
+    def setup_materials(self, material_value=0, material_plane_value=0):
+        self.mat_choosed = CreationMaterial(material_value, material_plane_value)
 
     def setup_the_environtment(self, nome_blend_file="output1"):
         self.my_setup_render = RenderingSetup(self.type_engine, self.type_device, self.n_samples, self.file_format,
@@ -380,16 +380,9 @@ class SetEnvironmentBlender:
 
     def add_plane_on_base(self, size_plane=100):
         bpy.ops.mesh.primitive_plane_add(size=size_plane, location=self.location_plane_on_base)
-
-        material = bpy.data.materials.new(name="WhitePlane")
-        material.use_nodes = True
-
-        principled_bsdf_node = material.node_tree.nodes["Principled BSDF"]
-        principled_bsdf_node.inputs["Base Color"].default_value = (1,1,1,1)
-        principled_bsdf_node.inputs["Metallic"].default_value = 0.0
-        principled_bsdf_node.inputs["Roughness"].default_value = 0.1
-
         obj_plane = bpy.context.active_object
+
+        material = self.mat_choosed.fetch_material_plane()
 
         if obj_plane.data.materials:
             obj_plane.data.materials[0] = material

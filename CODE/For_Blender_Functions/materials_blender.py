@@ -3,10 +3,12 @@ import bpy
 class CreationMaterial:
 
     material_type = None
+    material_plane_type = None
     message_material = None
 
-    def __init__(self, material_type=0):
+    def __init__(self, material_type=0, material_plane_type=0):
         self.material_type = material_type
+        self.material_plane_type = material_plane_type
 
 
 
@@ -21,11 +23,24 @@ class CreationMaterial:
             result = self.material_wireframe()
         elif self.material_type == 3:
             result = self.material_custom()
+        elif self.material_type == 4:
+            result = self.material_full_transparency()
         else:
             raise ValueError(f"Material Type: {self.material_type}, does not exists!")
 
         return  result
 
+    def fetch_material_plane(self):
+        result = None
+
+        if self.material_plane_type == 0:
+            result = self.material_white_plane()
+        elif self.material_plane_type == 1:
+            result = self.material_white_plane_emission()
+        else:
+            raise ValueError(f"Material Plane Type: {self.material_type}, does not exists!")
+
+        return result
 
 
     def material_giallo_opaco(self):
@@ -243,8 +258,100 @@ class CreationMaterial:
         self.write_message("Custom-Material")
         return material
 
-    def write_message(self, messaggio="None"):
-        self.message_material = "Material choosed: " + messaggio + "\n"
+    def material_full_transparency(self):
+        material = bpy.data.materials.new(name="FullTransparency")
+        material.use_nodes = True
+
+        nodes = material.node_tree.nodes
+        links = material.node_tree.links
+
+
+        # B6B6B3, E5E5E1
+        color_transparent_hex = '#B6B6B3'
+        # FFFFFF, C3C0B8
+        color_diffuse_hex = '#FFFFFF'
+
+        for node in nodes:
+            nodes.remove(node)
+
+        output = nodes.new(type='ShaderNodeOutputMaterial')
+        mix_shader = nodes.new(type='ShaderNodeMixShader')
+        transparent = nodes.new(type='ShaderNodeBsdfTransparent')
+        diffuse = nodes.new(type='ShaderNodeBsdfDiffuse')
+        value = nodes.new(type='ShaderNodeValue')
+
+        transparent.inputs['Color'].default_value = (*self.hex_to_rgb(color_transparent_hex), 1)
+        diffuse.inputs['Color'].default_value = (*self.hex_to_rgb(color_diffuse_hex), 1)
+        value.outputs[0].default_value = 0.080
+
+        links.new(transparent.outputs['BSDF'], mix_shader.inputs[1])
+        links.new(diffuse.outputs['BSDF'], mix_shader.inputs[2])
+        links.new(value.outputs['Value'], mix_shader.inputs['Fac'])
+        links.new(mix_shader.outputs['Shader'], output.inputs['Surface'])
+
+        self.write_message("Full-Transparency")
+        return material
+
+    def material_white_plane(self):
+        material = bpy.data.materials.new(name="WhitePlane")
+        material.use_nodes = True
+
+        nodes = material.node_tree.nodes
+        links = material.node_tree.links
+
+        for node in nodes:
+            nodes.remove(node)
+
+        principled_bsdf_node = material.node_tree.nodes["Principled BSDF"]
+        output = nodes.new(type='ShaderNodeOutputMaterial')
+
+        principled_bsdf_node.inputs["Base Color"].default_value = (1, 1, 1, 1)
+        principled_bsdf_node.inputs["Metallic"].default_value = 0.0
+        principled_bsdf_node.inputs["Roughness"].default_value = 0.1
+
+        links.new(principled_bsdf_node.outputs['BSDF'], output.inputs['Surface'])
+
+        self.write_message("White-Plane", False)
+
+        return material
+
+    def material_white_plane_emission(self):
+        material = bpy.data.materials.new(name="WhitePlaneEmission")
+        material.use_nodes = True
+
+        nodes = material.node_tree.nodes
+        links = material.node_tree.links
+
+        for node in nodes:
+            nodes.remove(node)
+
+        output = nodes.new(type='ShaderNodeOutputMaterial')
+        mix_shader = nodes.new(type='ShaderNodeMixShader')
+        principled = nodes.new(type='ShaderNodeBsdfPrincipled')
+        emission = nodes.new(type='ShaderNodeEmission')
+        value = nodes.new(type='ShaderNodeValue')
+
+        principled.inputs['Base Color'].default_value = (1, 1, 1, 1)
+        principled.inputs['Roughness'].default_value = 0.1
+        emission.inputs['Color'].default_value = (1, 1, 1, 1)
+        emission.inputs['Strength'].default_value = 0.2
+        value.outputs[0].default_value = 0.5
+
+        links.new(principled.outputs['BSDF'], mix_shader.inputs[1])
+        links.new(emission.outputs['Emission'], mix_shader.inputs[2])
+        links.new(value.outputs['Value'], mix_shader.inputs['Fac'])
+        links.new(mix_shader.outputs['Shader'], output.inputs['Surface'])
+
+        self.write_message("White-Plane-Emission", False)
+
+        return material
+
+
+    def write_message(self, messaggio="None", type_value=True):
+        if type_value:
+            self.message_material = "Material choosed: " + messaggio + "\n"
+        else:
+            self.message_material += "Material Plane choosed: " + messaggio + "\n"
 
     def get_message(self):
         return self.message_material
