@@ -151,12 +151,26 @@ if __name__ == '__main__':
                                                               offset_camera_light=0,
                                                               energy_light_at_camera=1.5,
                                                               location_plane_on_base=(0, 0, -0.000925))
+
+        # Ci sono 4 ligh-set mode:
+        # 0 : scelta Utente
+        # 1 : predefinita
+        # 2 : predefinita
+        # 3 : predefinita - usarla solo per il wireframe
         my_setup.change_energy_light(light_front=0,
                                      light_back=3,
                                      light_right=0,
                                      light_left=2.5,
                                      light_top=1.5,
-                                     light_bottom=0)
+                                     light_bottom=0,
+                                     light_set=1)
+
+        # Tipo Material:
+        # 0 : Giallo-Opaco
+        # 1 : Trasparente / Glass
+        # 2 : Wireframe
+        # 3 : Custom
+        my_setup.setup_materials(material_value=0)
 
         # 0 : Cycles | 1: Eevee
         my_setup.setup_rendering_values(type_engine=0, type_device="GPU", n_samples=400,
@@ -170,7 +184,7 @@ if __name__ == '__main__':
         print("OUTPUT BLENDER RENDERING")
         out_render = Process_Rendering_Frame(blender_path)
         out_render.get_parent_dirname()
-        out_render.init_full_command_pipeline(nome_file_image="pipeline000058_")
+        out_render.init_full_command_pipeline(nome_file_image="prova")
         out_render.start_execution()
 
 
