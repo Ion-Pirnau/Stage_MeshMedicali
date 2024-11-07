@@ -1,6 +1,7 @@
 from CODE.Process_Mesh.processing_functions import Processing_Mesh_PoC
 from CODE.FunzioniUtili import utils as utl
 from CODE.For_Blender_Functions.set_rendering import RenderingSetup
+from CODE.For_Blender_Functions.materials_blender import CreationMaterial
 import bpy
 import numpy as np
 
@@ -60,6 +61,8 @@ class SetEnvironmentBlender:
     my_setup_render = None
     nome_file_blend = None
 
+    mat_choosed = None
+
 
     def __init__(self, nome_mesh: str, nome_log_file: str, plane_on_base_size: int):
         self.nome_mesh = nome_mesh
@@ -69,13 +72,37 @@ class SetEnvironmentBlender:
 
     def change_energy_light(self, light_front=100000, light_back=100000,
                             light_right=100000, light_left=100000,
-                            light_top=100000, light_bottom=100000):
-        self.energy_settings['light_front'] = light_front
-        self.energy_settings['light_back'] = light_back
-        self.energy_settings['light_right'] = light_right
-        self.energy_settings['light_left'] = light_left
-        self.energy_settings['light_top'] = light_top
-        self.energy_settings['light_bottom'] = light_bottom
+                            light_top=100000, light_bottom=100000, light_set=0):
+        if light_set == 0:
+            self.energy_settings['light_front'] = light_front
+            self.energy_settings['light_back'] = light_back
+            self.energy_settings['light_right'] = light_right
+            self.energy_settings['light_left'] = light_left
+            self.energy_settings['light_top'] = light_top
+            self.energy_settings['light_bottom'] = light_bottom
+        elif light_set == 1:
+            self.energy_settings['light_front'] = 3.5
+            self.energy_settings['light_back'] = 3.5
+            self.energy_settings['light_right'] = 4.5
+            self.energy_settings['light_left'] = 4.5
+            self.energy_settings['light_top'] = 15
+            self.energy_settings['light_bottom'] = 0
+        elif light_set == 2:
+            self.energy_settings['light_front'] = 2.5
+            self.energy_settings['light_back'] = 2.5
+            self.energy_settings['light_right'] = 2.5
+            self.energy_settings['light_left'] = 2.5
+            self.energy_settings['light_top'] = 10
+            self.energy_settings['light_bottom'] = 0
+        elif light_set == 3:
+            self.energy_settings['light_front'] = 0
+            self.energy_settings['light_back'] = 0
+            self.energy_settings['light_right'] = 0
+            self.energy_settings['light_left'] = 0
+            self.energy_settings['light_top'] = 0
+            self.energy_settings['light_bottom'] = 0
+        else:
+            raise ValueError(f"Light set mode: {light_set} does not exists!")
 
     def change_location_scale_rotation_offset_energy(self, cubo_size=187, rotation_cube=(0, 0, 0),
                                              location_cube=(0,0,size_cubo/2), rotation_axes=(0, 0, 96), location_axes=(0,0,0),
@@ -105,6 +132,9 @@ class SetEnvironmentBlender:
         self.n_samples = n_samples
         self.file_format = file_format
         self.screen_percentage = screen_percentage
+
+    def setup_materials(self, material_value=0):
+        self.mat_choosed = CreationMaterial(material_value)
 
     def setup_the_environtment(self, nome_blend_file="output1"):
         self.my_setup_render = RenderingSetup(self.type_engine, self.type_device, self.n_samples, self.file_format,
@@ -163,12 +193,20 @@ class SetEnvironmentBlender:
                 area.spaces[0].shading.type = 'SOLID'
 
 
-        oggetto = bpy.context.object
+        # oggetto = bpy.context.object
         obj = self.seleziona_oggetto(obj)
 
         self.imposta_origine_geometria()
 
         obj = self.move_mesh_up_zpositive(obj)
+
+        material = self.mat_choosed.fetch_material()
+
+        if obj.data.materials:
+            obj.data.materials[0] = material
+        else:
+            obj.data.materials.append(material)
+
 
         cubo_vuoto = self.create_cube_empty(cube_size=self.size_cubo)
 
@@ -393,4 +431,5 @@ class SetEnvironmentBlender:
                                 f"Energy: {self.energy_light_at_camera}\n\n")
 
         self.message_to_log += self.my_setup_render.get_message()
+        self.message_to_log += self.mat_choosed.get_message()
         utl.write_to_log(file_name=self.nome_log_file, message=self.message_to_log, where_at=1)
