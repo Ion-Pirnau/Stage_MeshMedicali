@@ -24,9 +24,6 @@ repair_mesh : circa 4.62 sec
 
 
 
-[PIPELINE CON SINGOLO FILE MAIN]:
+[PIPELINE CON SINGOLO FILE MAIN]: Done
 
-Non riesco introdurre le funzionalità dei tre main in un singola main.
-Il problema è dovuto alla creazione del file .off.
-Il file è creato solo al termine dell'esecuzione del main
-[Domanda]: come avere il file già creato prima che il main termini?
+[MATERIAL AND LIGHT-SET]: 4 Material and 4 Light Set 
