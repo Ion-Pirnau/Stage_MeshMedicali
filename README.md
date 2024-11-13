@@ -47,7 +47,7 @@ main 3: rendering Immagine
 
 
 
-###[TIME EXECUTION]:
+### [TIME EXECUTION]:
 
 remove_zero_area_faces : circa 3.97 sec
 
