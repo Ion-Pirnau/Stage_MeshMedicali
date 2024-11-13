@@ -3,6 +3,16 @@ import open3d as o3d
 import numpy as np
 import datetime
 
+
+
+#Python file with some functions that are used all over the project folder
+#Main Operations like:
+# Check the Existence of a File
+# Read and Write on File
+# Initialize a Mesh or Point Cloud
+# and many more.
+# The functions are self-explanatory
+
 output_path="OUTPUT_SOURCE/"
 output_log={
     1: "log_blender/",
