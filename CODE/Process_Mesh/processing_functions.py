@@ -2,7 +2,7 @@ from CODE.FunzioniUtili import utils as utl
 import numpy as np
 import open3d as o3d
 
-
+# Class: do the actual process on the mesh
 class Processing_Mesh_PoC:
 
     extension_file = ".off"
@@ -19,11 +19,16 @@ class Processing_Mesh_PoC:
     def __init__(self, dataname: str):
         self.dataname = dataname
 
+    # Check if the file exists
     def check_mesh_file(self):
         result =  utl.check_file_exists(self.input_path + self.dataname + self.extension_file)
         print("Controllo esistenza file: "+ self.dataname + self.extension_file)
         return result
 
+    # Read from the file the values:
+    # 1. vertices
+    # 2. normals
+    # 3. faces
     def load_vert_normal_face(self):
         vertices, normals, faces, n_verts = utl.load_off_with_loadtxt(self.input_path + self.dataname + self.extension_file)
 
@@ -35,11 +40,16 @@ class Processing_Mesh_PoC:
         self.nvert = n_verts
         return vertices, normals, faces
 
+
+    # Create a point cloud and I used to display it (the commenting part)
     def create_point_cloud(self):
         self.message_to_log += "\nPoint Of Cloud Created\n"
         self.pcd = utl.create_point_cloud(self.vertex, self.normal)
         # utl.visualize_3d_screen(self.pcd, self.dataname)
 
+    # MOST THE FUNCTION BELOW are used to call the actual function for processing the mesh
+    # It was organized differently before
+    # I prefer to leave like this and don't let the User call the actual Function
     def remove_zero_area_faces_call(self):
         # Rimuovi le facce con area nulla
         self.face, n_facesremoved = self.remove_zero_area_faces()
@@ -82,13 +92,20 @@ class Processing_Mesh_PoC:
 
         utl.save_off_format(file_name, self.vertex, self.normal, self.face)
 
+
+    # Function for initialize the mesh, not the point cloud but the actual mesh.
     def initialize_mesh(self):
         self.message_to_log += "\nMesh Initialized\n"
         self.mesh = utl.initialize_mesh(self.vertex, self.normal, self.face)
-
+    # Function for visualizing the mesh
     def visualize_mesh(self, nome=""):
         utl.visualize_3d_screen(self.mesh, name_window=nome)
 
+    # Function for repairing the mesh.
+    # HARD to find an actual method to repair a mesh or a python lib that works fine. I come up with this idea
+    # IDEA: use the open3D reconstruction method, POISSON.
+    # By choosing the level of detail, the mesh is also decimated for reduce the number of data but maintaining
+    # the same level of details
     def repair_mesh(self, profondita=9, n_decimation=190000):
         #Modo più semplice libreria Pymesh
         self.message_to_log += "\nApplied: Repair Mesh Algorithm\n"
@@ -136,6 +153,12 @@ class Processing_Mesh_PoC:
         pcd_da_poisson_decimated = utl.create_point_cloud(self.vertex, self.normal)
         # utl.visualize_3d_screen(pcd_da_poisson_decimated, "PCD DA POISSON DECIMATED")
 
+
+
+    # Function for removing the not connected components.
+    # Thanks to the Open3d methods
+    # I work on the point cloud and by implementing a built-in function by Open3d and choosing the correct values
+    # The function is working fine by removing additional noise on the mesh
     def rimozione_not_connected_component(self, distance=1.02, n_punti_vicini=1):
         self.message_to_log += "\nApplied: Remove Not Connected Component Algorithm\n"
 
@@ -145,6 +168,9 @@ class Processing_Mesh_PoC:
         # utl.visualize_3d_screen(filtered_points, "Filtered Points " + self.dataname)
         self.controllo_not_connected_component()
 
+
+
+    # Function: controls the existence of not connected components
     def controllo_not_connected_component(self):
         self.initialize_mesh()
         island_on_mesh = self.find_islands_in_mesh()
@@ -171,8 +197,11 @@ class Processing_Mesh_PoC:
 
 
 
-#     Funzioni specifiche per Processare la Mesh/POC
 
+    # FUNCTION FOR ACTUAL PROCESSING
+
+    # Function for checking the faces
+    # If some faces don't pass the min values they are not valid faces
     def remove_zero_area_faces(self):
         # Calcola le aree delle facce
         areas = np.zeros(len(self.face))
@@ -185,6 +214,8 @@ class Processing_Mesh_PoC:
 
         return valid_faces, len(self.face) - len(valid_faces)
 
+
+    # Function: Checking the external edge of a mesh
     def find_edges_repair(self, triangles):
         edges = set()
         for triangle in triangles:
@@ -196,6 +227,9 @@ class Processing_Mesh_PoC:
                     edges.add(edge)  # Aggiungi il bordo se non è presente
         return list(edges)
 
+
+    # Function: finding the hole in the mesh
+    # DFS method. Analyze each edge and for each edge the vertices
     def find_holes_in_mesh(self, mesh_decimated):
         triangles = np.asarray(mesh_decimated.triangles)
         edges = self.find_edges_repair(triangles)
@@ -229,6 +263,8 @@ class Processing_Mesh_PoC:
 
         return holes
 
+
+    # Function for reconstruction the mesh
     def ricostruzione_mesh_poisson(self, profondita=9):
         # Esegui la ricostruzione di Poisson
         mesh_ricostruita, densitiy = o3d.geometry.TriangleMesh.create_from_point_cloud_poisson(self.pcd, depth=profondita,
@@ -236,6 +272,8 @@ class Processing_Mesh_PoC:
                                                                                                linear_fit=False)
         return mesh_ricostruita, densitiy
 
+
+    # Function for decimating the mesh after Repair
     def decimate_mesh_and_process(self, mesh_final, n_decimation=10000):
         mesh_final = mesh_final.simplify_quadric_decimation(n_decimation)
         mesh_final.remove_degenerate_triangles()
@@ -244,6 +282,9 @@ class Processing_Mesh_PoC:
         mesh_final.remove_non_manifold_edges()
         return mesh_final
 
+
+    # Implementing the Open-3d to remove the not connected components
+    # and fix the old index to the new ones
     def find_cluster_connected(self, density=1.1, points_min=1):
         # Trova i cluster connessi
         # eps=1.1, 1.6
@@ -267,6 +308,9 @@ class Processing_Mesh_PoC:
 
         return filtered_points, new_faces
 
+
+    # Function for searching if there are some islands on the mesh
+    # Helped by the DFS methods for searching connected components
     def find_islands_in_mesh(self):
         triangles = np.asarray(self.mesh.triangles)
         edges = self.find_edges(triangles)
@@ -300,6 +344,7 @@ class Processing_Mesh_PoC:
 
         return islands
 
+    # Function for defining the edges of the triangles
     def find_edges(self, triangles):
         edges = set()
         for triangle in triangles:
@@ -308,6 +353,12 @@ class Processing_Mesh_PoC:
                 edges.add(edge)
         return list(edges)
 
+
+
+    # These last function are used for scaling the mesh:
+    # 1. Normal Scaling
+    # 2. Unit Box Scaling
+    # 3. Unit Sphere Scaling
     def scale_mesh(self, scale_factor):
         # Effettua lo scaling dei vertici
         scaled_vertices = self.vertex * scale_factor

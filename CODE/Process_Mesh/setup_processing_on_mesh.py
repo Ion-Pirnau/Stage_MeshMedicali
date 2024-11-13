@@ -1,6 +1,12 @@
 from CODE.Process_Mesh.processing_functions import Processing_Mesh_PoC
 from CODE.FunzioniUtili import utils as utl
 
+# Class used to communicate with the processing_function file
+# Basically in this file I just organize the pipeline for processing the mesh
+# I do operations as:
+# 1. Check if the file exists
+# 2. Do the processing
+# 3. Create the log File
 class SetProcessingOnMesh:
 
     dataname = ""
