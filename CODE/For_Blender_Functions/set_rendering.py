@@ -1,6 +1,15 @@
 import bpy
 from CODE.For_Blender_Functions.out_set_render import ScreenMonitorResolution as smr, OutputFileRender as oft
 
+
+# Class for setting the blend file for rendering.
+# Set up the engine, device, sample, file format,
+# percentage of the screen, resolution of the screen (manually for now)
+# Every value are saved in the log file
+# How it works: setup_environment_blender, create our environment and save the file
+# This class open the file and apply the correct rendering values
+# Because I find it difficult to re-save it the file again I just create a new one called outFinal,
+# outFinal is the same file as the setup_enviroment_blender gives in output plus the values for rendering
 class RenderingSetup:
     output_blend_file = "BLEND_FILE_OUTPUT/"
 

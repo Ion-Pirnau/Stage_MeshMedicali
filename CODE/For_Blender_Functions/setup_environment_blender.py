@@ -6,6 +6,9 @@ import bpy
 import numpy as np
 
 
+# Class used to set the blend file for future rendering
+# Create an environment with: The main Mesh, Lights, Plane, Camera
+
 class SetEnvironmentBlender:
     output_blend_file = "BLEND_FILE_OUTPUT/"
     extension = ".blend"
@@ -49,7 +52,7 @@ class SetEnvironmentBlender:
     location_plane_on_base = None
 
     nome_cubo = 'Cube_Reference'
-    nome_axes = 'Empty_Axes_to_Camera'
+    nome_axes = 'Axes_to_Camera'
     nome_camera = 'Camera_Main'
     nome_camera_light = 'Light_to_Camera'
 
@@ -64,12 +67,14 @@ class SetEnvironmentBlender:
     mat_choosed = None
 
 
+    # Initialize the Class
     def __init__(self, nome_mesh: str, nome_log_file: str, plane_on_base_size: int):
         self.nome_mesh = nome_mesh
         self.nome_log_file = nome_log_file
         self.plane_on_base = plane_on_base_size
 
 
+    # The User can change the lights values or by choosing a default light-sets
     def change_energy_light(self, light_front=100000, light_back=100000,
                             light_right=100000, light_left=100000,
                             light_top=100000, light_bottom=100000, light_set=0):
@@ -104,6 +109,8 @@ class SetEnvironmentBlender:
         else:
             raise ValueError(f"Light set mode: {light_set} does not exists!")
 
+
+    # Function for letting the User change few values in the blend environment, the variables name is self-explanatory
     def change_location_scale_rotation_offset_energy(self, cubo_size=187, rotation_cube=(0, 0, 0),
                                              location_cube=(0,0,size_cubo/2), rotation_axes=(0, 0, 96), location_axes=(0,0,0),
                                              rotation_camera=(62, 0, 136), offset_axes_camera=72,
@@ -126,6 +133,8 @@ class SetEnvironmentBlender:
 
         self.location_plane_on_base = location_plane_on_base
 
+
+    # Function for setting up the file for Rendering an Image
     def setup_rendering_values(self, type_engine=1, type_device="GPU", n_samples=300, file_format="JPEG", screen_percentage=1.0):
         self.type_engine = type_engine
         self.type_device = type_device
@@ -133,9 +142,16 @@ class SetEnvironmentBlender:
         self.file_format = file_format
         self.screen_percentage = screen_percentage
 
-    def setup_materials(self, material_value=0, material_plane_value=0):
-        self.mat_choosed = CreationMaterial(material_value, material_plane_value)
 
+    # Function for choosing the material to be applied and the COLOR for ONLY the Transparency material
+    def setup_materials(self, material_value=0, material_plane_value=0, color_trasp_bsdf=[], color_diff_bsdf=[]):
+        self.mat_choosed = CreationMaterial(material_value, material_plane_value, color_trasp_bsdf, color_diff_bsdf)
+
+
+    # Function for starting the creation of:
+    # the environment
+    # the blend file
+    # the log file
     def setup_the_environtment(self, nome_blend_file="output1"):
         self.my_setup_render = RenderingSetup(self.type_engine, self.type_device, self.n_samples, self.file_format,
                                               self.screen_percentage)
@@ -149,6 +165,7 @@ class SetEnvironmentBlender:
 
         self.create_file_log()
 
+    # Function: check the mesh existence, if it not exists Error!
     def check_mesh_existence(self):
         my_mesh =  Processing_Mesh_PoC(self.nome_mesh)
         valore_veritas = my_mesh.check_mesh_file()
@@ -166,6 +183,12 @@ class SetEnvironmentBlender:
             raise ValueError(f"File {self.nome_mesh} non trovato")
 
 
+    # Function: create the scene, few steps:
+    # 1. Insert the mesh in the WORLD
+    # 2. Insert an empty Cube
+    # 3. Insert light, parenting them to the Cube
+    # 4. Insert and empty Axes
+    # 5. Insert a Camera and a Light, parenting them to the Axes
     def start_creation_scene(self):
         # Creo una nuova scena
         bpy.ops.scene.new(type='NEW')
@@ -232,16 +255,24 @@ class SetEnvironmentBlender:
         self.modify_light_energy(lights_spot, self.energy_settings)
         self.add_plane_on_base(self.plane_on_base)
 
+
+    # Function for select the object on which we should work.
+    # In blender every time a new Obj is created that is the selected one
+    # But if u want to select another one u have to do this function
     def seleziona_oggetto(self, oggetto):
         bpy.ops.object.select_all(action='DESELECT')
         oggetto.select_set(True)
         bpy.context.view_layer.objects.active = oggetto
         return oggetto
 
+
+    # Function for setting the ORIGIN to GEOMETRY
     def imposta_origine_geometria(self):
         # Imposta geometria all'origine
         bpy.ops.object.origin_set(type='GEOMETRY_ORIGIN')
 
+
+    # Function for moving the Mesh on z-Positive
     def move_mesh_up_zpositive(self, oggetto):
         bpy.ops.object.mode_set(mode='OBJECT')
         # Accesso ai vertici
@@ -254,10 +285,14 @@ class SetEnvironmentBlender:
 
         return oggetto
 
+
+    # Function not used for NOW. Applying Transformation
     def apply_transformation(self, obj):
         bpy.context.view_layer.objects.active = obj
         bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
 
+
+    # Function: Create an Empty Object type: CUBE
     def create_cube_empty(self, cube_size=1):
         bpy.ops.object.empty_add(type='CUBE', location=(0, 0, 0))
         cube_empty = bpy.context.object
@@ -267,6 +302,8 @@ class SetEnvironmentBlender:
         # apply_transformation(cube_empty)
         return cube_empty
 
+
+    # Function for Parenting the Lights to the Cube
     def parent_to_cube_add_light(self, cube_empty):
         scale_x, scale_y, scale_z = cube_empty.scale
         posizione_o = np.array([
@@ -310,6 +347,9 @@ class SetEnvironmentBlender:
                            enumerate(self.light_names)}
         return lights_spot_dic
 
+
+    # Function for adding the light, type:Spot-light with the location, rotation, energy, parenting, name
+    # other values for better defining the lights
     def add_spot_light(self, name, parent, location, rotation, spot_size=127, spot_blend=0.15, energy=100000):
         bpy.ops.object.light_add(type='SPOT', location=(0, 0, 0), rotation=(0, 0, 0))
         light = bpy.context.object
@@ -325,6 +365,8 @@ class SetEnvironmentBlender:
         light.rotation_euler = rotation
         return light
 
+
+    # Function for rotating an Object
     def rotate_empty_object(self, obj, rotazione):
         oggetto = bpy.data.objects.get(obj.name)
         if not oggetto:
@@ -333,6 +375,8 @@ class SetEnvironmentBlender:
         rad_rotation = np.deg2rad(rotazione)
         oggetto.rotation_euler = rad_rotation
 
+
+    # Function for moving an Object
     def move_empty_object(self, obj, location):
         oggetto = bpy.data.objects.get(obj.name)
         if not oggetto:
@@ -340,6 +384,8 @@ class SetEnvironmentBlender:
 
         oggetto.location = location
 
+
+    # Function: creating and empty axes in the WORLD
     def create_camera_with_empty_axes(self, location, rotation):
         bpy.ops.object.empty_add(type='PLAIN_AXES', location=(0, 0, 0))
         empty_axes = bpy.context.object
@@ -355,6 +401,10 @@ class SetEnvironmentBlender:
 
         return empty_axes, camera
 
+
+    # Function: the first idea was parenting the light to the camera to the empty axes
+    # Difficult to fix the problems for the light to follow the camera
+    # FIX: Parent the Light to the Empty Axes LIKE the CAMERA
     def add_spot_light_at_camera(self, camera, empty_axes, spot_size, spot_blend, energy, offset_value_camera):
         light_location = (camera.location.x + offset_value_camera, camera.location.y + offset_value_camera,
                           camera.location.z + offset_value_camera)
@@ -369,6 +419,8 @@ class SetEnvironmentBlender:
         light.parent = empty_axes
         return light
 
+
+    # FUNCTION: modify light's energy of the LIGHTS
     def modify_light_energy(self ,all_lights, lights_energy):
         for name, energy in lights_energy.items():
             if name in all_lights:
@@ -378,6 +430,9 @@ class SetEnvironmentBlender:
             else:
                 print(f"Light {name} not found in lights")
 
+
+    # FUNCTION: add a plane horizontally at the ORIGIN of the WORLD
+    # ADDED: material to the plane
     def add_plane_on_base(self, size_plane=100):
         bpy.ops.mesh.primitive_plane_add(size=size_plane, location=self.location_plane_on_base)
         obj_plane = bpy.context.active_object
@@ -390,6 +445,10 @@ class SetEnvironmentBlender:
             obj_plane.data.materials.append(material)
 
 
+
+    # These last methods are for:
+    # 1. saving the blend file
+    # 2. create the log file
     def save_blend_file(self, final_name):
         # Salvo il file .blend con la nuova mesh aggiunta
         self.nome_file_blend = f"{final_name}_" + self.nome_mesh + self.extension

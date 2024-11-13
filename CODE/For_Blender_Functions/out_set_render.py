@@ -1,6 +1,17 @@
 import os
 import subprocess
 
+
+# This file has few classes in it
+# 1. Screen Size : Monitor Resolution
+# 2. Output Render : the output where the rendering image should go
+# 3. Process Rendering : through the subprocess lib, the class run the command to run blender in background
+# and rendering the image
+
+
+# PROBLEMS: there are no good libs, for now, that work better for Win or MAC
+# the res_x and res_y. should be changed manually
+# THINKING on new IDEAS
 class ScreenMonitorResolution:
 
     def __init__(self, res_x=1920, res_y=1080):
@@ -13,8 +24,6 @@ class ScreenMonitorResolution:
 
     def get_Y(self):
         return self.res_y
-
-
 
 
 
@@ -89,6 +98,11 @@ class Process_Rendering_Frame:
         # print(f"Cartella superiore: {parent_directory}")
         return parent_directory
 
+
+    # The function that run the actual command, the result is used just to be sure if everything is done correctly
+    # The RETURN_CODE:
+    # 0: good
+    # otherwise: bad
     def start_execution(self):
         result = subprocess.run(self.command, capture_output=True, text=True, check=True)
 

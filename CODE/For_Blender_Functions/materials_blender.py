@@ -5,13 +5,19 @@ class CreationMaterial:
     material_type = None
     material_plane_type = None
     message_material = None
+    color_trasparent_bsdf = []
+    color_diffuse_bsdf = []
 
-    def __init__(self, material_type=0, material_plane_type=0):
+
+    # Initialize the class with default values or User' values
+    def __init__(self, material_type=0, material_plane_type=0, color_trasparent_bsdf=[], color_diffuse_bsdf=[]):
         self.material_type = material_type
         self.material_plane_type = material_plane_type
+        self.color_trasparent_bsdf = color_trasparent_bsdf
+        self.color_diffuse_bsdf = color_diffuse_bsdf
 
 
-
+    # Based on the material_type, there are 5 material that can be applied on the mesh
     def fetch_material(self):
         result = None
 
@@ -30,6 +36,7 @@ class CreationMaterial:
 
         return  result
 
+    # As the previous methods: 2 materials for the plane
     def fetch_material_plane(self):
         result = None
 
@@ -42,7 +49,7 @@ class CreationMaterial:
 
         return result
 
-
+    # Material Function Section: Create the material and return it
     def material_giallo_opaco(self):
         material = bpy.data.materials.new(name="GialloOpaco")
         material.use_nodes = True
@@ -280,8 +287,14 @@ class CreationMaterial:
         diffuse = nodes.new(type='ShaderNodeBsdfDiffuse')
         value = nodes.new(type='ShaderNodeValue')
 
-        transparent.inputs['Color'].default_value = (*self.hex_to_rgb(color_transparent_hex), 1)
-        diffuse.inputs['Color'].default_value = (*self.hex_to_rgb(color_diffuse_hex), 1)
+        if not self.color_trasparent_bsdf and not self.color_diffuse_bsdf:
+            transparent.inputs['Color'].default_value = (*self.hex_to_rgb(color_transparent_hex), 1)
+            diffuse.inputs['Color'].default_value = (*self.hex_to_rgb(color_diffuse_hex), 1)
+        else:
+            transparent.inputs['Color'].default_value = (self.color_trasparent_bsdf[0], self.color_trasparent_bsdf[1],
+                                                         self.color_trasparent_bsdf[2], 1)
+            diffuse.inputs['Color'].default_value = (self.color_diffuse_bsdf[0], self.color_diffuse_bsdf[1],
+                                                     self.color_diffuse_bsdf[2], 1)
         value.outputs[0].default_value = 0.080
 
         links.new(transparent.outputs['BSDF'], mix_shader.inputs[1])
@@ -302,7 +315,7 @@ class CreationMaterial:
         for node in nodes:
             nodes.remove(node)
 
-        principled_bsdf_node = material.node_tree.nodes["Principled BSDF"]
+        principled_bsdf_node = nodes.new(type='ShaderNodeBsdfPrincipled')
         output = nodes.new(type='ShaderNodeOutputMaterial')
 
         principled_bsdf_node.inputs["Base Color"].default_value = (1, 1, 1, 1)
@@ -346,16 +359,17 @@ class CreationMaterial:
 
         return material
 
-
+    # Create a variable where to write the material that has been applied, in order to write it on the file
     def write_message(self, messaggio="None", type_value=True):
         if type_value:
             self.message_material = "Material choosed: " + messaggio + "\n"
         else:
             self.message_material += "Material Plane choosed: " + messaggio + "\n"
-
+    # Get the message variable
     def get_message(self):
         return self.message_material
 
+    # Convert the HEX to RGB : due to some value-offset that BLENDER applies, the good offset value is: 2.26
     def hex_to_rgb(self, hex_color):
         hex_color = hex_color.lstrip('#')
 
@@ -371,6 +385,7 @@ class CreationMaterial:
         b = b ** (2.26)
         return r, g, b
 
+    # Convert the HEX t RGB for color ramp : offset value 2.246
     def hex_to_rgb_color_ramp(self, hex_color):
         hex_color = hex_color.lstrip('#')
 
