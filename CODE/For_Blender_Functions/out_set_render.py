@@ -1,6 +1,6 @@
 import os
 import subprocess
-
+import pyautogui
 
 # This file has few classes in it
 # 1. Screen Size : Monitor Resolution
@@ -14,17 +14,20 @@ import subprocess
 # THINKING on new IDEAS
 class ScreenMonitorResolution:
 
-    def __init__(self, res_x=1920, res_y=1080):
-        self.res_x = res_x
-        self.res_y = res_y
+    def __init__(self,):
+        self.screenWidth, self.screenHeight  = self.get_screen_dimension()
 
 
-    def get_X(self):
-        return self.res_x
+    def get_screen_dimension(self) -> tuple[int, int]:
+        """
+        Gets the user screen dimensions (width and height).
 
-    def get_Y(self):
-        return self.res_y
-
+        Returns:
+            tuple[int, int]: A tuple containing the screen width and height in pixels.
+        """
+        screenWidth, screenHeight = pyautogui.size()
+        print("the value for width is:", screenWidth, "the value for Height is:", screenHeight)
+        return (screenWidth,screenHeight)
 
 
 
