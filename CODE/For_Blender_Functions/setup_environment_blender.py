@@ -65,6 +65,20 @@ class SetEnvironmentBlender:
     nome_file_blend = None
 
     mat_choosed = None
+    is_sunlight_on = False
+    sun_strength = 0.0
+    sun_angle = 0.0
+    sun_light_name = None
+    sun_color = []
+    sun_location = []
+    sun_rotation = []
+
+    wall_on_off = [
+        1,
+        1,
+        1,
+        1
+    ]
 
 
     # Initialize the Class
@@ -77,37 +91,38 @@ class SetEnvironmentBlender:
     # The User can change the lights values or by choosing a default light-sets
     def change_energy_light(self, light_front=100000, light_back=100000,
                             light_right=100000, light_left=100000,
-                            light_top=100000, light_bottom=100000, light_set=0):
+                            light_top=100000, light_bottom=100000,
+                            sun_strength=1.0, sun_angle=0.526, sun_location=[0, 0, 3],
+                            sun_rotation=[0, 0, 0], sun_color=[1.0, 1.0, 1.0], light_set=0):
         if light_set == 0:
-            self.energy_settings['light_front'] = light_front
-            self.energy_settings['light_back'] = light_back
-            self.energy_settings['light_right'] = light_right
-            self.energy_settings['light_left'] = light_left
-            self.energy_settings['light_top'] = light_top
-            self.energy_settings['light_bottom'] = light_bottom
+            self.assign_light_energy(light_front, light_back, light_right,
+                                     light_left, light_top, light_bottom)
         elif light_set == 1:
-            self.energy_settings['light_front'] = 3.5
-            self.energy_settings['light_back'] = 3.5
-            self.energy_settings['light_right'] = 4.5
-            self.energy_settings['light_left'] = 4.5
-            self.energy_settings['light_top'] = 15
-            self.energy_settings['light_bottom'] = 0
+            self.assign_light_energy(3.5, 3.5, 4.5, 4.5, 15, 0)
         elif light_set == 2:
-            self.energy_settings['light_front'] = 2.5
-            self.energy_settings['light_back'] = 2.5
-            self.energy_settings['light_right'] = 2.5
-            self.energy_settings['light_left'] = 2.5
-            self.energy_settings['light_top'] = 10
-            self.energy_settings['light_bottom'] = 0
+            self.assign_light_energy(2.5, 2.5, 2.5, 2.5, 10, 0)
         elif light_set == 3:
-            self.energy_settings['light_front'] = 0
-            self.energy_settings['light_back'] = 0
-            self.energy_settings['light_right'] = 0
-            self.energy_settings['light_left'] = 0
-            self.energy_settings['light_top'] = 0
-            self.energy_settings['light_bottom'] = 0
+            self.assign_light_energy(0, 0, 0, 0, 0, 0)
+        elif light_set == 4:
+            self.assign_light_energy(0, 0, 0, 0,0, 0)
+            self.is_sunlight_on = True
+            self.sun_strength = sun_strength
+            self.sun_angle = sun_angle
+            self.sun_light_name = 'LightSun'
+            self.sun_location = sun_location
+            self.sun_rotation = sun_rotation
+            self.sun_color = sun_color
         else:
             raise ValueError(f"Light set mode: {light_set} does not exists!")
+
+
+    def assign_light_energy(self, lfront, lback, lright, lleft, ltop, lbottom):
+        self.energy_settings['light_front'] = lfront
+        self.energy_settings['light_back'] = lback
+        self.energy_settings['light_right'] = lright
+        self.energy_settings['light_left'] = lleft
+        self.energy_settings['light_top'] = ltop
+        self.energy_settings['light_bottom'] = lbottom
 
 
     # Function for letting the User change few values in the blend environment, the variables name is self-explanatory
@@ -135,7 +150,8 @@ class SetEnvironmentBlender:
 
 
     # Function for setting up the file for Rendering an Image
-    def setup_rendering_values(self, type_engine=1, type_device="GPU", n_samples=300, file_format="JPEG", screen_percentage=1.0):
+    def setup_rendering_values(self, type_engine=1, type_device="GPU", n_samples=300, file_format="JPEG",
+                               screen_percentage=1.0):
         self.type_engine = type_engine
         self.type_device = type_device
         self.n_samples = n_samples
@@ -146,6 +162,19 @@ class SetEnvironmentBlender:
     # Function for choosing the material to be applied and the COLOR for ONLY the Transparency material
     def setup_materials(self, material_value=0, material_plane_value=0, color_trasp_bsdf=[], color_diff_bsdf=[]):
         self.mat_choosed = CreationMaterial(material_value, material_plane_value, color_trasp_bsdf, color_diff_bsdf)
+
+
+    # Function: make it in the World (1), otherwise (0)
+    def setup_walls(self, wall_front=True, wall_back=True, wall_right=True, wall_left=True):
+        if wall_front == False:
+            self.wall_on_off[0] = 0
+        if wall_back == False:
+            self.wall_on_off[1] = 0
+        if wall_right == False:
+            self.wall_on_off[2] = 0
+        if wall_left == False:
+            self.wall_on_off[3] = 0
+
 
 
     # Function for starting the creation of:
@@ -254,6 +283,9 @@ class SetEnvironmentBlender:
 
         self.modify_light_energy(lights_spot, self.energy_settings)
         self.add_plane_on_base(self.plane_on_base)
+
+        if self.is_sunlight_on:
+            self.add_sun_light_world()
 
 
     # Function for select the object on which we should work.
@@ -434,6 +466,9 @@ class SetEnvironmentBlender:
     # FUNCTION: add a plane horizontally at the ORIGIN of the WORLD
     # ADDED: material to the plane
     def add_plane_on_base(self, size_plane=100):
+        new_collection = bpy.data.collections.new(name="SetPlanes")
+        bpy.context.scene.collection.children.link(new_collection)
+
         bpy.ops.mesh.primitive_plane_add(size=size_plane, location=self.location_plane_on_base)
         obj_plane = bpy.context.active_object
 
@@ -444,6 +479,63 @@ class SetEnvironmentBlender:
         else:
             obj_plane.data.materials.append(material)
 
+        new_collection.objects.link(obj_plane)
+        bpy.context.scene.collection.objects.unlink(obj_plane)
+
+        locations = [
+            (0, -size_plane/2, size_plane/2), #Fronte
+            (0, size_plane/2, size_plane/2),
+            (size_plane/2, 0, size_plane/2), #Right
+            (-size_plane/2, 0, size_plane/2)
+        ]
+
+        rotations = [
+            (-(np.pi / 2), 0, 0),
+            ((np.pi / 2), 0, 0),
+            ((np.pi/2), 0, -(np.pi/2)),
+            ((np.pi/2), 0, (np.pi/2))
+        ]
+
+        names = ["FrontPlane", "BackPlane", "RightPlane", "LeftPlane"]
+        for on_off, name, location, rotation in zip(self.wall_on_off, names, locations, rotations):
+            if on_off == 1:
+                self.add_wall(name, location, rotation, material, size_plane, new_collection)
+
+    # Function: add sun to the 3D WORLD
+    def add_sun_light_world(self):
+        bpy.ops.object.light_add(type='SUN', location=(self.sun_location[0], self.sun_location[1], self.sun_location[2]),
+                                 rotation=(self.sun_rotation[0], self.sun_rotation[1], self.sun_rotation[2]))
+
+        sun_light_obj = bpy.context.object
+        sun_light_obj.name = self.sun_light_name
+        sun_light_obj.data.color = (self.sun_color[0], self.sun_color[1], self.sun_color[2])
+        sun_light_obj.data.angle = np.deg2rad(self.sun_angle)
+        sun_light_obj.data.energy = self.sun_strength
+
+    # Write Sun Details to file
+    def sun_write_message(self):
+        msg = (f"Created Sun Light: {self.sun_light_name}\n"
+               f"Sun Location: {self.sun_location}\n"
+               f"Sun Rotation: {self.sun_rotation}\n"
+               f"Sun color: {self.sun_color}\n"
+               f"Sun strength: {self.sun_strength}\n"
+               f"Sun angle: {self.sun_angle} deg\n\n")
+        return msg
+
+
+    # Function to create a Wall for Plane on Base
+    def add_wall(self, name, location, rotation, material, size_plane, n_collection):
+        bpy.ops.mesh.primitive_plane_add(size=size_plane, location=location, rotation=rotation)
+        obj_plane = bpy.context.active_object
+        obj_plane.name = name
+
+        if obj_plane.data.materials:
+            obj_plane.data.materials[0] = material
+        else:
+            obj_plane.data.materials.append(material)
+
+        n_collection.objects.link(obj_plane)
+        bpy.context.scene.collection.objects.unlink(obj_plane)
 
 
     # These last methods are for:
@@ -456,9 +548,16 @@ class SetEnvironmentBlender:
             filepath=self.output_blend_file + f"{final_name}_" + self.nome_mesh + self.extension)
 
     def create_file_log(self):
+        names_wall = ["FrontPlane", "BackPlane", "RightPlane", "LeftPlane"]
 
         self.message_to_log += (f"Created plane on base:\nSize: {self.plane_on_base}\n"
-                                f"Location: {self.location_plane_on_base}\n\n")
+                                f"Location: {self.location_plane_on_base}\n")
+
+        self.message_to_log += "Created base WALL:\n"
+        for on_off, wall_name in zip(self.wall_on_off, names_wall):
+            if on_off == 1:
+                self.message_to_log +=f"{wall_name}\n"
+        self.message_to_log += "\n"
 
         self.message_to_log += (f"Created empty cube: {self.nome_cubo}\n"
                                 f"Dimension: {self.size_cubo}\n"
@@ -481,6 +580,9 @@ class SetEnvironmentBlender:
         self.message_to_log += (f"Create light at camera: {self.nome_camera_light}\n"
                                 f"Offset from camera: {self.light_offset_value_from_camera}\n"
                                 f"Energy: {self.energy_light_at_camera}\n\n")
+
+        if self.is_sunlight_on:
+            self.message_to_log += self.sun_write_message()
 
         self.message_to_log += self.my_setup_render.get_message()
         self.message_to_log += self.mat_choosed.get_message()
