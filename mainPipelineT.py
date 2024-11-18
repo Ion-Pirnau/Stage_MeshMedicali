@@ -161,7 +161,7 @@ if __name__ == '__main__':
         print("PREPARATION FOR BLENDER RENDERING")
     # The class abr. seb - create a blend file with the mesh and a set-up environment for a better rendering experience
     # The user can change any value he wants from the code, just by looking the code below
-        my_setup = seb(dataname, logfile_name_blender, plane_on_base_size=1400)
+        my_setup = seb(dataname, logfile_name_blender, plane_on_base_size=500)
         my_setup.change_location_scale_rotation_offset_energy(cubo_size=1.5,
                                                               rotation_cube=(0, 0, 0),
                                                               rotation_axes=(0, 0, -180.22),
@@ -172,18 +172,20 @@ if __name__ == '__main__':
                                                               energy_light_at_camera=1.5,
                                                               location_plane_on_base=(0, 0, -0.000925))
 
-        # Ci sono 4 ligh-set mode:
-        # 0 : scelta Utente
-        # 1 : predefinita
-        # 2 : predefinita
-        # 3 : predefinita - usarla solo per il wireframe
+        # Four Light-set mode:
+        # 0 : Choose by User
+        # 1 : mode - 6 light
+        # 2 : mode - 6 light
+        # 3 : mode - only for Wireframe Material
+        # 4 : mode - 1 light
         my_setup.change_energy_light(light_front=0,
                                      light_back=3,
                                      light_right=0,
                                      light_left=2.5,
                                      light_top=1.5,
                                      light_bottom=0,
-                                     light_set=1)
+                                     sun_angle=32.2,
+                                     light_set=4)
 
         # Tipo Material:
         # 0 : Giallo-Opaco
@@ -198,8 +200,12 @@ if __name__ == '__main__':
 
         # RBG VALUE TESTED: 0.586, 0.663, 0.612 ------- 0.713, 0.836, 1
         # color_trasp_bsdf=[], color_diff_bsdf=[] only for the FULL-TRANSPARENCY Material
-        my_setup.setup_materials(material_value=3, material_plane_value=1,
+        my_setup.setup_materials(material_value=0, material_plane_value=0,
                                  color_trasp_bsdf=[], color_diff_bsdf=[])
+
+
+        # Choose which Wall should appear in the world (Default all True)
+        my_setup.setup_walls(wall_front=False, wall_right=False)
 
         # 0 : Cycles | 1: Eevee
         my_setup.setup_rendering_values(type_engine=0, type_device="GPU", n_samples=400,
