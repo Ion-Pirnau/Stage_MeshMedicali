@@ -17,6 +17,47 @@
 
 - repair_mesh : about 4.62 sec
 
+## Configuration
+The configuration file (`config.json`) should follow the sample below:
+
+```json
+{
+    "device": "cuda:0",
+    "seeds": [21, 314, 561, 41041, 9746347772161, 1007, 11051999, 27092000, 20071969, 4101957],
+    "prompt_1": "cat",
+    "prompt_2": "lion",
+    "blend_methods": ["SWITCH", "UNET", "TEXTUAL", "ALTERNATE"],
+    "timesteps": 25,
+    "scheduler": "UniPCMultistepScheduler",
+    "model_id": "CompVis/stable-diffusion-v1-4",
+    "height": 512,
+    "width": 512,
+    "latent_scale": 8,
+    "guidance_scale": 7.5,
+    "from_timestep": 8, 
+    "to_timestep": 25,
+    "TEXTUAL_scale": 0.5, 
+    "same_base_latent": true
+}
+```
+- `device`: Device to run the code (default: `cuda:0`).
+- `seeds`: List of seeds for the random number generator.
+- `prompt_1`: First textual prompt.
+- `prompt_2`: Second textual prompt.
+- `blend_methods`: List of blending methods to use.
+- `timesteps`: Number of timesteps for the diffusion process.
+- `scheduler`: Scheduler to use for the diffusion process.
+- `model_id`: Model ID for the diffusion model.
+- `height`: Height of the image.
+- `width`: Width of the image.
+- `latent_scale`: Latent scale for the diffusion model.
+- `guidance_scale`: Guidance scale for the diffusion model.
+- `from_timestep`: Exclusive to the `SWITCH` method, controls the timestep at which the __switch__ is performed.
+- `to_timestep`: Exclusive to the `SWITCH` method, controls the timestep at which the synthesis of the image is completed.
+- `TEXTUAL_scale`: Exclusive to the `TEXTUAL` method, controls the ratio of the blending between the two prompts.
+- `same_base_latent`: Whether to use the same base latent for all blending methods.
+
+
 ## TUTORIAL FIRST TIME USING THE CODE
 **mainPipelineT.py:** is the main and the only file you sould focus on
 

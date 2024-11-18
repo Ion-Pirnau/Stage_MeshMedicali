@@ -10,12 +10,20 @@ class CreationMaterial:
 
 
     # Initialize the class with default values or User' values
-    def __init__(self, material_type=0, material_plane_type=0, color_trasparent_bsdf=[], color_diffuse_bsdf=[]):
+    def __init__(self, material_type=0, material_plane_type=0, color_trasparent_bsdf=[], color_diffuse_bsdf=[]) -> None:
         self.material_type = material_type
         self.material_plane_type = material_plane_type
         self.color_trasparent_bsdf = color_trasparent_bsdf
         self.color_diffuse_bsdf = color_diffuse_bsdf
 
+    def check_parameter(self) -> None:
+        # Check material_type is between 0 and 4
+        if not (0 <= self.material_type <= 4):
+            raise ValueError(f"The integer chosen as material type ({self.material_type}) is incorrect. It must be between 0 and 4.")
+
+        # Check material_plane_type is between 0 and 1
+        if not (0 <= self.material_plane_type <= 1):
+            raise ValueError(f"The integer chosen as material plane type ({self.material_plane_type}) is incorrect. It must be either 0 or 1.")
 
     # Based on the material_type, there are 5 material that can be applied on the mesh
     def fetch_material(self):

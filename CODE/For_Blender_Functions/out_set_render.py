@@ -28,6 +28,12 @@ class ScreenMonitorResolution:
         screenWidth, screenHeight = pyautogui.size()
         print("the value for width is:", screenWidth, "the value for Height is:", screenHeight)
         return (screenWidth,screenHeight)
+    
+    def get_X(self) -> int:
+        return self.screenWidth
+    
+    def get_Y(self) -> int:
+        return self.screenHeight
 
 
 
@@ -78,7 +84,7 @@ class Process_Rendering_Frame:
 
         # print(self.command)
 
-    def init_full_command_pipeline(self, nome_file_image):
+    def init_full_command_pipeline(self, nome_file_image) -> None:
         blend_file_path_name = self.get_current_workfolder() + self.blend_file_path + "\\outFinal.blend"
         image_output_path_name = self.get_current_workfolder() + self.render_path_folder + f"\\{nome_file_image}"
 

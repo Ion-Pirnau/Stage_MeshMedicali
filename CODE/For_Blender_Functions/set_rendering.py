@@ -24,12 +24,12 @@ class RenderingSetup:
 
     message_to_log = "RENDERING SETUP:\n"
 
-    def __init__(self, type_engine: int, type_device: str, n_samples: int, file_format: str, percentage_screen):
+    def __init__(self, type_engine: int, type_device: str, n_samples: int, file_format: str, screen_percentage):
         self.type_engine = type_engine
         self.type_device = type_device
         self.n_samples = n_samples
         self.file_format = file_format
-        self.percentage_screen = percentage_screen
+        self.screen_percentage = screen_percentage
 
     def set_engine_device(self):
        if self.type_engine in self.engines:
@@ -78,17 +78,17 @@ class RenderingSetup:
             raise ValueError("Invalid file format!")
 
     def set_resolution_screen(self, resolution_x, resolution_y):
-        percentage_screen = int(self.percentage_screen * 100)
-        if percentage_screen <= 100 and percentage_screen >= 1:
-            bpy.context.scene.render.resolution_percentage = percentage_screen
+        screen_percentage = int(self.screen_percentage * 100)
+        if screen_percentage <= 100 and screen_percentage >= 1:
+            bpy.context.scene.render.resolution_percentage = screen_percentage
             bpy.context.scene.render.resolution_x = resolution_x
             bpy.context.scene.render.resolution_y = resolution_y
 
             print(f"Resolution set to: {resolution_x}x{resolution_y}")
-            print(f"Resolution scale set to: {percentage_screen}%")
+            print(f"Resolution scale set to: {screen_percentage}%")
 
             self.message_to_log += f"Resolution set to: {resolution_x}x{resolution_y}\n"
-            self.message_to_log += f"Resolution scale set to: {percentage_screen}%\n"
+            self.message_to_log += f"Resolution scale set to: {screen_percentage}%\n"
         else:
             raise ValueError("Invalid resolution screen!")
 
@@ -104,7 +104,7 @@ class RenderingSetup:
     def save_file_blender(self):
         bpy.ops.wm.save_as_mainfile(filepath=self.output_blend_file+"outFinal.blend")
 
-    def init_all_rendering_settings(self):
+    def init_all_rendering_settings(self) -> None:
         my_screen =  smr()
         # my_outfolder = oft()
         self.set_engine_device()
