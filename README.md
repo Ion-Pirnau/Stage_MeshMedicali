@@ -64,7 +64,7 @@ The configuration file (`config.json`) should follow the sample below:
 - `value_minsamples`: value to define the min numbers of points inside a cluster *[Processing Operation Only]*
 - `value_decimation`: value used to decimanted the mesh *[Processing Operation Only]*
 - `value_scalefactor`: value used to scale a mesh *[Processing Operation Only]*
-- `value_scalingtype`: value to choose what scaling type apply on the mesh [0: scaling on X, Y and Z. 1: scaling to UNIT-BOX. 2: scaling to UNIT-SPHERE] [In Processing Operation Only]
+- `value_scalingtype`: value to choose what scaling type apply on the mesh [0: scaling on X, Y and Z. 1: scaling to UNIT-BOX. 2: scaling to UNIT-SPHERE] *[Processing Operation Only]*
 - `name_off_file`: string value added as a prefix on the file Generated during the pipeline's **OPERATION 0** and **OPERATION 1**
 - `processing`: DESCRIPTION TO DO
 - `blender_ex`: DESCRIPTION TO DO
@@ -73,7 +73,7 @@ The configuration file (`config.json`) should follow the sample below:
 
 
 
-## Tutorial
+# Tutorial
 **mainPipelineT.py:** is the main and the only file you sould focus on
 > Fill in the json configuration file first and run the main file
 
