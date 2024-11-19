@@ -66,7 +66,7 @@ The configuration file (`config.json`) should follow the sample below:
 - `value_scalefactor`: value used to scale a mesh *[Processing Operation Only]*
 - `value_scalingtype`: value to choose what scaling type apply on the mesh [0: scaling on X, Y and Z. 1: scaling to UNIT-BOX. 2: scaling to UNIT-SPHERE] *[Processing Operation Only]*
 - `name_off_file`: string value added as a prefix on the file Generated during the pipeline's **OPERATION 0** and **OPERATION 1**
-- `pipeline_operation`: value range 0 to 3 represents the [Pipeline Operation](#pipeline-operation)
+- `pipeline_operation`: range value from 0 to 3 represents the [Pipeline Operation](#pipeline-operation)
 - `test_name`: string name to define the rendering image
 
 
