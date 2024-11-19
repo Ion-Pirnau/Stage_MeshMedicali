@@ -1,6 +1,6 @@
 # Stage_MeshMedicali
 
-## Contents Table
+## Table of Contents
 - [General Description](#general-description)
 - [Installation](#installation)
 - [Configuration](#configuration)
