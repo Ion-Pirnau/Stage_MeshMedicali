@@ -78,26 +78,26 @@ The configuration file (`config.json`) should follow the sample below:
 > Fill in the json configuration file first and run the main file
 
 ### Pipeline operation
-- **Operation 0:** processing the mesh
+**Operation 0:** processing the mesh
 > - Remove Zero Area Faces
 > - Remove Not Connected Components
 
 - **Before starting the next operation, add the file generated in the *OUTPUT_SOURCE* to the *INPUT_SOURCE* folder**
 
-- **Operation 1:** processing the mesh
+**Operation 1:** processing the mesh
 > - Repair Mesh
 > - Scaling Mesh
 
 - **For the last time, before starting the next operation, add the file generated in the *OUTPUT_SOURCE* to the *INPUT_SOURCE* folder**
 
-- **Operation 2:** set up the .blend file
+**Operation 2:** set up the .blend file
 > What I suggest is:
 > - Try to run it, AS IS, open the **outFinal.blend** and check on it
 > - Make the changes you in the blend file and reported to the CODE too
 > - Delete the previous blend files created
 > - Re-run the CODE again, and check it
 
-- **Operation 3:** rendering an image file
+**Operation 3:** rendering an image file
 > - Before run the code for the last operation, copy and paste the **PATH** of the blender execution file on the ***blender_path*** variable
 > - Now you run it
 > - The output file is in ***IMAGE_RENDERED*** folder
