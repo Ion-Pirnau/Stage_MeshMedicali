@@ -39,29 +39,31 @@ class ScreenMonitorResolution:
 
 
 class OutputFileRender:
-    render_path_folder = '\IMAGE_RENDERED'
+    
 
-    def __init__(self):
+    def __init__(self) -> None:
+        self.render_path_folder = '\IMAGE_RENDERED'
         pass
 
     def get_current_workfolder(self):
         return os.getcwd()
 
-    def get_path_output_rendering(self):
+    def get_path_output_rendering(self) -> str:
         return self.get_current_workfolder()+self.render_path_folder+'\\'
 
 
 
 class Process_Rendering_Frame:
-    render_path_folder = '\IMAGE_RENDERED'
-    blend_file_path = '\BLEND_FILE_OUTPUT'
-    log_file_render = '\log_blender'
 
     command = []
 
 
-    def __init__(self, path_blender_exe):
+    def __init__(self, path_blender_exe) -> None:
         self.path_blender_exe = path_blender_exe
+        self.render_path_folder = '\IMAGE_RENDERED'
+        self.blend_file_path = '\BLEND_FILE_OUTPUT'
+        self.log_file_render = '\log_blender'
+
 
     def init_simple_command(self):
         self.command = [
@@ -99,7 +101,7 @@ class Process_Rendering_Frame:
 
         # print(self.command)
 
-    def get_current_workfolder(self):
+    def get_current_workfolder(self) -> str:
         return os.getcwd()
 
     def get_parent_dirname(self):

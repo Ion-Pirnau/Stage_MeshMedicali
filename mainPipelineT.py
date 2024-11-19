@@ -13,7 +13,7 @@ def get_user_input(testo, valore_originale):
 
 # Initialization of the class for Processing the Mesh
 def main_processed(dataname="", logfile_name="", valueeps=1.02, valuesample=5, valuedecimation=140000,
-                   valuescalefactor=1.0, valuescalingtype=0, nomeofffile="fp", valueisready=False):
+                   valuescalefactor=1.0, valuescalingtype=0, nomeofffile="processed") -> None:
 
     my_setup = SetProcessingOnMesh(dataname=dataname, logfile_name=logfile_name)
 
@@ -22,60 +22,13 @@ def main_processed(dataname="", logfile_name="", valueeps=1.02, valuesample=5, v
         # Valori di Default : 1.02 5
         # Mesh Molto Aperte : eps alto ex: 1.5 e min_samples=1
 
-        my_setup.start_operation_processing(eps=valueeps, min_samples=valuesample, depth=9,
-                                            decimation_value=valuedecimation, scale_factor=valuescalefactor,
+        my_setup.start_operation_processing(eps=valueeps,
+                                            min_samples=valuesample,
+                                            depth=9,
+                                            decimation_value=valuedecimation,
+                                            scale_factor=valuescalefactor,
                                             scaling_type=valuescalingtype,
-                                            nome_off_file_output=nomeofffile,
-                                            is_ready_repair=valueisready)
-
-
-# Function to ask the User to continue with the pipeline Operation or redo the same operation
-# the answer is writtin on a file with the prefix of the file it is working on
-def ask_and_write(file_path, nome_file, valid_choices):
-
-    while True:
-        try:
-            risposta = int(input(f"Continua con la pipeline n° operazione ({'/'.join(map(str, valid_choices))}): "))
-            if risposta in valid_choices:
-                break
-            else:
-                print(f"Value not valid. Please, choose between {valid_choices}")
-
-        except ValueError:
-            print("Please, insert a correct value")
-
-    with open(file_path, 'w') as file:
-        file.write(str(risposta) + "\n")
-        if risposta == 1 or risposta == 2 or risposta == 3:
-            file.write(nome_file + "\n")
-
-# Function that read the file where the answer from the previous function has been written
-def read_and_fetch(file_path):
-    try:
-        with open(file_path, 'r') as file:
-            lines = file.readlines()
-
-            if not lines:
-                return None, None, None
-
-            risposta = int(lines[0].strip())
-            nome_prefix = lines[1].strip() if len(lines) > 1 else None
-
-
-            if risposta == 0:
-                valid_choices = [0, 1]
-            elif risposta == 1:
-                valid_choices = [1, 2]
-            elif risposta == 2 or risposta == 3:
-                valid_choices = [2, 3]
-            else:
-                valid_choices = []
-
-            return risposta, nome_prefix, valid_choices
-
-    except FileNotFoundError:
-        print("Il file non esiste.")
-        return None, None, [0, 1]
+                                            nome_off_file_output=nomeofffile)
 
 def load_config(config_file='config.json') ->dict:
     """
@@ -87,9 +40,7 @@ def load_config(config_file='config.json') ->dict:
 
 if __name__ == '__main__':
 
-# Function to load the configuration from a JSON file
-
-
+    # Function to load the configuration from a JSON file
     param=load_config()
     dataname="000199_tumoredbrain"
 
@@ -111,60 +62,38 @@ if __name__ == '__main__':
     #     print("Non Esiste")
 
 
-    choosen_path_name = os.getcwd()+dir_name_scelta+file_path_choosen
-    continue_pipeline, other_file_name, valid_choice = read_and_fetch(choosen_path_name)
-    dataname = str(other_file_name) + dataname if other_file_name else dataname
-
-    print(f"Working on: {dataname}")
-
-    if continue_pipeline is None or continue_pipeline == 0 or continue_pipeline == 1:
-        print("MESH's PROCESSING")
-
-
-    # First part of the Pipeline where the user has to insert a value on console
-    # The user can change the value in the code of this MAIN file and on console just skip by pressing the Enter button
-    # Why this? Why not
-    if continue_pipeline is None or continue_pipeline == 0:
-        value_eps = float(get_user_input("Inserisci il valore eps", 1.02))
-        value_minsamples = int(get_user_input("Inserisci il valore min_samples", 5))
-        value_decimation = int(get_user_input("Inserisci il valore decimation", 140000))
-        # value_isreadyrepair = get_user_input("Vuoi eseguire la riparazione (True/False)?",
-        #                                      "False").lower() == 'true'
-        name_off_file = get_user_input("Inserisci il nome del file off", "fp")
-    elif continue_pipeline == 1:
-        name_off_file = get_user_input("Inserisci il nome del file off", "fp")
-        value_scalingtype = int(get_user_input("Inserisci il tipo di scaling", 0))
-        if value_scalingtype == 0:
-            value_scalefactor = float(get_user_input("Inserisci il valore scale_factor", 1))
-        value_isreadyrepair = True
-
+    #choosen_path_name = os.getcwd()+dir_name_scelta+file_path_choosen
+    #param["dataname"] = str(other_file_name) + param["dataname"] if other_file_name else param["dataname"] 
 
     # So at the beggining of the pipeline till the phase 1 the programm is processing the mesh
-    if continue_pipeline is None or continue_pipeline == 0 or continue_pipeline == 1:
-        print(dataname)
-        print(param.get("value_isreadyrepair"))
+    if param.get("processing"):
+
+        print("MESH's PROCESSING")
+        print(param.get("dataname"))
+
         main_processed(dataname=param.get("dataname"), logfile_name=logfile_name_processing, valueeps=param.get("value_eps"), valuesample=param.get("value_minsamples"),
                    valuedecimation=param.get("value_decimation"), valuescalefactor=param.get("value_scalefactor"),
-                   valuescalingtype=param.get("value_scalingtype"), nomeofffile=param.get("name_off_file"), valueisready=param.get("value_isreadyrepair"))
+                   valuescalingtype=param.get("value_scalingtype"), nomeofffile=param.get("name_off_file"))
 
 
     # On the phase 2 : the programm is preparing for a Blender Rendering
-    name_off_file = param.get("name_off_file") + "_"
-    if continue_pipeline == 2:
-        name_off_file = ""
+    param["name_off_file"] = param.get("name_off_file") + "_"
+    if param.get("blender_ex"):
+        param["name_off_file"] = ""
         print("PREPARATION FOR BLENDER RENDERING")
     # The class abr. seb - create a blend file with the mesh and a set-up environment for a better rendering experience
     # The user can change any value he wants from the code, just by looking the code below
-        my_setup = seb(dataname, logfile_name_blender, plane_on_base_size=1400)
+        my_setup = seb(param["dataname"], logfile_name_blender, plane_on_base_size=1400)
         my_setup.change_environment_settings(cube_size=1.5,
-                                                              cube_rotation=(0, 0, 0),
-                                                              axes_rotation=(0, 0, -180.22),
-                                                              axes_location=(-0.83, -1.0589, 0),
-                                                              camera_rotation=(74.04, 0.65194, 137.58),
-                                                              camera_axes_offset=1,
-                                                              camera_light_offset=0,
-                                                              light_energy=1.5,
-                                                              base_plane_location=(0, 0, -0.000925))
+                                            cube_rotation=(0, 0, 0),
+                                            axes_rotation=(0, 0, -180.22),
+                                            axes_location=(-0.83, -1.0589, 0),
+                                            camera_rotation=(74.04, 0.65194, 137.58),
+                                            camera_axes_offset=1,
+                                            camera_light_offset=0,
+                                            light_energy=1.5,
+                                            base_plane_location=(0, 0, -0.000925)
+                                            )
 
         # Ci sono 4 ligh-set mode:
         # 0 : scelta Utente
@@ -177,7 +106,8 @@ if __name__ == '__main__':
                                      light_left=2.5,
                                      light_top=1.5,
                                      light_bottom=0,
-                                     light_set=1)
+                                     light_set=1
+                                     )
 
         # Tipo Material:
         # 0 : Giallo-Opaco
@@ -204,16 +134,12 @@ if __name__ == '__main__':
     # On the phase 3: final phase of the pipeline, the Output Blender Rendering
     # Thought the subprocess lib the programm execute a prompt command on the computer and run blender on background
     # The output? The blender rendering file, it can be a png or a jpeg based on the file_format above
-    if continue_pipeline == 3:
-        name_off_file = ""
+    if param.get("rendering"):
+        param["name_off_file"] = ""
         blender_path = r"C:\Program Files\Blender Foundation\Blender 4.2\blender-launcher.exe"
         print("OUTPUT BLENDER RENDERING")
         out_render = Process_Rendering_Frame(blender_path)
         out_render.get_parent_dirname()
-        out_render.init_full_command_pipeline(nome_file_image="test_comment")
+        out_render.init_full_command_pipeline(nome_file_image=param.get("test_name"))
         out_render.start_execution()
 
-
-    if other_file_name is None:
-        other_file_name = ""
-    ask_and_write(choosen_path_name, name_off_file+other_file_name, valid_choice)

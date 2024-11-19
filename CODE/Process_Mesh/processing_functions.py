@@ -86,17 +86,21 @@ class Processing_Mesh_PoC:
         self.message_to_log += f"Mesh scaled by: x{scale_factor} factor\n\n"
 
 
-    def save_mesh(self, nome=""):
+    def save_mesh(self, nome="", path=None) -> None:
         file_name = nome + "_" +self.dataname + self.extension_file
         self.message_to_log += f"File saved as: {file_name}"
-
-        utl.save_off_format(file_name, self.vertex, self.normal, self.face)
+        
+        if path==None:
+            utl.save_off_format(file_name, self.vertex, self.normal, self.face)
+        else:
+            utl.save_off_format(file_name, self.vertex, self.normal, self.face, path)
 
 
     # Function for initialize the mesh, not the point cloud but the actual mesh.
     def initialize_mesh(self):
         self.message_to_log += "\nMesh Initialized\n"
         self.mesh = utl.initialize_mesh(self.vertex, self.normal, self.face)
+        
     # Function for visualizing the mesh
     def visualize_mesh(self, nome=""):
         utl.visualize_3d_screen(self.mesh, name_window=nome)

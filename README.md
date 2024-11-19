@@ -1,5 +1,13 @@
 # Stage_MeshMedicali
 
+## Table of Contents
+- [GENERAL DESCRIPTION](#general-description)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [TUTORIAL](#tutorial)
+- [Other Info](#other-info)
+
+
 ## GENERAL DESCRIPTION
 > **What the Pipeline do** 
 - Processing an .off file with a mesh in it ,
@@ -17,48 +25,55 @@
 
 - repair_mesh : about 4.62 sec
 
+## Installation
+
+To install the required dependencies, run:
+```bash
+pip install -r requirements.txt
+```
+
 ## Configuration
 The configuration file (`config.json`) should follow the sample below:
 
 ```json
 {
-    "device": "cuda:0",
-    "seeds": [21, 314, 561, 41041, 9746347772161, 1007, 11051999, 27092000, 20071969, 4101957],
-    "prompt_1": "cat",
-    "prompt_2": "lion",
-    "blend_methods": ["SWITCH", "UNET", "TEXTUAL", "ALTERNATE"],
-    "timesteps": 25,
-    "scheduler": "UniPCMultistepScheduler",
-    "model_id": "CompVis/stable-diffusion-v1-4",
-    "height": 512,
-    "width": 512,
-    "latent_scale": 8,
-    "guidance_scale": 7.5,
-    "from_timestep": 8, 
-    "to_timestep": 25,
-    "TEXTUAL_scale": 0.5, 
-    "same_base_latent": true
+    "dataname": "000199_tumoredbrain",
+    "logfile_name_processing": "logTprocessing",
+    "logfile_name_blender": "logTBlender",
+    "file_path_choosen": "sceltaUserRiunione.txt",
+    "dir_name_scelta": "\\log_sceltaUtente\\",
+    "value_eps": 1.02,
+    "value_minsamples": 5,
+    "value_decimation": 140000,
+    "value_scalefactor":  1,
+    "value_scalingtype": 0,
+    "name_off_file": "processed", 
+    "input_user": "",
+    "processing": true,
+    "blender_ex": true,
+    "rendering": true,
+    "test_name":"TEST_GILON"
 }
 ```
-- `device`: Device to run the code (default: `cuda:0`).
-- `seeds`: List of seeds for the random number generator.
-- `prompt_1`: First textual prompt.
-- `prompt_2`: Second textual prompt.
-- `blend_methods`: List of blending methods to use.
-- `timesteps`: Number of timesteps for the diffusion process.
-- `scheduler`: Scheduler to use for the diffusion process.
-- `model_id`: Model ID for the diffusion model.
-- `height`: Height of the image.
-- `width`: Width of the image.
-- `latent_scale`: Latent scale for the diffusion model.
-- `guidance_scale`: Guidance scale for the diffusion model.
-- `from_timestep`: Exclusive to the `SWITCH` method, controls the timestep at which the __switch__ is performed.
-- `to_timestep`: Exclusive to the `SWITCH` method, controls the timestep at which the synthesis of the image is completed.
-- `TEXTUAL_scale`: Exclusive to the `TEXTUAL` method, controls the ratio of the blending between the two prompts.
-- `same_base_latent`: Whether to use the same base latent for all blending methods.
+- `dataname`: DESCRIPTION TO DO
+- `logfile_name_processing`: DESCRIPTION TO DO
+- `logfile_name_blender`: DESCRIPTION TO DO
+- `file_path_choosen`: DESCRIPTION TO DO
+- `dir_name_scelta`: DESCRIPTION TO DO
+- `value_eps`: DESCRIPTION TO DO
+- `value_minsamples`: DESCRIPTION TO DO
+- `value_decimation`: DESCRIPTION TO DO
+- `value_scalefactor`: DESCRIPTION TO DO
+- `value_scalingtype`: DESCRIPTION TO DO
+- `name_off_file`: DESCRIPTION TO DO
+- `processing`: DESCRIPTION TO DO
+- `blender_ex`: DESCRIPTION TO DO
+- `rendering`: DESCRIPTION TO DO
+- `test_name`: DESCRIPTION TO DO
 
 
-## TUTORIAL FIRST TIME USING THE CODE
+
+## TUTORIAL
 **mainPipelineT.py:** is the main and the only file you sould focus on
 
 > **But first you need to, manually, add the screen resolution of your screen**
@@ -106,13 +121,6 @@ That is the end of the tutorial of how the User should work on this CODE
 ## Other Info
 **Python Version:**
 >3.11
-
-**Libraries:**
-> - numpy
-> - subprocess
-> - os
-> - bpy
-> - open3d
 
 **Environment:**
 > I suggest on using a virtual enviroment or just a simple IDE with a virtual environment as a set-up
