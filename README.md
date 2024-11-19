@@ -56,7 +56,7 @@ The configuration file (`config.json`) should follow the sample below:
 }
 ```
 - `dataname`: file's name the programm is gonna work on. The User does not have to change the name every single time, 'file_path_choosen' comes to help 
-- `logfile_name_processing`: file txt's name where the description of the operation will be saved [Processing Operation Only]
+- `logfile_name_processing`: file txt's name where the description of the operation will be saved **[Processing Operation Only]**
 - `logfile_name_blender`: file txt's name where the description of the operation will be saved [Blender Operation Only]
 - `file_path_choosen`: file txt's name where the pipeline operation will be saved. Used by the programm to detect which operation of the pipeline is currently on + the prefix of the off file generated during the pipeline's Operation 0
 - `dir_name_scelta`: directory's name of [file_path_choosen]
