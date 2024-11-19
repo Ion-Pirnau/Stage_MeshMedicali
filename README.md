@@ -75,20 +75,7 @@ The configuration file (`config.json`) should follow the sample below:
 
 ## TUTORIAL
 **mainPipelineT.py:** is the main and the only file you sould focus on
-
-> **But first you need to, manually, add the screen resolution of your screen**
-> 
-> *Till new updates, do it manually*
-> 
-> **After each execution the program ask the User if he wants to continue with the Pipeline Operation or Re-Run an operation**
-
-**Back to the tutorial:** 
-
--  In the **mainPipelineT.py** 
-> there is a description of what the methods / functions do and the type of settings the User could do
-
-- *Variable:* **dataname**
-> contains the file-name of the mesh the programm should work on, during the pipeline operantion the User **DO NOT NEED** to change it everytime, only at the beginning
+> Fill in the json configuration file first and run the main file
 
 ## Pipeline operation
 **OPERATION 0:** processing the mesh
