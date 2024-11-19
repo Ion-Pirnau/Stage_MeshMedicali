@@ -1,0 +1,102 @@
+2024-11-18 18:06:51
+--------------------------------------------
+DETAILS:
+Working on: 000199_tumoredbrain
+vertices: 111586
+normals: 111586
+faces: 223018
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Remove Zero Area Faces Algorithm
+Zero Area Faces removed: 14
+
+
+Mesh Initialized
+
+Ci sono: 9 isole nella mesh
+
+
+Applied: Remove Not Connected Component Algorithm
+
+Mesh Initialized
+
+Ci sono: 0 isole nella mesh
+
+
+Applied: Scaling Algorithm
+Mesh scaled by: x1 factor
+
+File saved as: fp_000199_tumoredbrain.off
+--------------------------------------------
+2024-11-18 18:55:32
+--------------------------------------------
+DETAILS:
+Working on: 000199_tumoredbrain
+vertices: 111586
+normals: 111586
+faces: 223018
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Remove Zero Area Faces Algorithm
+Zero Area Faces removed: 14
+
+
+Mesh Initialized
+
+Ci sono: 9 isole nella mesh
+
+
+Applied: Remove Not Connected Component Algorithm
+
+Mesh Initialized
+
+Ci sono: 0 isole nella mesh
+
+
+Applied: Scaling Algorithm
+Mesh scaled by: x1 factor
+
+File saved as: fp_000199_tumoredbrain.off
+--------------------------------------------
+2024-11-18 18:56:23
+--------------------------------------------
+DETAILS:
+Working on: 000199_tumoredbrain
+vertices: 111586
+normals: 111586
+faces: 223018
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Remove Zero Area Faces Algorithm
+Zero Area Faces removed: 14
+
+
+Mesh Initialized
+
+Ci sono: 9 isole nella mesh
+
+
+Applied: Remove Not Connected Component Algorithm
+
+Mesh Initialized
+
+Ci sono: 0 isole nella mesh
+
+
+Applied: Scaling Algorithm
+Mesh scaled by: x1 factor
+
+File saved as: fp_000199_tumoredbrain.off
+--------------------------------------------

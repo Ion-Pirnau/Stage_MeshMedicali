@@ -1,0 +1,49 @@
+2024-11-18 18:07:27
+--------------------------------------------
+DETAILS:
+File fp_000199_tumoredbrain not found.
+--------------------------------------------
+2024-11-18 18:09:11
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 1400
+Location: (0, 0, -0.000925)
+
+Created empty cube: Cube_Reference
+Dimension: 187
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 3.5
+light_back: 3.5
+light_right: 4.5
+light_left: 4.5
+light_top: 15
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (0, 0, 0)
+Rotation: (0, 0, 96)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 72
+Rotation: (62, 0, 136)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 100000
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 400
+File format set to: PNG
+Resolution set to: 2520x1680
+Resolution scale set to: 100%
+
+Material choosed: Custom-Material
+Material Plane choosed: White-Plane-Emission
+
+--------------------------------------------

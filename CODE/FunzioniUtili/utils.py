@@ -66,7 +66,7 @@ def create_point_cloud(array_points, array_normal):
     pcd = o3d.geometry.PointCloud()
     pcd.points = o3d.utility.Vector3dVector(array_points)
     pcd.normals = o3d.utility.Vector3dVector(array_normal)
-    print("Point of Cloud Created")
+    #print("Point of Cloud Created")
     return pcd
 
 def visualize_3d_screen(pcd, name_window=""):
@@ -87,8 +87,8 @@ def print_normals(normals_np):
 def print_faces(faces_np):
     print("Faces:\n", faces_np)
 
-def save_off_format(filename, vertices, normals, faces):
-    with open(output_path+filename, 'w') as f:
+def save_off_format(filename, vertices, normals, faces, path=output_path):
+    with open(path+filename, 'w') as f:
         f.write("NOFF\n")
         f.write(f"{len(vertices)} {len(faces)} 0\n")
 

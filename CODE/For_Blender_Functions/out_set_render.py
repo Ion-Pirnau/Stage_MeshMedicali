@@ -1,6 +1,6 @@
 import os
 import subprocess
-
+import pyautogui
 
 # This file has few classes in it
 # 1. Screen Size : Monitor Resolution
@@ -14,45 +14,56 @@ import subprocess
 # THINKING on new IDEAS
 class ScreenMonitorResolution:
 
-    def __init__(self, res_x=1920, res_y=1080):
-        self.res_x = res_x
-        self.res_y = res_y
+    def __init__(self,):
+        self.screenWidth, self.screenHeight  = self.get_screen_dimension()
 
 
-    def get_X(self):
-        return self.res_x
+    def get_screen_dimension(self) -> tuple[int, int]:
+        """
+        Gets the user screen dimensions (width and height).
 
-    def get_Y(self):
-        return self.res_y
-
+        Returns:
+            tuple[int, int]: A tuple containing the screen width and height in pixels.
+        """
+        screenWidth, screenHeight = pyautogui.size()
+        print("the value for width is:", screenWidth, "the value for Height is:", screenHeight)
+        return (screenWidth,screenHeight)
+    
+    def get_X(self) -> int:
+        return self.screenWidth
+    
+    def get_Y(self) -> int:
+        return self.screenHeight
 
 
 
 
 class OutputFileRender:
-    render_path_folder = '\IMAGE_RENDERED'
+    
 
-    def __init__(self):
+    def __init__(self) -> None:
+        self.render_path_folder = '\IMAGE_RENDERED'
         pass
 
     def get_current_workfolder(self):
         return os.getcwd()
 
-    def get_path_output_rendering(self):
+    def get_path_output_rendering(self) -> str:
         return self.get_current_workfolder()+self.render_path_folder+'\\'
 
 
 
 class Process_Rendering_Frame:
-    render_path_folder = '\IMAGE_RENDERED'
-    blend_file_path = '\BLEND_FILE_OUTPUT'
-    log_file_render = '\log_blender'
 
     command = []
 
 
-    def __init__(self, path_blender_exe):
+    def __init__(self, path_blender_exe) -> None:
         self.path_blender_exe = path_blender_exe
+        self.render_path_folder = '\IMAGE_RENDERED'
+        self.blend_file_path = '\BLEND_FILE_OUTPUT'
+        self.log_file_render = '\log_blender'
+
 
     def init_simple_command(self):
         self.command = [
@@ -75,7 +86,7 @@ class Process_Rendering_Frame:
 
         # print(self.command)
 
-    def init_full_command_pipeline(self, nome_file_image):
+    def init_full_command_pipeline(self, nome_file_image) -> None:
         blend_file_path_name = self.get_current_workfolder() + self.blend_file_path + "\\outFinal.blend"
         image_output_path_name = self.get_current_workfolder() + self.render_path_folder + f"\\{nome_file_image}"
 
@@ -90,7 +101,7 @@ class Process_Rendering_Frame:
 
         # print(self.command)
 
-    def get_current_workfolder(self):
+    def get_current_workfolder(self) -> str:
         return os.getcwd()
 
     def get_parent_dirname(self):
