@@ -95,11 +95,13 @@ if __name__ == '__main__':
                                             base_plane_location=(0, 0, -0.000925)
                                             )
 
-        # Ci sono 4 ligh-set mode:
-        # 0 : scelta Utente
-        # 1 : predefinita
-        # 2 : predefinita
-        # 3 : predefinita - usarla solo per il wireframe
+
+        # Four Light-set mode:
+        # 0 : Choose by User
+        # 1 : mode - 6 light
+        # 2 : mode - 6 light
+        # 3 : mode - only for Wireframe Material
+        # 4 : mode - 1 light
         my_setup.change_energy_light(light_front=0,
                                      light_back=3,
                                      light_right=0,
@@ -108,6 +110,7 @@ if __name__ == '__main__':
                                      light_bottom=0,
                                      light_set=1
                                      )
+
 
         # Tipo Material:
         # 0 : Giallo-Opaco
@@ -124,6 +127,10 @@ if __name__ == '__main__':
         # color_trasp_bsdf=[], color_diff_bsdf=[] only for the FULL-TRANSPARENCY Material
         my_setup.set_materials(material_value=3, material_plane_value=1,
                                  color_trasp_bsdf=[], color_diff_bsdf=[])
+
+
+        # Choose which Wall should appear in the world (Default all True)
+        my_setup.setup_walls(wall_front=False, wall_right=False)
 
         # 0 : Cycles | 1: Eevee
         my_setup.set_rendering_values(type_engine=0, type_device="GPU", n_samples=400,

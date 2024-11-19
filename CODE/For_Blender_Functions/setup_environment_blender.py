@@ -46,14 +46,12 @@ class SetEnvironmentBlender:
     nome_camera_light = 'Light_to_Camera'
 
 
-
-
-
     # Initialize the Class
     def __init__(self, nome_mesh: str, nome_log_file: str, plane_on_base_size: int) -> None:
         self.nome_mesh = nome_mesh
         self.nome_log_file = nome_log_file
         self.plane_on_base = plane_on_base_size
+
         self.energy_light_at_camera = 100000
         self.size_cubo = 187
         self.rotazione_camera = (62, 0, 136)
@@ -238,6 +236,7 @@ class SetEnvironmentBlender:
         )
 
         # Perform initial setup tasks
+ 
         self.check_mesh_existence()
         self.start_creation_scene()
         self.save_blend_file(nome_blend_file)
@@ -373,6 +372,9 @@ class SetEnvironmentBlender:
         
         #Step 6: Add plane on base
         self.add_plane_on_base(self.plane_on_base)
+
+        if self.is_sunlight_on:
+            self.add_sun_light_world()
 
 
     def select_object(self, obj):
@@ -696,6 +698,8 @@ class SetEnvironmentBlender:
             bpy.types.Object: The created plane object.
         """
         bpy.ops.mesh.primitive_plane_add(size=size_plane, location=self.base_plane_location)
+
+  
         obj_plane = bpy.context.active_object
 
         material = self.mat_chosen.fetch_material_plane()
@@ -705,6 +709,7 @@ class SetEnvironmentBlender:
         else:
             obj_plane.data.materials.append(material)
 
+            
         print(f"Plane added at {self.base_plane_location} with size {size_plane}")
 
     def save_blend_file(self, final_name: str) -> None:
@@ -746,6 +751,7 @@ class SetEnvironmentBlender:
         for light in self.light_names:
             log_messages.append(f"{light}: {self.energy_settings[light]}")
 
+
         log_messages.append(f"\nCreated empty axes: {self.nome_axes}\n"
                             f"Location: {self.location_axes}\nRotation: {self.rotazione_empty_axes}\n")
 
@@ -757,11 +763,11 @@ class SetEnvironmentBlender:
                             f"Offset from camera: {self.light_offset_value_from_camera}\n"
                             f"Energy: {self.energy_light_at_camera}\n")
 
+
         log_messages.append(self.my_setup_render.get_message())
         log_messages.append(self.mat_chosen.get_message())
 
         # Join all log messages into a single string
         self.message_to_log = "\n".join(log_messages)
 
-        # Write to the log file
         utl.write_to_log(file_name=self.nome_log_file, message=self.message_to_log, where_at=1)
