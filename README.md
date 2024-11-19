@@ -1,14 +1,14 @@
 # Stage_MeshMedicali
 
 ## Table of Contents
-- [GENERAL DESCRIPTION](#general-description)
+- [General Description](#general-description)
 - [Installation](#installation)
 - [Configuration](#configuration)
-- [TUTORIAL](#tutorial)
+- [Tutorial](#tutorial)
 - [Other Info](#other-info)
 
 
-## GENERAL DESCRIPTION
+## General Description
 > **What the Pipeline do** 
 - Processing an .off file with a mesh in it ,
 - Creating a .blend file through the Blender API bpy
@@ -73,11 +73,11 @@ The configuration file (`config.json`) should follow the sample below:
 
 
 
-## TUTORIAL
+## Tutorial
 **mainPipelineT.py:** is the main and the only file you sould focus on
 > Fill in the json configuration file first and run the main file
 
-## Pipeline operation
+### Pipeline operation
 **OPERATION 0:** processing the mesh
 > - Remove Zero Area Faces
 > - Remove Not Connected Components
