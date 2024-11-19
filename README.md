@@ -56,15 +56,15 @@ The configuration file (`config.json`) should follow the sample below:
 }
 ```
 - `dataname`: file's name the programm is gonna work on. The User does not have to change the name every single time, 'file_path_choosen' comes to help 
-- `logfile_name_processing`: file txt's name where the description of the operation will be saved *[Processing Operation Only]*
-- `logfile_name_blender`: file txt's name where the description of the operation will be saved *[Blender Operation Only]*
+- `logfile_name_processing`: file txt's name where the description of the operation will be saved ***[Processing Operation Only]***
+- `logfile_name_blender`: file txt's name where the description of the operation will be saved ***[Blender Operation Only]***
 - `file_path_choosen`: file txt's name where the pipeline operation will be saved. Used by the programm to detect which operation of the pipeline is currently on + the prefix of the off file generated during the pipeline's Operation 0
 - `dir_name_scelta`: directory's name of [file_path_choosen]
-- `value_eps`: value to detect the distance between point. Points inside this are called 'cluster' *[Processing Operation Only]*
-- `value_minsamples`: value to define the min numbers of points inside a cluster *[Processing Operation Only]*
-- `value_decimation`: value used to decimanted the mesh *[Processing Operation Only]*
-- `value_scalefactor`: value used to scale a mesh *[Processing Operation Only]*
-- `value_scalingtype`: value to choose what scaling type apply on the mesh [0: scaling on X, Y and Z. 1: scaling to UNIT-BOX. 2: scaling to UNIT-SPHERE] *[Processing Operation Only]*
+- `value_eps`: value to detect the distance between point. Points inside this are called 'cluster' ***[Processing Operation Only]***
+- `value_minsamples`: value to define the min numbers of points inside a cluster ***[Processing Operation Only]***
+- `value_decimation`: value used to decimanted the mesh ***[Processing Operation Only]***
+- `value_scalefactor`: value used to scale a mesh ***[Processing Operation Only]***
+- `value_scalingtype`: value to choose what scaling type apply on the mesh [0: scaling on X, Y and Z. 1: scaling to UNIT-BOX. 2: scaling to UNIT-SPHERE] ***[Processing Operation Only]***
 - `name_off_file`: string value added as a prefix on the file Generated during the pipeline's **OPERATION 0** and **OPERATION 1**
 - `pipeline_operation`: range value from 0 to 3 represents the [Pipeline Operation](#pipeline-operation)
 - `test_name`: string name to define the rendering image
