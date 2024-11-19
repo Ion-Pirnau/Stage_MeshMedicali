@@ -65,7 +65,7 @@ The configuration file (`config.json`) should follow the sample below:
 - `value_decimation`: value used to decimanted the mesh *[Processing Operation Only]*
 - `value_scalefactor`: value used to scale a mesh *[Processing Operation Only]*
 - `value_scalingtype`: value to choose what scaling type apply on the mesh [0: scaling on X, Y and Z. 1: scaling to UNIT-BOX. 2: scaling to UNIT-SPHERE] [In Processing Operation Only]
-- `name_off_file`: string value added as a prefix on the file Generated during the pipeline's Operation 0 and Operation 1
+- `name_off_file`: string value added as a prefix on the file Generated during the pipeline's [**OPERATION 0**](operation-0) and Operation 1
 - `processing`: DESCRIPTION TO DO
 - `blender_ex`: DESCRIPTION TO DO
 - `rendering`: DESCRIPTION TO DO
