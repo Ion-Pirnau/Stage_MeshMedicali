@@ -100,7 +100,6 @@ The configuration file (`config.json`) should follow the sample below:
 > - Now you run it
 > - The output file is in ***IMAGE_RENDERED*** folder
 
-That is the end of the tutorial of how the User should work on this CODE
 
 
 ## Other Info
