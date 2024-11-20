@@ -1,12 +1,16 @@
 from CODE.Process_Mesh.processing_functions import Processing_Mesh_PoC
 from CODE.FunzioniUtili import utils as utl
 
-# Class used to communicate with the processing_function file
-# Basically in this file I just organize the pipeline for processing the mesh
-# I do operations as:
-# 1. Check if the file exists
-# 2. Do the processing
-# 3. Create the log File
+
+"""
+    Class used to communicate with the processing_function file
+    Basically in this file it's just for organize the pipeline for processing the mesh
+    The operations are:
+    1. Check if the file exists
+    2. Do the processing
+    3. Create the log File
+
+"""
 class SetProcessingOnMesh:
 
     dataname = ""
@@ -21,7 +25,7 @@ class SetProcessingOnMesh:
         self.file_name = logfile_name
 
 
-    def check_file_existence(self):
+    def check_file_existence(self) -> None:
 
        self.pm_poc = Processing_Mesh_PoC(self.dataname)
        valore_veritas = self.pm_poc.check_mesh_file()
@@ -41,8 +45,10 @@ class SetProcessingOnMesh:
 
        return valore_veritas
 
+
+
     def start_operation_processing(self, eps=1.02, min_samples=1, depth=9, decimation_value=190000, scale_factor=1,
-                                   scaling_type=0, nome_off_file_output="", is_readyto_repair=False):
+                                   scaling_type=0, nome_off_file_output="", is_readyto_repair=False) -> None:
 
         self.pm_poc.create_point_cloud()
         self.pm_poc.initialize_mesh()
@@ -53,8 +59,8 @@ class SetProcessingOnMesh:
         """
         if not is_readyto_repair:
             self.pm_poc.remove_zero_area_faces_call()
-            self.pm_poc.controllo_not_connected_component()
-            self.pm_poc.rimozione_not_connected_component(distance=eps, n_punti_vicini=min_samples)
+            self.pm_poc.controll_not_connected_component()
+            self.pm_poc.remove_not_connected_component(distance=eps, n_punti_vicini=min_samples)
 
 
         """
@@ -76,6 +82,10 @@ class SetProcessingOnMesh:
         self.create_message_log()
 
 
-    def create_message_log(self):
+    def create_message_log(self) -> None:
+        """
+        Calling the Utils' method to write the logFile
+
+        """
         self.message_to_log += self.pm_poc.get_message_log()
         utl.write_to_log(file_name=self.file_name, message=self.message_to_log, where_at=2)

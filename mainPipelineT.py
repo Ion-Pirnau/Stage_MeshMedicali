@@ -57,8 +57,8 @@ if __name__ == '__main__':
     param=load_config()
     dataname="000199_tumoredbrain"
 
-    logfile_name_processing = r"logTprocessing"
-    logfile_name_blender = r"logTBlender"
+    logfile_name_processing = param.get("logfile_name_processing")
+    logfile_name_blender = param.get("logTBlender")
 
 
     """
@@ -90,7 +90,7 @@ if __name__ == '__main__':
         
     """
 
-    if param.get("pipeline_operation") == 2:
+    if param.get("blend_file_ex"):
         print("PREPARATION FOR BLENDER RENDERING")
         my_setup = seb(param["dataname"], logfile_name_blender, plane_on_base_size=1400)
         my_setup.change_environment_settings(cube_size=1.5,
@@ -167,7 +167,7 @@ if __name__ == '__main__':
         OUTPUT: The blender rendering file, it can be a PNG or a JPEG based on the file_format above
         
     """
-    if param.get("pipeline_operation") == 3:
+    if param.get("render_file_ex"):
         param["name_off_file"] = ""
         blender_path = r"C:\Program Files\Blender Foundation\Blender 4.2\blender-launcher.exe"
         print("OUTPUT BLENDER RENDERING")

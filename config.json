@@ -1,5 +1,5 @@
 {
-    "dataname": "test4_test3_000199_tumoredbrain",
+    "dataname": "test2_test1_000199_tumoredbrain",
     "logfile_name_processing": "logTprocessing",
     "logfile_name_blender": "logTBlender",
     "value_eps": 1.02,
@@ -7,10 +7,11 @@
     "value_decimation": 140000,
     "value_scalefactor": 1,
     "value_scalingtype": 0,
-    "name_off_file": "test4",
+    "name_off_file": "test2",
     "processing_0": true,
     "processing_1": true,
-    "pipeline_operation": 0,
+    "blend_file_ex": false,
+    "render_file_ex": false,
     "blend_file_name": "testBlend_",
-    "test_name": "TEST_GILON"
+    "render_file_name": "TEST_GILON"
 }
