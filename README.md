@@ -49,9 +49,10 @@ The configuration file (`config.json`) should follow the sample below:
     "value_scalingtype": 0,
     "name_off_file": "processed", 
     "input_user": "",
-    "processing": true,
-    "blender_ex": true,
-    "rendering": true,
+    "processing_0": true,
+    "processing_1": false,
+    "blend_file_ex": false,
+    "render_file_ex": false,
     "test_name":"TEST_GILON"
 }
 ```

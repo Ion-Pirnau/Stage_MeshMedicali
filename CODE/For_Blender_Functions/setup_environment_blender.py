@@ -6,9 +6,6 @@ import bpy
 import numpy as np
 
 
-# Class used to set the blend file for future rendering
-# Create an environment with: The main Mesh, Lights, Plane, Camera
-
 class SetEnvironmentBlender:
     """
     Class used to set the blend file for future rendering
@@ -40,6 +37,27 @@ class SetEnvironmentBlender:
         'light_bottom'
     ]
 
+    energy_light_at_camera = 100000
+    size_cube = 187.0
+    location_cube = (0.0, 0.0, 0.0)
+    rotation_camera = (0.0, 0.0, 0.0)
+    rotation_empty_axes = (0.0, 0.0, 0.0)
+    location_axes = (0.0, 0.0, 0.0)
+    rotation_empty_cube = (0.0, 0.0, 0.0)
+    camera_offset_value_from_empty_axes = 72
+    light_offset_value_from_camera = 0
+    base_plane_location = None
+    type_engine = None
+    type_device = None
+    n_samples = None
+    file_format = None
+    screen_percentage = None
+    my_setup_render = None
+    nome_file_blend = None
+    mat_chosen = None
+
+
+
     nome_cubo = 'Cube_Reference'
     nome_axes = 'Axes_to_Camera'
     nome_camera = 'Camera_Main'
@@ -52,25 +70,6 @@ class SetEnvironmentBlender:
         self.nome_log_file = nome_log_file
         self.plane_on_base = plane_on_base_size
 
-        self.energy_light_at_camera = 100000
-        self.size_cubo = 187
-        self.rotazione_camera = (62, 0, 136)
-        self.rotazione_empty_axes = (0, 0, 96)
-        self.location_axes = (0,0,0)
-        self.rotazione_empty_cube = (0, 0, 0)
-        self.location_cube = (0, 0, 0)
-        self.camera_offset_value_from_empty_axes = 72
-        self.light_offset_value_from_camera = 0
-        self.base_plane_location = None
-        self.type_engine = None
-        self.type_device = None
-        self.n_samples = None
-        self.file_format = None
-        self.screen_percentage = None
-        self.my_setup_render = None
-        self.nome_file_blend = None
-        self.mat_chosen= None
-
 
     def change_energy_light(self, 
                             light_front=100000, light_back=100000, 
@@ -81,12 +80,12 @@ class SetEnvironmentBlender:
         Update energy light settings either with custom values or selecting a predefined set.
 
         Parameters:
-            light_front (float): Custom value for the front light.
-            light_back (float): Custom value for the back light.
-            light_right (float): Custom value for the right light.
-            light_left (float): Custom value for the left light.
-            light_top (float): Custom value for the top light.
-            light_bottom (float): Custom value for the bottom light.
+            light_front (float): Custom value for the front-light.
+            light_back (float): Custom value for the back-light.
+            light_right (float): Custom value for the right-light.
+            light_left (float): Custom value for the left-light.
+            light_top (float): Custom value for the top-light.
+            light_bottom (float): Custom value for the bottom-light.
             light_set (int): Predefined light set mode (0 for custom).
         """
         # Predefined light sets ( TO DO AGGIUNGERE UNA DESCRIZIONE DI OGNI SET AD ESEMPIO "PIU' CINEMATOGRAFICO", Insomma che si capisca cosa ci si aspetta in output)
@@ -120,15 +119,15 @@ class SetEnvironmentBlender:
 
     def change_environment_settings(self,
                                     cube_size=187,
-                                    cube_rotation=(0, 0, 0),
-                                    cube_location=(0, 0, None),
-                                    axes_rotation=(0, 0, 96),
-                                    axes_location=(0, 0, 0),
-                                    camera_rotation=(62, 0, 136),
-                                    camera_axes_offset=72,
-                                    camera_light_offset=0,
-                                    light_energy=100000,
-                                    base_plane_location=(0, 0, 0)) -> None:
+                                    cube_rotation=(0.0, 0.0, 0.0),
+                                    cube_location=(0.0, 0.0, 0.0),
+                                    axes_rotation=(0.0, 0.0, 96.0),
+                                    axes_location=(0.0, 0.0, 0.0),
+                                    camera_rotation=(62.0, 0.0, 136.0),
+                                    camera_axes_offset=72.0,
+                                    camera_light_offset=0.0,
+                                    light_energy=100000.0,
+                                    base_plane_location=(0.0, 0.0, 0.0)) -> None:
         """
         Update various settings in the blender environment.
 
@@ -144,22 +143,22 @@ class SetEnvironmentBlender:
             light_energy (float): Energy of the light at the camera.
             base_plane_location (tuple): Location of the base plane (x, y, z).
         """
-        self.cube_size = cube_size
+        self.size_cube = cube_size
 
-        self.cube_rotation = cube_rotation
+        self.rotation_empty_cube = cube_rotation
         x, y, z = cube_location
         if z is None:
             z = cube_size / 2
-        self.cube_location = (x, y, z)
+        self.location_cube = (x, y, z)
 
-        self.axes_rotation = axes_rotation
-        self.axes_location = axes_location
+        self.rotation_empty_axes = axes_rotation
+        self.location_axes = axes_location
 
-        self.camera_rotation = camera_rotation
-        self.camera_axes_offset = camera_axes_offset
+        self.rotation_camera = camera_rotation
+        self.camera_offset_value_from_empty_axes = camera_axes_offset
 
-        self.camera_light_offset = camera_light_offset
-        self.light_energy = light_energy
+        self.light_offset_value_from_camera = camera_light_offset
+        self.energy_light_at_camera = light_energy
 
         self.base_plane_location = base_plane_location
 
@@ -175,44 +174,47 @@ class SetEnvironmentBlender:
         Updates the rendering settings with the provided values. 
 
         Args:
-            type_engine (int): ??? TO DO.
+            type_engine (int): The rendering Engine, e.g., "Cycles" : 0, "EEVEE" : 1.
             type_device (str): The rendering device, e.g., "GPU" or "CPU" (default: GPU).
-            n_samples (int): ??? TO DO.
+            n_samples (int): number of sample for rendering the image.
             file_format (str): Output file format, e.g., "JPEG" or "PNG" (default: JPEG).
-            screen_percentage (float): Screen percentage for render resolution (default: 1.0). 
-            TO CHECK E' Possibile inserire valori >1 o <0? Forse ha senso inserire un Assertion Error:
-            try:
-                screen_percentage<1 or screen_percentage>0
-            except AssertionError:
-                        print(
-                            "Expected values of screen percentage between zero and one."
-                        )
+            screen_percentage (float): Screen percentage for render resolution (default: 1.0).
 
         Returns:
             None
         """
+
         self.type_engine = type_engine
         self.type_device = type_device
         self.n_samples = n_samples
         self.file_format = file_format
-        self.screen_percentage = screen_percentage
+
+        try:
+            assert screen_percentage<=1 or screen_percentage>=0
+            self.screen_percentage = screen_percentage
+        except AssertionError:
+            print("Expected values of screen percentage between 0 and 1.")
+
+
+
 
 
     # Function for choosing the material to be applied and the COLOR for ONLY the Transparency material
-    def set_materials(self, material_value: int =0, material_plane_value: int =0, color_trasp_bsdf: list =[], color_diff_bsdf: list=[]) -> None:
+    def set_materials(self, material_value: int =0, material_plane_value: int =0,
+                      color_transp_bsdf: list=[], color_diff_bsdf: list=[]) -> None:
         """
         Sets the material for the blender scene.
 
         Args:
             material_value (int): The value corrisponding to a material in the CreationMaterial Class (default: 0).
             material_plane_value (int): The value corrisponding to a material plane in the CreationMaterial Class (default: 0).
-            color_trasp_bsdf (List[]): COSA MI ASPETTO ? UNA LISTA DI INTERI? FLOAT? STRINGHE?
-            color_diff_bsdf (List[]): COSA MI ASPETTO ? UNA LISTA DI INTERI? FLOAT? STRINGHE?
+            color_transp_bsdf (List[]): list of float values, 0 to 1
+            color_diff_bsdf (List[]): list of float values, 0 to 1
 
         Returns:
             None
         """
-        self.mat_chosen = CreationMaterial(material_value, material_plane_value, color_trasp_bsdf, color_diff_bsdf)
+        self.mat_chosen = CreationMaterial(material_value, material_plane_value, color_transp_bsdf, color_diff_bsdf)
         self.mat_chosen.check_parameter()
 
 
@@ -249,6 +251,7 @@ class SetEnvironmentBlender:
         # Create a log file
         self.create_file_log()
 
+
     def check_mesh_existence(self) -> None:
             """
             Checks if the mesh file exists. If it exists, loads the mesh data (vertices, normals, faces).
@@ -274,7 +277,7 @@ class SetEnvironmentBlender:
                 error_message = f"File {self.nome_mesh} not found."
                 print(error_message)
                 self.message_to_log = error_message
-                try: #Check che i log vengano effettivamente scritti.
+                try:
                     utl.write_to_log(file_name=self.nome_log_file, message=self.message_to_log, where_at=1)
                 except Exception as e:
                     print(f"Error writing to log: {e}")
@@ -282,12 +285,7 @@ class SetEnvironmentBlender:
 
                 raise ValueError(error_message)
 
-    # Function: create the scene, few steps:
-    # 1. Insert the mesh in the WORLD
-    # 2. Insert an empty Cube
-    # 3. Insert light, parenting them to the Cube
-    # 4. Insert and empty Axes
-    # 5. Insert a Camera and a Light, parenting them to the Axes
+
     def start_creation_scene(self) -> None:
         """
         Creates a 3D scene in Blender by setting up the following elements:
@@ -309,8 +307,11 @@ class SetEnvironmentBlender:
         Returns:
             None: This function doesn't return any values, but modifies the scene in Blender.
         """
-       
-        # Step 1: Create a new scene and mesh object
+
+
+        """
+            Step 1: Create a new scene with an obj in it
+        """
         bpy.ops.scene.new(type='NEW')
         scene = bpy.context.scene
 
@@ -325,7 +326,7 @@ class SetEnvironmentBlender:
         # Set custom vertex normals
         mesh.normals_split_custom_set_from_vertices(self.normals)
 
-        # Imposta la vista su 'Solid' per visualizzare la mesh
+
         for area in bpy.context.screen.areas:
             if area.type == 'VIEW_3D':
                 area.spaces[0].shading.type = 'SOLID'
@@ -334,7 +335,7 @@ class SetEnvironmentBlender:
 
         self.set_geometry_origin()
 
-        obj = self.move_mesh_up_zpositive(obj)
+        obj = self.move_mesh_up_z(obj)
 
         material = self.mat_chosen.fetch_material()
 
@@ -343,38 +344,48 @@ class SetEnvironmentBlender:
         else:
             obj.data.materials.append(material)
 
-        #Step 2/3: Create Cube Empty and parent lights
-        cubo_vuoto = self.create_cube_empty(cube_size=self.size_cubo)
+
+        """
+            Step 2/3: Create Cube Empty and parent lights
+        """
+        cubo_vuoto = self.create_cube_empty(cube_size=self.size_cube)
 
         lights_spot = self.parent_to_cube_add_light(cubo_vuoto)
 
         self.move_empty_object(cubo_vuoto, location=self.location_cube)
 
-        self.rotate_empty_object(obj=cubo_vuoto, rotation=self.rotazione_empty_cube)
-        
-        # Step 4/5: Create and position camera and empty axes
+        self.rotate_empty_object(obj=cubo_vuoto, rotation=self.rotation_empty_cube)
+
+
+        """
+            Step 4/5: Create and position camera and empty axes
+        """
         empty_axes, camera = self.create_camera_with_empty_axes(
-            location=(self.size_cubo + self.camera_offset_value_from_empty_axes,
-                      self.size_cubo + self.camera_offset_value_from_empty_axes,
-                      self.size_cubo + self.camera_offset_value_from_empty_axes),
-            rotation=self.rotazione_camera)
+            location=(self.size_cube + self.camera_offset_value_from_empty_axes,
+                      self.size_cube + self.camera_offset_value_from_empty_axes,
+                      self.size_cube + self.camera_offset_value_from_empty_axes),
+            rotation=self.rotation_camera)
 
         self.move_empty_object(empty_axes, location=self.location_axes)
-        self.rotate_empty_object(empty_axes, rotation=self.rotazione_empty_axes)
+        self.rotate_empty_object(empty_axes, rotation=self.rotation_empty_axes)
 
-        #Questa variabile cosa fa? @ION
-        light_at_camera = self.add_spot_light_at_camera(camera, empty_axes, spot_size=127, spot_blend=0.15,
+
+        self.add_spot_light_at_camera(camera, empty_axes, spot_size=127, spot_blend=0.15,
                                                         energy=self.energy_light_at_camera,
                                                         offset_value_camera=self.light_offset_value_from_camera)
-        
-        #Modify light energy for all lights
+
+
+        """
+            Modify light energy for all lights
+        """
         self.modify_light_energy(lights_spot, self.energy_settings)
-        
-        #Step 6: Add plane on base
+
+
+        """
+            Step 6: Add plane on base
+        """
         self.add_plane_on_base(self.plane_on_base)
 
-        if self.is_sunlight_on:
-            self.add_sun_light_world()
 
 
     def select_object(self, obj):
@@ -399,6 +410,8 @@ class SetEnvironmentBlender:
         bpy.context.view_layer.objects.active = obj
         return obj
 
+
+
     def set_geometry_origin(self) -> None:
         """
         Sets the object's origin point to the center of its geometry.
@@ -410,7 +423,9 @@ class SetEnvironmentBlender:
         """
         bpy.ops.object.origin_set(type='GEOMETRY_ORIGIN')
 
-    def move_mesh_up_zpositive(self, obj): #toglerei positive dal nome della funzione @ION
+
+
+    def move_mesh_up_z(self, obj):
         """
         Moves the mesh object along the Z-axis to ensure all vertices are above or on the Z=0 plane.
 
@@ -425,7 +440,6 @@ class SetEnvironmentBlender:
             bpy.types.Object: The object with its location adjusted along the Z-axis.
         """
         bpy.ops.object.mode_set(mode='OBJECT')
-        # Access the mesh vertices
         mesh = obj.data
 
         # Find the minimum Z-coordinate among the vertices
@@ -437,7 +451,11 @@ class SetEnvironmentBlender:
 
         return obj
 
-    # Function not used for NOW. Applying Transformation
+
+
+    """
+        Function not used for NOW. Applying Transformation
+    """
     def apply_transformation(self, obj) -> None:
         """
         Applies the scale transformation to the specified object.
@@ -451,6 +469,7 @@ class SetEnvironmentBlender:
         bpy.context.view_layer.objects.active = obj
         bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
     
+
 
     def create_cube_empty(self, cube_size=1):
         """
@@ -474,7 +493,8 @@ class SetEnvironmentBlender:
         # apply_transformation(cube_empty)  # Uncomment if transformation needs to be applied
 
         return cube_empty
-    
+
+
     def parent_to_cube_add_light(self, cube_empty):
         """
         Parents spotlights to an empty cube and positions them based on the cube's scale.
@@ -520,7 +540,8 @@ class SetEnvironmentBlender:
 
         return lights_spot_dict
 
-    def add_spot_light(self, name:str, parent, location, rotation, spot_size: int =127, spot_blend: float =0.15, energy: int=100000):
+    def add_spot_light(self, name:str, parent, location:[], rotation:[], spot_size: int =127, spot_blend:
+                        float =0.15, energy: int=100000):
         """
         Adds a spotlight to the Blender scene with specified properties and parents it to a given object.
 
@@ -553,7 +574,7 @@ class SetEnvironmentBlender:
 
         return light
 
-    def rotate_empty_object(self, obj, rotation) -> None:
+    def rotate_empty_object(self, obj, rotation:tuple) -> None:
         """
         Rotates an object to a specified rotation in degrees.
 
@@ -571,7 +592,9 @@ class SetEnvironmentBlender:
         rad_rotation = np.deg2rad(rotation)
         target_object.rotation_euler = rad_rotation
 
-    def move_empty_object(self, obj, location) -> None:
+
+
+    def move_empty_object(self, obj, location:tuple) -> None:
         """
         Moves an object to a specified location.
 
@@ -582,13 +605,16 @@ class SetEnvironmentBlender:
         Raises:
             ValueError: If the specified object is not found in `bpy.data.objects`.
         """
+
         target_object = bpy.data.objects.get(obj.name)
         if not target_object:
             raise ValueError(f"Object '{obj.name}' not found!")
 
         target_object.location = location
 
-    def create_camera_with_empty_axes(self, location, rotation):
+
+
+    def create_camera_with_empty_axes(self, location:tuple, rotation:tuple):
         """
         Creates an empty axes and a camera in the scene,
         then parents the camera to the empty object.
@@ -618,6 +644,8 @@ class SetEnvironmentBlender:
         bpy.context.scene.camera = camera
 
         return empty_axes, camera
+
+
     def add_spot_light_at_camera(
         self,
         camera,
@@ -628,7 +656,7 @@ class SetEnvironmentBlender:
         offset_value_camera=0
     ) -> None:
         """
-        Adds a spot light positioned relative to the camera and parents it to an empty object.
+        Adds a spot-light positioned relative to the camera and parents it to an empty object.
 
         Args:
             camera (bpy.types.Object): The camera object to base the light's position and rotation on.
@@ -639,7 +667,7 @@ class SetEnvironmentBlender:
             offset_value_camera (float, optional): The offset value to adjust the light's location relative to the camera. Defaults to 0.
 
         Returns:
-            bpy.types.Object: The created spot light object.
+            bpy.types.Object: The created spot-light object.
 
         Raises:
             ValueError: If the camera or empty_axes object is not valid.
@@ -664,8 +692,7 @@ class SetEnvironmentBlender:
 
         light.parent = empty_axes
 
-        return light
-    
+
 
     def modify_light_energy(self, all_lights, lights_energy):
         """
@@ -686,6 +713,8 @@ class SetEnvironmentBlender:
                     print(f"Energy of {name} set to {energy}")
             else:
                 print(f"Warning: Light '{name}' not found in the provided lights dictionary.")
+
+
 
     def add_plane_on_base(self, size_plane=100) -> None:
         """
@@ -712,6 +741,8 @@ class SetEnvironmentBlender:
             
         print(f"Plane added at {self.base_plane_location} with size {size_plane}")
 
+
+
     def save_blend_file(self, final_name: str) -> None:
         """
         Saves the current Blender file with a specified name.
@@ -731,7 +762,9 @@ class SetEnvironmentBlender:
         except Exception as e:
             print(f"Error saving blend file: {e}")
             raise IOError(f"Failed to save blend file at {file_path}") from e
-        
+
+
+
     def create_file_log(self) -> None:
         """
         Creates and writes a log file with detailed information about the scene setup.
@@ -744,8 +777,8 @@ class SetEnvironmentBlender:
         log_messages.append(f"Created plane on base:\nSize: {self.plane_on_base}\nLocation: {self.base_plane_location}\n")
 
         log_messages.append(f"Created empty cube: {self.nome_cubo}\n"
-                            f"Dimension: {self.size_cubo}\nLocation: {self.location_cube}\n"
-                            f"Rotation: {self.rotazione_empty_cube}\n")
+                            f"Dimension: {self.size_cube}\nLocation: {self.location_cube}\n"
+                            f"Rotation: {self.rotation_empty_cube}\n")
 
         log_messages.append(f"Created {len(self.light_names)} lights:")
         for light in self.light_names:
@@ -753,11 +786,11 @@ class SetEnvironmentBlender:
 
 
         log_messages.append(f"\nCreated empty axes: {self.nome_axes}\n"
-                            f"Location: {self.location_axes}\nRotation: {self.rotazione_empty_axes}\n")
+                            f"Location: {self.location_axes}\nRotation: {self.rotation_empty_axes}\n")
 
         log_messages.append(f"Created camera: {self.nome_camera}\n"
                             f"Offset from {self.nome_axes}: {self.camera_offset_value_from_empty_axes}\n"
-                            f"Rotation: {self.rotazione_camera}\n")
+                            f"Rotation: {self.rotation_camera}\n")
 
         log_messages.append(f"Created light at camera: {self.nome_camera_light}\n"
                             f"Offset from camera: {self.light_offset_value_from_camera}\n"

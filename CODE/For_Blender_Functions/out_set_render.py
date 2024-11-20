@@ -2,16 +2,17 @@ import os
 import subprocess
 import pyautogui
 
-# This file has few classes in it
-# 1. Screen Size : Monitor Resolution
-# 2. Output Render : the output where the rendering image should go
-# 3. Process Rendering : through the subprocess lib, the class run the command to run blender in background
-# and rendering the image
+
+"""
+This file has few classes in it
+    1. Screen Size : Monitor Resolution
+    2. Output Render : the output where the rendering image should go
+    3. Process Rendering : through the subprocess lib, the class run the command to run blender in background
+        and rendering the image
+
+"""
 
 
-# PROBLEMS: there are no good libs, for now, that work better for Win or MAC
-# the res_x and res_y. should be changed manually
-# THINKING on new IDEAS
 class ScreenMonitorResolution:
 
     def __init__(self,):
@@ -39,16 +40,33 @@ class ScreenMonitorResolution:
 
 
 class OutputFileRender:
-    
+    """
+    Class: getting the current work-folder path and the save + the directory for the Image Rendering
+
+    """
 
     def __init__(self) -> None:
         self.render_path_folder = '\IMAGE_RENDERED'
         pass
 
-    def get_current_workfolder(self):
+    def get_current_workfolder(self) -> str:
+        """
+            Function: get current work-folder
+
+            Returns:
+                str
+
+        """
         return os.getcwd()
 
     def get_path_output_rendering(self) -> str:
+        """
+            Function: get current work-folder
+
+            Returns:
+                 str
+
+               """
         return self.get_current_workfolder()+self.render_path_folder+'\\'
 
 
@@ -62,15 +80,27 @@ class Process_Rendering_Frame:
         self.path_blender_exe = path_blender_exe
         self.render_path_folder = '\IMAGE_RENDERED'
         self.blend_file_path = '\BLEND_FILE_OUTPUT'
-        self.log_file_render = '\log_blender'
 
 
     def init_simple_command(self):
+        """
+            Function: init a simple command
+
+        """
+
         self.command = [
             self.path_blender_exe
         ]
 
     def init_full_command(self, nome_file_image):
+
+        """
+            Function: init a test command
+
+            Args:
+                nome_file_image : name of the images that is going to be rendered
+
+        """
 
         blend_file_path_name = self.get_parent_dirname()+self.blend_file_path+"\\outFinal.blend"
         image_output_path_name = self.get_parent_dirname()+self.render_path_folder+f"\\{nome_file_image}"
@@ -87,6 +117,15 @@ class Process_Rendering_Frame:
         # print(self.command)
 
     def init_full_command_pipeline(self, nome_file_image) -> None:
+
+        """
+            Function: init full command to use
+
+            Args:
+                nome_file_image : name of the images that is going to be rendered
+
+        """
+
         blend_file_path_name = self.get_current_workfolder() + self.blend_file_path + "\\outFinal.blend"
         image_output_path_name = self.get_current_workfolder() + self.render_path_folder + f"\\{nome_file_image}"
 
@@ -102,19 +141,43 @@ class Process_Rendering_Frame:
         # print(self.command)
 
     def get_current_workfolder(self) -> str:
+
+        """
+            Function : get current work-folder
+
+            Returns:
+                str
+
+        """
+
         return os.getcwd()
 
-    def get_parent_dirname(self):
+    def get_parent_dirname(self) -> str:
+
+        """
+            Function: get current directory name
+
+            Returns:
+                str
+
+        """
         parent_directory = os.path.dirname(self.get_current_workfolder())
-        # print(f"Cartella superiore: {parent_directory}")
         return parent_directory
 
 
-    # The function that run the actual command, the result is used just to be sure if everything is done correctly
-    # The RETURN_CODE:
-    # 0: good
-    # otherwise: bad
+
     def start_execution(self):
+
+        """
+            Function that run the actual command, the result is used just to be
+            sure if everything is done correctly
+
+            The RETURN_CODE:
+                0 = good
+                otherwise = bad
+
+        """
+
         result = subprocess.run(self.command, capture_output=True, text=True, check=True)
 
         if not result.stdout == '':

@@ -400,3 +400,92 @@ Mesh scaled by: x1 factor
 
 File saved as: test2_test1_000199_tumoredbrain.off
 --------------------------------------------
+2024-11-20 13:29:40
+--------------------------------------------
+DETAILS:
+Working on: 000199_tumoredbrain
+vertices: 111586
+normals: 111586
+faces: 223018
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Remove Zero Area Faces Algorithm
+Zero Area Faces removed: 14
+
+
+Mesh Initialized
+
+Ci sono: 9 isole nella mesh
+
+
+Applied: Remove Not Connected Component Algorithm
+
+Mesh Initialized
+
+Ci sono: 0 isole nella mesh
+
+File saved as: test_000199_tumoredbrain.off
+--------------------------------------------
+2024-11-20 13:30:04
+--------------------------------------------
+DETAILS:
+Working on: test_000199_tumoredbrain
+vertices: 109442
+normals: 109442
+faces: 215211
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Repair Mesh Algorithm
+There are: 399 holes in the mesh
+
+AFTER RECOSTRUCTION:
+Number of Points on Mesh: 197870
+There are: 0 holes in the mesh
+AFTER DECIMATION:
+Number of Points on Mesh: 70002
+
+Applied: Scaling Algorithm
+Mesh scaled by: x1 factor
+
+File saved as: test2_test_000199_tumoredbrain.off
+--------------------------------------------
+2024-11-20 13:30:30
+--------------------------------------------
+DETAILS:
+File test2_test_000199_tumoredbrain non trovato
+--------------------------------------------
+2024-11-20 13:31:34
+--------------------------------------------
+DETAILS:
+Working on: test_000199_tumoredbrain
+vertices: 109442
+normals: 109442
+faces: 215211
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Repair Mesh Algorithm
+There are: 399 holes in the mesh
+
+AFTER RECOSTRUCTION:
+Number of Points on Mesh: 197870
+There are: 0 holes in the mesh
+AFTER DECIMATION:
+Number of Points on Mesh: 70002
+
+Applied: Scaling Algorithm UNIT BOX
+Mesh scaled by: x0.005753765356344305 factor
+
+File saved as: test2_test_000199_tumoredbrain.off
+--------------------------------------------

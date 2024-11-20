@@ -1,0 +1,484 @@
+2024-11-20 13:27:32
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created empty cube: Cube_Reference
+Dimension: 187
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 3.5
+light_back: 3.5
+light_right: 4.5
+light_left: 4.5
+light_top: 15
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (0, 0, 0)
+Rotation: (0, 0, 96)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 72
+Rotation: (62, 0, 136)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 100000
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 400
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+Material choosed: Custom-Material
+Material Plane choosed: White-Plane-Emission
+
+--------------------------------------------
+2024-11-20 13:32:16
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created empty cube: Cube_Reference
+Dimension: 187
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 3.5
+light_back: 3.5
+light_right: 4.5
+light_left: 4.5
+light_top: 15
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (0, 0, 0)
+Rotation: (0, 0, 96)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 72
+Rotation: (62, 0, 136)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 100000
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 400
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+Material choosed: Custom-Material
+Material Plane choosed: White-Plane-Emission
+
+--------------------------------------------
+2024-11-20 13:38:04
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created empty cube: Cube_Reference
+Dimension: 187
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 3.5
+light_back: 3.5
+light_right: 4.5
+light_left: 4.5
+light_top: 15
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (0, 0, 0)
+Rotation: (0, 0, 96)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 72
+Rotation: (62, 0, 136)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 100000
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 400
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+Material choosed: Custom-Material
+Material Plane choosed: White-Plane-Emission
+
+--------------------------------------------
+2024-11-20 13:49:29
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created empty cube: Cube_Reference
+Dimension: 1.5
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 3.5
+light_back: 3.5
+light_right: 4.5
+light_left: 4.5
+light_top: 15
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (-0.83, -1.0589, 0)
+Rotation: (0, 0, -180.22)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 1
+Rotation: (74.04, 0.65194, 137.58)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 1.5
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 400
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+Material choosed: Custom-Material
+Material Plane choosed: White-Plane-Emission
+
+--------------------------------------------
+2024-11-20 13:53:38
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created empty cube: Cube_Reference
+Dimension: 2
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 0
+light_back: 3
+light_right: 0
+light_left: 2.5
+light_top: 1.5
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (-0.83, -1.0589, 0)
+Rotation: (0, 0, -180.22)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 2
+Rotation: (74.04, 0.65194, 137.58)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 1.5
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 400
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+Material choosed: Custom-Material
+Material Plane choosed: White-Plane-Emission
+
+--------------------------------------------
+2024-11-20 13:55:23
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created empty cube: Cube_Reference
+Dimension: 2
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 0
+light_back: 3
+light_right: 0
+light_left: 2.5
+light_top: 1.5
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (-0.83, -1.0589, 0)
+Rotation: (0, 0, -180.22)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 2
+Rotation: (74.04, 0.65194, 137.58)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 1.5
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 400
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+Material chosen: Custom-Material
+Material Plane chosen: White-Plane-Emission
+
+--------------------------------------------
+2024-11-20 13:56:45
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created empty cube: Cube_Reference
+Dimension: 1
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 0
+light_back: 3
+light_right: 0
+light_left: 2.5
+light_top: 1.5
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (-0.83, -1.0589, 0)
+Rotation: (0, 0, -180.22)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 1
+Rotation: (74.04, 0.65194, 137.58)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 1.5
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 400
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+Material chosen: Custom-Material
+Material Plane chosen: White-Plane-Emission
+
+--------------------------------------------
+2024-11-20 13:57:49
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created empty cube: Cube_Reference
+Dimension: 2
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 0
+light_back: 3
+light_right: 0
+light_left: 2.5
+light_top: 1.5
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (-0.83, -1.0589, 0)
+Rotation: (0, 0, -180.22)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 2
+Rotation: (74.04, 0.65194, 137.58)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 1.5
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 400
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+Material chosen: Custom-Material
+Material Plane chosen: White-Plane-Emission
+
+--------------------------------------------
+2024-11-20 14:40:17
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created empty cube: Cube_Reference
+Dimension: 2
+Location: (0.0, 0.0, 0.0)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 2.5
+light_back: 2.5
+light_right: 2.5
+light_left: 2.5
+light_top: 10
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (-0.83, -1.0589, 0)
+Rotation: (0, 0, -180.22)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 1
+Rotation: (74.04, 0.65194, 137.58)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 1.5
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 400
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+Material chosen: Transparent-Glass
+Material Plane chosen: White-Plane
+
+--------------------------------------------
+2024-11-20 14:42:39
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created empty cube: Cube_Reference
+Dimension: 2
+Location: (0.0, 0.0, 0.0)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 2.5
+light_back: 2.5
+light_right: 2.5
+light_left: 2.5
+light_top: 10
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 1
+Rotation: (58.5735, -0.955358, 133.919)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 1.5
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 400
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+Material chosen: Transparent-Glass
+Material Plane chosen: White-Plane
+
+--------------------------------------------
+2024-11-20 15:14:04
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created empty cube: Cube_Reference
+Dimension: 2
+Location: (0.0, 0.0, 0.0)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 2.5
+light_back: 2.5
+light_right: 2.5
+light_left: 2.5
+light_top: 10
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 1
+Rotation: (58.5735, -0.955358, 133.919)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 1.5
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 400
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+Material chosen: Transparent-Glass
+Material Plane chosen: White-Plane
+
+--------------------------------------------

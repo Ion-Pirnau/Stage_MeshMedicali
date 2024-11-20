@@ -58,7 +58,7 @@ if __name__ == '__main__':
     dataname="000199_tumoredbrain"
 
     logfile_name_processing = param.get("logfile_name_processing")
-    logfile_name_blender = param.get("logTBlender")
+    logfile_name_blender = param.get("logfile_name_blender")
 
 
     """
@@ -89,15 +89,14 @@ if __name__ == '__main__':
         The user can change any value he wants from the code, just by looking the code below
         
     """
-
     if param.get("blend_file_ex"):
         print("PREPARATION FOR BLENDER RENDERING")
-        my_setup = seb(param["dataname"], logfile_name_blender, plane_on_base_size=1400)
-        my_setup.change_environment_settings(cube_size=1.5,
+        my_setup = seb(param["dataname"], logfile_name_blender, plane_on_base_size=300)
+        my_setup.change_environment_settings(cube_size=2,
                                             cube_rotation=(0, 0, 0),
-                                            axes_rotation=(0, 0, -180.22),
-                                            axes_location=(-0.83, -1.0589, 0),
-                                            camera_rotation=(74.04, 0.65194, 137.58),
+                                            axes_rotation=(0, 0, 0),
+                                            axes_location=(0, 0, 0),
+                                            camera_rotation=(58.5735, -0.955358, 133.919),
                                             camera_axes_offset=1,
                                             camera_light_offset=0,
                                             light_energy=1.5,
@@ -121,7 +120,7 @@ if __name__ == '__main__':
                                      light_left=2.5,
                                      light_top=1.5,
                                      light_bottom=0,
-                                     light_set=1
+                                     light_set=2
                                      )
 
 
@@ -144,8 +143,8 @@ if __name__ == '__main__':
         
         """
 
-        my_setup.set_materials(material_value=3, material_plane_value=1,
-                                 color_trasp_bsdf=[], color_diff_bsdf=[])
+        my_setup.set_materials(material_value=1, material_plane_value=0,
+                                 color_transp_bsdf=[], color_diff_bsdf=[])
 
         """
         Type Engine:

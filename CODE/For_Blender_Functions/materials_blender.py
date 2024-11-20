@@ -5,34 +5,45 @@ class CreationMaterial:
     material_type = None
     material_plane_type = None
     message_material = None
-    color_trasparent_bsdf = []
+    color_transparent_bsdf = []
     color_diffuse_bsdf = []
 
 
     # Initialize the class with default values or User' values
-    def __init__(self, material_type=0, material_plane_type=0, color_trasparent_bsdf=[], color_diffuse_bsdf=[]) -> None:
+    def __init__(self, material_type=0, material_plane_type=0, color_transparent_bsdf=[], color_diffuse_bsdf=[]) -> None:
         self.material_type = material_type
         self.material_plane_type = material_plane_type
-        self.color_trasparent_bsdf = color_trasparent_bsdf
+        self.color_transparent_bsdf = color_transparent_bsdf
         self.color_diffuse_bsdf = color_diffuse_bsdf
 
     def check_parameter(self) -> None:
         # Check material_type is between 0 and 4
         if not (0 <= self.material_type <= 4):
-            raise ValueError(f"The integer chosen as material type ({self.material_type}) is incorrect. It must be between 0 and 4.")
+            raise ValueError(f"The integer chosen as material type "
+                             f"({self.material_type}) is incorrect. It must be between 0 and 4.")
 
         # Check material_plane_type is between 0 and 1
         if not (0 <= self.material_plane_type <= 1):
-            raise ValueError(f"The integer chosen as material plane type ({self.material_plane_type}) is incorrect. It must be either 0 or 1.")
+            raise ValueError(f"The integer chosen as material plane type "
+                             f"({self.material_plane_type}) is incorrect. It must be either 0 or 1.")
 
     # Based on the material_type, there are 5 material that can be applied on the mesh
     def fetch_material(self):
+
+        """
+            Function: fetch the type of material the User choose for the Mesh
+
+            Return:
+                bpy.ops.material
+
+        """
+
         result = None
 
         if self.material_type == 0:
-            result = self.material_giallo_opaco()
+            result = self.material_dull_yellow()
         elif self.material_type == 1:
-            result = self.material_trasparente()
+            result = self.material_transparent_glass()
         elif self.material_type == 2:
             result = self.material_wireframe()
         elif self.material_type == 3:
@@ -46,6 +57,14 @@ class CreationMaterial:
 
     # As the previous methods: 2 materials for the plane
     def fetch_material_plane(self):
+        """
+            Function: fetch the type of material the User choose for the Planes
+
+            Return:
+                bpy.ops.material
+
+        """
+
         result = None
 
         if self.material_plane_type == 0:
@@ -57,9 +76,19 @@ class CreationMaterial:
 
         return result
 
+
+
     # Material Function Section: Create the material and return it
-    def material_giallo_opaco(self):
-        material = bpy.data.materials.new(name="GialloOpaco")
+    def material_dull_yellow(self):
+
+        """
+            Function: create material Dull-Yellow
+
+            Returns:
+                bpy.ops.material
+        """
+
+        material = bpy.data.materials.new(name="Dull Yellow")
         material.use_nodes = True
 
         nodes = material.node_tree.nodes
@@ -78,11 +107,18 @@ class CreationMaterial:
         principled.inputs['Roughness'].default_value = 0.780
         principled.inputs['IOR'].default_value = 1.350
 
-        self.write_message("Giallo-Opaco")
+        self.write_message("Dull Yellow")
         return material
 
-    def material_trasparente(self):
-        material = bpy.data.materials.new(name="Trasparente")
+    def material_transparent_glass(self):
+        """
+            Function: create material Transparent-Glass
+
+            Returns:
+                bpy.ops.material
+        """
+
+        material = bpy.data.materials.new(name="Transparent")
         material.use_nodes = True
         nodes = material.node_tree.nodes
         links = material.node_tree.links
@@ -115,10 +151,18 @@ class CreationMaterial:
         links.new(mix_shader.outputs['Shader'], output.inputs['Surface'])
 
 
-        self.write_message("Trasparente-Vetro")
+        self.write_message("Transparent-Glass")
         return material
 
     def material_wireframe(self):
+        """
+            Function: create material Wireframe
+
+            Returns:
+                bpy.material.ops
+
+        """
+
         material = bpy.data.materials.new(name="Wireframe")
         material.use_nodes = True
 
@@ -178,6 +222,14 @@ class CreationMaterial:
         return material
 
     def material_custom(self):
+        """
+            Function: create material Custom
+
+            Returns:
+                bpy.ops.material
+
+        """
+
         color_add_1_hex = '#5D4B00'
         color_add_2_hex = '#A7BAB4'
 
@@ -274,6 +326,15 @@ class CreationMaterial:
         return material
 
     def material_full_transparency(self):
+        """
+            Function: create material Full Transparency
+
+            Returns:
+                bpy.ops.material
+
+        """
+
+
         material = bpy.data.materials.new(name="FullTransparency")
         material.use_nodes = True
 
@@ -314,6 +375,15 @@ class CreationMaterial:
         return material
 
     def material_white_plane(self):
+        """
+            Function: create material White Planes
+
+            Returns:
+                bpy.ops.material
+
+        """
+
+
         material = bpy.data.materials.new(name="WhitePlane")
         material.use_nodes = True
 
@@ -337,6 +407,15 @@ class CreationMaterial:
         return material
 
     def material_white_plane_emission(self):
+
+        """
+            Function: create material white with Emission
+
+            Returns:
+                bpy.ops.material
+
+        """
+
         material = bpy.data.materials.new(name="WhitePlaneEmission")
         material.use_nodes = True
 
@@ -367,18 +446,51 @@ class CreationMaterial:
 
         return material
 
+
     # Create a variable where to write the material that has been applied, in order to write it on the file
-    def write_message(self, messaggio="None", type_value=True):
+    def write_message(self, messaggio="None", type_value=True) -> None:
+        """
+            Function: write message about what materials the User choose
+
+            Args:
+                messaggio: msg to write
+                type_value: bool, define the type of Material:
+                    True: Mesh
+                    False: Planes
+
+            Returns:
+                None
+
+        """
+
         if type_value:
-            self.message_material = "Material choosed: " + messaggio + "\n"
+            self.message_material = "Material chosen: " + messaggio + "\n"
         else:
-            self.message_material += "Material Plane choosed: " + messaggio + "\n"
+            self.message_material += "Material Plane chosen: " + messaggio + "\n"
+
+
     # Get the message variable
-    def get_message(self):
+    def get_message(self) -> str:
+        """
+            Function: fetch the msg
+
+            Return:
+                str
+        """
+
         return self.message_material
+
+
 
     # Convert the HEX to RGB : due to some value-offset that BLENDER applies, the good offset value is: 2.26
     def hex_to_rgb(self, hex_color):
+        """
+            Function: convert HEX value to RGB
+
+            Return
+                float, float, float
+        """
+
         hex_color = hex_color.lstrip('#')
 
         if len(hex_color) != 6:
@@ -393,8 +505,16 @@ class CreationMaterial:
         b = b ** (2.26)
         return r, g, b
 
+
     # Convert the HEX t RGB for color ramp : offset value 2.246
     def hex_to_rgb_color_ramp(self, hex_color):
+        """
+            Function: convert HEX value to RBG for Color Ramp
+
+            Returns:
+                float, float, float
+        """
+
         hex_color = hex_color.lstrip('#')
 
         if len(hex_color) != 6:
