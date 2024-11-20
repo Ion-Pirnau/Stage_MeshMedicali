@@ -11,8 +11,6 @@
     "value_scalingtype": 0,
     "name_off_file": "processed", 
     "input_user": "",
-    "processing": true,
-    "blender_ex": true,
-    "rendering": true,
+    "pipeline_operation": 0,
     "test_name":"TEST_GILON"
 }

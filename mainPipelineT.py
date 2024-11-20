@@ -17,11 +17,7 @@ def main_processed(dataname="", logfile_name="", valueeps=1.02, valuesample=5, v
 
     my_setup = SetProcessingOnMesh(dataname=dataname, logfile_name=logfile_name)
 
-    # print(dataname)
     if my_setup.check_file_existence():
-        # Valori di Default : 1.02 5
-        # Mesh Molto Aperte : eps alto ex: 1.5 e min_samples=1
-
         my_setup.start_operation_processing(eps=valueeps,
                                             min_samples=valuesample,
                                             depth=9,
@@ -46,15 +42,6 @@ if __name__ == '__main__':
 
     logfile_name_processing = r"logTprocessing"
     logfile_name_blender = r"logTBlender"
-    file_path_choosen = r"\sceltaUserRiunione.txt"
-    dir_name_scelta = r"\log_sceltaUtente"
-
-    # Scaling Type:
-    # 0 : scaling su X Y e Z
-    # 1 : scaling UNIT BOX
-    # 2 : scaling UNIT SPHERE
-
-    input_user = "" #@ION questa variabile che senso ha?
 
     # if os.path.exists(os.getcwd()+"\log_processing"):
     #     print("Esiste")
@@ -66,19 +53,21 @@ if __name__ == '__main__':
     #param["dataname"] = str(other_file_name) + param["dataname"] if other_file_name else param["dataname"] 
 
     # So at the beggining of the pipeline till the phase 1 the programm is processing the mesh
-    if param.get("processing"):
+    if param.get("pipeline_operation") == 0 or param.get("pipeline_operation") == 1:
 
         print("MESH's PROCESSING")
         print(param.get("dataname"))
 
-        main_processed(dataname=param.get("dataname"), logfile_name=logfile_name_processing, valueeps=param.get("value_eps"), valuesample=param.get("value_minsamples"),
+        main_processed(dataname=param.get("dataname"), logfile_name=logfile_name_processing,
+                       valueeps=param.get("value_eps"), valuesample=param.get("value_minsamples"),
                    valuedecimation=param.get("value_decimation"), valuescalefactor=param.get("value_scalefactor"),
                    valuescalingtype=param.get("value_scalingtype"), nomeofffile=param.get("name_off_file"))
 
 
     # On the phase 2 : the programm is preparing for a Blender Rendering
     param["name_off_file"] = param.get("name_off_file") + "_"
-    if param.get("blender_ex"):
+
+    if param.get("pipeline_operation") == 2:
         param["name_off_file"] = ""
         print("PREPARATION FOR BLENDER RENDERING")
     # The class abr. seb - create a blend file with the mesh and a set-up environment for a better rendering experience
@@ -128,10 +117,6 @@ if __name__ == '__main__':
         my_setup.set_materials(material_value=3, material_plane_value=1,
                                  color_trasp_bsdf=[], color_diff_bsdf=[])
 
-
-        # Choose which Wall should appear in the world (Default all True)
-        my_setup.setup_walls(wall_front=False, wall_right=False)
-
         # 0 : Cycles | 1: Eevee
         my_setup.set_rendering_values(type_engine=0, type_device="GPU", n_samples=400,
                                         file_format="png", screen_percentage=1)
@@ -141,7 +126,7 @@ if __name__ == '__main__':
     # On the phase 3: final phase of the pipeline, the Output Blender Rendering
     # Thought the subprocess lib the programm execute a prompt command on the computer and run blender on background
     # The output? The blender rendering file, it can be a png or a jpeg based on the file_format above
-    if param.get("rendering"):
+    if param.get("pipeline_operation") == 3:
         param["name_off_file"] = ""
         blender_path = r"C:\Program Files\Blender Foundation\Blender 4.2\blender-launcher.exe"
         print("OUTPUT BLENDER RENDERING")

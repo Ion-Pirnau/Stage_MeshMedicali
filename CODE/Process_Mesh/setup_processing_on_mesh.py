@@ -41,8 +41,8 @@ class SetProcessingOnMesh:
 
        return valore_veritas
 
-    def start_operation_processing(self, eps=1.02, min_samples=1, depth=9, decimation_value=190000, scale_factor=1, scaling_type=0,
-                                   nome_off_file_output=""):
+    def start_operation_processing(self, eps=1.02, min_samples=1, depth=9, decimation_value=190000, scale_factor=1,
+                                   scaling_type=0, nome_off_file_output=""):
 
         self.pm_poc.create_point_cloud()
         self.pm_poc.initialize_mesh()
@@ -52,9 +52,8 @@ class SetProcessingOnMesh:
         self.pm_poc.controllo_not_connected_component()
         self.pm_poc.rimozione_not_connected_component(distance=eps, n_punti_vicini=min_samples)
 
-        #Step 2: Remuving holes in the mesh
+        #Step 2: Removing holes in the mesh
         self.pm_poc.repair_mesh(profondita=depth, n_decimation=decimation_value)
-        #self.pm_poc.controllo_not_connected_component()
 
         if scaling_type == 0:
             self.pm_poc.scaling_mesh(scaling_factor=scale_factor)
@@ -63,7 +62,6 @@ class SetProcessingOnMesh:
         elif scaling_type == 2:
             self.pm_poc.scaling_mesh_unit_sphere()
 
-        self.pm_poc.save_mesh(nome=nome_off_file_output)
         self.pm_poc.save_mesh(nome=nome_off_file_output, path="INPUT_SOURCE/")
 
         self.create_message_log()

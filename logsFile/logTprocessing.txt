@@ -1,0 +1,86 @@
+2024-11-20 11:24:32
+--------------------------------------------
+DETAILS:
+Working on: 000199_tumoredbrain
+vertices: 111586
+normals: 111586
+faces: 223018
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Remove Zero Area Faces Algorithm
+Zero Area Faces removed: 14
+
+
+Mesh Initialized
+
+Ci sono: 9 isole nella mesh
+
+
+Applied: Remove Not Connected Component Algorithm
+
+Mesh Initialized
+
+Ci sono: 0 isole nella mesh
+
+
+Applied: Repair Mesh Algorithm
+There are: 399 holes in the mesh
+
+AFTER RECOSTRUCTION:
+Number of Points on Mesh: 198011
+There are: 0 holes in the mesh
+AFTER DECIMATION:
+Number of Points on Mesh: 70020
+
+Applied: Scaling Algorithm
+Mesh scaled by: x1 factor
+
+File saved as: processed_000199_tumoredbrain.off
+--------------------------------------------
+2024-11-20 11:27:47
+--------------------------------------------
+DETAILS:
+Working on: 000199_tumoredbrain
+vertices: 111586
+normals: 111586
+faces: 223018
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Remove Zero Area Faces Algorithm
+Zero Area Faces removed: 14
+
+
+Mesh Initialized
+
+Ci sono: 9 isole nella mesh
+
+
+Applied: Remove Not Connected Component Algorithm
+
+Mesh Initialized
+
+Ci sono: 0 isole nella mesh
+
+
+Applied: Repair Mesh Algorithm
+There are: 399 holes in the mesh
+
+AFTER RECOSTRUCTION:
+Number of Points on Mesh: 198011
+There are: 0 holes in the mesh
+AFTER DECIMATION:
+Number of Points on Mesh: 70020
+
+Applied: Scaling Algorithm
+Mesh scaled by: x1 factor
+
+File saved as: processed_000199_tumoredbrain.off
+--------------------------------------------

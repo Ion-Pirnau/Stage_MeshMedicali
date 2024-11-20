@@ -15,8 +15,8 @@ import datetime
 
 output_path="OUTPUT_SOURCE/"
 output_log={
-    1: "log_blender/",
-    2: "log_processing/"
+    1: "logsFile/",
+    2: "logsFile/"
 }
 extension_log=".txt"
 

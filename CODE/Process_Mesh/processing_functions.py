@@ -65,7 +65,6 @@ class Processing_Mesh_PoC:
 
         self.message_to_log += "\nApplied: Scaling Algorithm\n"
         self.message_to_log += f"Mesh scaled by: x{scaling_factor} factor\n\n"
-        # utl.visualize_3d_screen(self.pcd, "Scaled Point Cloud")
 
     def scaling_mesh_unit_box(self):
         self.vertex, self.normal, scale_factor = self.scale_mesh_to_unit_box()
@@ -136,8 +135,6 @@ class Processing_Mesh_PoC:
 
         pcd_da_poisson = utl.create_point_cloud(punti_estratti, normali_estratte)
 
-        # utl.visualize_3d_screen(pcd_da_poisson, "PCD DA POISSON")
-
         mesh_decimated = self.decimate_mesh_and_process(mesh_poisson, n_decimation)
 
         holes = self.find_holes_in_mesh(mesh_decimated)
@@ -155,12 +152,11 @@ class Processing_Mesh_PoC:
         self.face = np.asarray(mesh_decimated.triangles)
 
         pcd_da_poisson_decimated = utl.create_point_cloud(self.vertex, self.normal)
-        # utl.visualize_3d_screen(pcd_da_poisson_decimated, "PCD DA POISSON DECIMATED")
 
 
 
     # Function for removing the not connected components.
-    # Thanks to the Open3d methods
+    # Thanks to the Open-3d methods
     # I work on the point cloud and by implementing a built-in function by Open3d and choosing the correct values
     # The function is working fine by removing additional noise on the mesh
     def rimozione_not_connected_component(self, distance=1.02, n_punti_vicini=1):
@@ -169,7 +165,6 @@ class Processing_Mesh_PoC:
         filtered_points, face_list = self.find_cluster_connected(distance, n_punti_vicini)
         self.vertex, self.normal = utl.extract_vertices_and_normals(filtered_points)
         self.face = np.array(face_list)
-        # utl.visualize_3d_screen(filtered_points, "Filtered Points " + self.dataname)
         self.controllo_not_connected_component()
 
 
@@ -180,17 +175,10 @@ class Processing_Mesh_PoC:
         island_on_mesh = self.find_islands_in_mesh()
 
         # Stampa l'array delle isole
-        # for i, island in enumerate(island_on_mesh):
-        #     island = [int(vertex) for vertex in island]
-        #     print(f"Isola {i+1}: {island}")
         main_island = max(island_on_mesh, key=len)  # La mesh principale è l'isola più grande
         other_islands = [island for island in island_on_mesh if island != main_island]
         print("Ci sono: " + str(len(other_islands)) + " isole nella mesh")
         self.message_to_log += f"\nCi sono: " + str(len(other_islands)) + " isole nella mesh\n\n"
-        # # for i, island in enumerate(other_islands):
-        # #     island = [int(vertex) for vertex in island]
-        # #     print(f"Isola {i + 1}: {island}")
-        # #
         other_islands = [[int(elemento) for elemento in riga] for riga in other_islands]
         self.islands_on_mesh = other_islands
         print(other_islands)
