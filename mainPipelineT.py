@@ -5,15 +5,12 @@ import os
 import json
 
 
-# Get the input from the user, this is a default function for getting the user input
-def get_user_input(testo, valore_originale):
-    user_input = input(f"{testo} (valore predefinito: {valore_originale}): ")
-    return user_input if user_input else valore_originale
+"""
+Initialization of the class for Processing the Mesh
 
-
-# Initialization of the class for Processing the Mesh
+"""
 def main_processed(dataname="", logfile_name="", valueeps=1.02, valuesample=5, valuedecimation=140000,
-                   valuescalefactor=1.0, valuescalingtype=0, nomeofffile="processed") -> None:
+                   valuescalefactor=1.0, valuescalingtype=0, nomeofffile="processed", is_readyto_repair=False) -> None:
 
     my_setup = SetProcessingOnMesh(dataname=dataname, logfile_name=logfile_name)
 
@@ -24,54 +21,77 @@ def main_processed(dataname="", logfile_name="", valueeps=1.02, valuesample=5, v
                                             decimation_value=valuedecimation,
                                             scale_factor=valuescalefactor,
                                             scaling_type=valuescalingtype,
-                                            nome_off_file_output=nomeofffile)
+                                            nome_off_file_output=nomeofffile,
+                                            is_readyto_repair=is_readyto_repair)
 
-def load_config(config_file='config.json') ->dict:
+def load_config(config_file='config.json') -> dict:
     """
     Import the parameters for the pipline, more details in ReadMe
+
     """
     with open(config_file, 'r') as file:
         config = json.load(file)
     return config
 
+
+def write_config(data, config_file='config.json') -> bool:
+    """
+       Export the parameters for the pipline next PHASE
+
+    """
+    try:
+        with open(config_file, 'w') as file:
+            json.dump(data, file, indent=4)
+
+        return True
+    except Exception as e:
+        print(f"Error occurred while modifying the JSON: {e}")
+        return False
+
 if __name__ == '__main__':
 
-    # Function to load the configuration from a JSON file
+    """
+    Function to load the configuration from a JSON file
+    
+    """
     param=load_config()
     dataname="000199_tumoredbrain"
 
     logfile_name_processing = r"logTprocessing"
     logfile_name_blender = r"logTBlender"
 
-    # if os.path.exists(os.getcwd()+"\log_processing"):
-    #     print("Esiste")
-    # else:
-    #     print("Non Esiste")
 
-
-    #choosen_path_name = os.getcwd()+dir_name_scelta+file_path_choosen
-    #param["dataname"] = str(other_file_name) + param["dataname"] if other_file_name else param["dataname"] 
-
-    # So at the beggining of the pipeline till the phase 1 the programm is processing the mesh
-    if param.get("pipeline_operation") == 0 or param.get("pipeline_operation") == 1:
+    """
+    At the beginning of the phase 0 till the phase 1 the programm is processing the mesh
+    
+    """
+    if param.get("processing_0"):
 
         print("MESH's PROCESSING")
         print(param.get("dataname"))
 
         main_processed(dataname=param.get("dataname"), logfile_name=logfile_name_processing,
-                       valueeps=param.get("value_eps"), valuesample=param.get("value_minsamples"),
-                   valuedecimation=param.get("value_decimation"), valuescalefactor=param.get("value_scalefactor"),
-                   valuescalingtype=param.get("value_scalingtype"), nomeofffile=param.get("name_off_file"))
+                valueeps=param.get("value_eps"), valuesample=param.get("value_minsamples"),
+                valuedecimation=param.get("value_decimation"), valuescalefactor=param.get("value_scalefactor"),
+                valuescalingtype=param.get("value_scalingtype"), nomeofffile=param.get("name_off_file"),
+                is_readyto_repair=param.get("processing_1"))
+
+        param["dataname"] = param.get("name_off_file") + "_" + param.get("dataname")
+        result = write_config(data=param)
+        print(f"Succeed on Writing JSON's file: {result}")
 
 
-    # On the phase 2 : the programm is preparing for a Blender Rendering
-    param["name_off_file"] = param.get("name_off_file") + "_"
+
+
+    """
+        On the phase 2 : the programm is preparing for a Blender Rendering
+        The class abr. seb - create a blend file with the mesh and a set-up environment for a better rendering experience
+        The user can change any value he wants from the code, just by looking the code below
+        
+    """
 
     if param.get("pipeline_operation") == 2:
-        param["name_off_file"] = ""
         print("PREPARATION FOR BLENDER RENDERING")
-    # The class abr. seb - create a blend file with the mesh and a set-up environment for a better rendering experience
-    # The user can change any value he wants from the code, just by looking the code below
         my_setup = seb(param["dataname"], logfile_name_blender, plane_on_base_size=1400)
         my_setup.change_environment_settings(cube_size=1.5,
                                             cube_rotation=(0, 0, 0),
@@ -85,12 +105,16 @@ if __name__ == '__main__':
                                             )
 
 
-        # Four Light-set mode:
-        # 0 : Choose by User
-        # 1 : mode - 6 light
-        # 2 : mode - 6 light
-        # 3 : mode - only for Wireframe Material
-        # 4 : mode - 1 light
+
+        """ 
+            Four Light-set mode:
+            # 0 : Customize by the User
+            # 1 : mode - 6 light
+            # 2 : mode - 6 light
+            # 3 : mode - only for Wireframe Material
+            # 4 : mode - 1 light
+            
+        """
         my_setup.change_energy_light(light_front=0,
                                      light_back=3,
                                      light_right=0,
@@ -101,31 +125,48 @@ if __name__ == '__main__':
                                      )
 
 
-        # Tipo Material:
-        # 0 : Giallo-Opaco
-        # 1 : Trasparente / Glass
-        # 2 : Wireframe
-        # 3 : Custom
-        # 4 : Full-Transparency
 
-        # Tipo Material Plane:
-        # 0 : Bianco
-        # 1 : Bianco con Emission - better for Full-Transparency Material
 
-        # RBG VALUE TESTED: 0.586, 0.663, 0.612 ------- 0.713, 0.836, 1
-        # color_trasp_bsdf=[], color_diff_bsdf=[] only for the FULL-TRANSPARENCY Material
+        """
+            Tipo Material:
+                0 : Dull Yellow
+                1 : Transparent / Glass
+                2 : Wireframe
+                3 : Custom
+                4 : Full-Transparency
+    
+            Tipo Material Plane:
+                0 : White
+                1 : White with Emission - better for Full-Transparency Material
+    
+            RBG VALUE TESTED: 0.586, 0.663, 0.612 ------- 0.713, 0.836, 1
+            color_transp_bsdf=[], color_diff_bsdf=[] only for the FULL-TRANSPARENCY Material
+        
+        """
+
         my_setup.set_materials(material_value=3, material_plane_value=1,
                                  color_trasp_bsdf=[], color_diff_bsdf=[])
 
-        # 0 : Cycles | 1: Eevee
+        """
+        Type Engine:
+            0 : Cycles
+            1 : Eevee
+        
+        """
         my_setup.set_rendering_values(type_engine=0, type_device="GPU", n_samples=400,
                                         file_format="png", screen_percentage=1)
 
-        my_setup.set_the_environment(nome_blend_file="test_comment")
+        my_setup.set_the_environment(nome_blend_file=param.get("blend_file_name"))
 
-    # On the phase 3: final phase of the pipeline, the Output Blender Rendering
-    # Thought the subprocess lib the programm execute a prompt command on the computer and run blender on background
-    # The output? The blender rendering file, it can be a png or a jpeg based on the file_format above
+
+
+
+    """
+        On the phase 3: final phase of the pipeline, the Output Blender Rendering
+        Thought the subprocess lib the programm execute a prompt command on the computer and run blender on background
+        OUTPUT: The blender rendering file, it can be a PNG or a JPEG based on the file_format above
+        
+    """
     if param.get("pipeline_operation") == 3:
         param["name_off_file"] = ""
         blender_path = r"C:\Program Files\Blender Foundation\Blender 4.2\blender-launcher.exe"
@@ -134,4 +175,6 @@ if __name__ == '__main__':
         out_render.get_parent_dirname()
         out_render.init_full_command_pipeline(nome_file_image=param.get("test_name"))
         out_render.start_execution()
+
+
 

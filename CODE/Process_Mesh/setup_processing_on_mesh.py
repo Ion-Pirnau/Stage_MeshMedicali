@@ -42,25 +42,34 @@ class SetProcessingOnMesh:
        return valore_veritas
 
     def start_operation_processing(self, eps=1.02, min_samples=1, depth=9, decimation_value=190000, scale_factor=1,
-                                   scaling_type=0, nome_off_file_output=""):
+                                   scaling_type=0, nome_off_file_output="", is_readyto_repair=False):
 
         self.pm_poc.create_point_cloud()
         self.pm_poc.initialize_mesh()
 
-        # Step 1: Removing zero area faces and component not connected
-        self.pm_poc.remove_zero_area_faces_call()
-        self.pm_poc.controllo_not_connected_component()
-        self.pm_poc.rimozione_not_connected_component(distance=eps, n_punti_vicini=min_samples)
+        """
+        Step 1: Removing zero area faces and component not connected
+        
+        """
+        if not is_readyto_repair:
+            self.pm_poc.remove_zero_area_faces_call()
+            self.pm_poc.controllo_not_connected_component()
+            self.pm_poc.rimozione_not_connected_component(distance=eps, n_punti_vicini=min_samples)
 
-        #Step 2: Removing holes in the mesh
-        self.pm_poc.repair_mesh(profondita=depth, n_decimation=decimation_value)
 
-        if scaling_type == 0:
-            self.pm_poc.scaling_mesh(scaling_factor=scale_factor)
-        elif scaling_type == 1:
-            self.pm_poc.scaling_mesh_unit_box()
-        elif scaling_type == 2:
-            self.pm_poc.scaling_mesh_unit_sphere()
+        """
+        Step 2: Removing holes in the mesh
+        
+        """
+        if is_readyto_repair:
+            self.pm_poc.repair_mesh(profondita=depth, n_decimation=decimation_value)
+
+            if scaling_type == 0:
+                self.pm_poc.scaling_mesh(scaling_factor=scale_factor)
+            elif scaling_type == 1:
+                self.pm_poc.scaling_mesh_unit_box()
+            elif scaling_type == 2:
+                self.pm_poc.scaling_mesh_unit_sphere()
 
         self.pm_poc.save_mesh(nome=nome_off_file_output, path="INPUT_SOURCE/")
 

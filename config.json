@@ -1,16 +1,16 @@
 {
-    "dataname": "000199_tumoredbrain",
+    "dataname": "test4_test3_000199_tumoredbrain",
     "logfile_name_processing": "logTprocessing",
     "logfile_name_blender": "logTBlender",
-    "file_path_choosen": "sceltaUserRiunione.txt",
-    "dir_name_scelta": "\\log_sceltaUtente\\",
     "value_eps": 1.02,
     "value_minsamples": 5,
     "value_decimation": 140000,
-    "value_scalefactor":  1,
+    "value_scalefactor": 1,
     "value_scalingtype": 0,
-    "name_off_file": "processed", 
-    "input_user": "",
+    "name_off_file": "test4",
+    "processing_0": true,
+    "processing_1": true,
     "pipeline_operation": 0,
-    "test_name":"TEST_GILON"
+    "blend_file_name": "testBlend_",
+    "test_name": "TEST_GILON"
 }
