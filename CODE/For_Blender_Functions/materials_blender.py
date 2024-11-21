@@ -11,12 +11,15 @@ class CreationMaterial:
     message_material = None
     color_transparent_bsdf = []
     color_diffuse_bsdf = []
-
+    color_map_value = None
+    hex_color = []
 
     # Initialize the class with default values or User' values
-    def __init__(self, material_type=0, material_plane_type=0, color_transparent_bsdf=[], color_diffuse_bsdf=[]) -> None:
+    def __init__(self, material_type=0, material_plane_type=0, color_map_value=0, hex_color=[], color_transparent_bsdf=[], color_diffuse_bsdf=[]) -> None:
         self.material_type = material_type
         self.material_plane_type = material_plane_type
+        self.color_map_value = color_map_value
+        self.hex_color = hex_color
         self.color_transparent_bsdf = color_transparent_bsdf
         self.color_diffuse_bsdf = color_diffuse_bsdf
 
@@ -481,14 +484,16 @@ class CreationMaterial:
         texture_coordinate = nodes.new(type='ShaderNodeTexCoord')
 
 
-
-        # self.propagation_from_origin(links, nodes, output, principled, color_ramp, separate_xyz, texture_coordinate)
-
-        # self.curvature_analysis(links, nodes, output, principled, color_ramp, separate_xyz, texture_coordinate)
-
-        # self.heat_map_on_axis(links, output, principled, color_ramp, separate_xyz, texture_coordinate, type_of_axes='X')
-
-        self.deformation_on_surface(links, nodes, output, principled, color_ramp, texture_coordinate)
+        if self.color_map_value == 0:
+            self.propagation_from_origin(links, nodes, output, principled, color_ramp, separate_xyz, texture_coordinate)
+        elif self.color_map_value == 1:
+            self.curvature_analysis(links, nodes, output, principled, color_ramp, separate_xyz, texture_coordinate)
+        elif self.color_map_value == 2:
+            self.heat_map_on_axis(links, output, principled, color_ramp, separate_xyz, texture_coordinate, type_of_axes='X')
+        elif self.color_map_value == 3:
+            self.deformation_on_surface(links, nodes, output, principled, color_ramp, texture_coordinate)
+        else:
+            raise ValueError(f"ColorMap Type: {self.color_map_value}, does not exists!")
 
         return material
 
@@ -530,8 +535,9 @@ class CreationMaterial:
         math_five.inputs[1].default_value = 2.45
         math_six.operation = 'SINE'
 
-        self.add_color_to_color_ramp(color_ramp, 0.0, "25B600", is_black=True)
-        self.add_color_to_color_ramp(color_ramp, 1.0, "25B600", is_white=True)
+        self.add_color_to_color_ramp(color_ramp, 0.0, self.hex_color[0], is_black=True)
+        self.add_color_to_color_ramp(color_ramp, 0.5, self.hex_color[1])
+        self.add_color_to_color_ramp(color_ramp, 1.0, self.hex_color[2], flag=1, is_white=True)
 
         links.new(texture_coordinate.outputs['Object'], separate_xyz.inputs['Vector'])
         links.new(separate_xyz.outputs['X'], math_one.inputs[0])
@@ -567,9 +573,9 @@ class CreationMaterial:
         dot_product_node = nodes.new(type='ShaderNodeVectorMath')
         dot_product_node.operation = 'DOT_PRODUCT'
 
-        self.add_color_to_color_ramp(color_ramp, 0.0, "25B600", is_black=True)
-        self.add_color_to_color_ramp(color_ramp, 0.5, "A89DBD")
-        self.add_color_to_color_ramp(color_ramp, 1.0, "FF0044", flag=1, is_white=True)
+        self.add_color_to_color_ramp(color_ramp, 0.0, self.hex_color[0], is_black=True)
+        self.add_color_to_color_ramp(color_ramp, 0.5, self.hex_color[1])
+        self.add_color_to_color_ramp(color_ramp, 1.0, self.hex_color[2], flag=1, is_white=True)
 
         links.new(texture_coordinate.outputs['Normal'], separate_xyz.inputs['Vector'])
         links.new(separate_xyz.outputs['X'], dot_product_node.inputs[0])
@@ -598,9 +604,9 @@ class CreationMaterial:
 
         """
 
-        self.add_color_to_color_ramp(color_ramp, 0.0, "25B600", is_black=True)
-        self.add_color_to_color_ramp(color_ramp, 0.5, "A89DBD")
-        self.add_color_to_color_ramp(color_ramp, 1.0, "FF0044", flag=1, is_white=True)
+        self.add_color_to_color_ramp(color_ramp, 0.0, self.hex_color[0], is_black=True)
+        self.add_color_to_color_ramp(color_ramp, 0.5, self.hex_color[1])
+        self.add_color_to_color_ramp(color_ramp, 1.0, self.hex_color[2], flag=1, is_white=True)
 
         links.new(texture_coordinate.outputs['Generated'], separate_xyz.inputs['Vector'])
         links.new(separate_xyz.outputs[type_of_axes], color_ramp.inputs['Fac'])
@@ -625,9 +631,9 @@ class CreationMaterial:
                 texture_coordinate : fetch information from the Object
         """
 
-        self.add_color_to_color_ramp(color_ramp, 0.0, "000000", is_black=True)
-        self.add_color_to_color_ramp(color_ramp, 0.5, "A77843",)
-        self.add_color_to_color_ramp(color_ramp, 1.0, "FFB100", is_white=True, flag=1)
+        self.add_color_to_color_ramp(color_ramp, 0.0, self.hex_color[0], is_black=True)
+        self.add_color_to_color_ramp(color_ramp, 0.5, self.hex_color[1])
+        self.add_color_to_color_ramp(color_ramp, 1.0, self.hex_color[2], is_white=True, flag=1)
 
         geometry_node = nodes.new(type="ShaderNodeNewGeometry")
 

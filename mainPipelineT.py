@@ -132,6 +132,11 @@ if __name__ == '__main__':
                 2 : Wireframe
                 3 : Custom
                 4 : Full-Transparency
+                5 : ColorMap's Values:
+                    - 0 : Propagation from Origin
+                    - 1 : Curvature Analysis
+                    - 2 : Heat-Map on Axis
+                    - 3 : Deformation on Surface
     
             Tipo Material Plane:
                 0 : White
@@ -142,8 +147,9 @@ if __name__ == '__main__':
         
         """
 
-        my_setup.set_materials(material_value=5, material_plane_value=1,
-                                 color_transp_bsdf=[], color_diff_bsdf=[])
+        my_setup.set_materials(material_value=0, material_plane_value=1,
+                               color_map_value=3, hex_color=["000000", "A77843", "FFB100"],
+                               color_transp_bsdf=[], color_diff_bsdf=[])
 
 
         my_setup.setup_walls()

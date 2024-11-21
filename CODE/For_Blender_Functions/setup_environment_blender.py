@@ -249,6 +249,7 @@ class SetEnvironmentBlender:
 
 
     def set_materials(self, material_value: int =0, material_plane_value: int =0,
+                      color_map_value: int =0, hex_color: list=[],
                       color_transp_bsdf: list=[], color_diff_bsdf: list=[]) -> None:
         """
         Sets the material for the blender scene + color for ONLY the Transparency Material
@@ -256,13 +257,16 @@ class SetEnvironmentBlender:
         Args:
             material_value (int): The value corrisponding to a material in the CreationMaterial Class (default: 0).
             material_plane_value (int): The value corrisponding to a material plane in the CreationMaterial Class (default: 0).
-            color_transp_bsdf (List[]): list of float values, 0 to 1
-            color_diff_bsdf (List[]): list of float values, 0 to 1
+            color_map_value (int): The value corrisponding to a material ColorMap in the CreationMaterial Class (default: 0)
+            hex_color (List[]) : list of hex_value to apply to the color-ramp. This is only for the ColorMap
+            color_transp_bsdf (List[]): list of float values, 0 to 1. Only for the FULL-TRANSPARENCY Material
+            color_diff_bsdf (List[]): list of float values, 0 to 1. Only for the FULL-TRANSPARENCY Material
 
         Returns:
             None
         """
-        self.mat_chosen = CreationMaterial(material_value, material_plane_value, color_transp_bsdf, color_diff_bsdf)
+        self.mat_chosen = CreationMaterial(material_value, material_plane_value, color_map_value,
+                                           hex_color, color_transp_bsdf, color_diff_bsdf)
         self.mat_chosen.check_parameter()
 
 
