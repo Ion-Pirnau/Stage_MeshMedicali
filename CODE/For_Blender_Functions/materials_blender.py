@@ -1,6 +1,10 @@
 import bpy
 
 class CreationMaterial:
+    """
+        Class: defining the material to apply to the Mesh and Plane + the ColorMap to the Mesh
+    """
+
 
     material_type = None
     material_plane_type = None
