@@ -18,7 +18,7 @@ class CreationMaterial:
 
     def check_parameter(self) -> None:
         # Check material_type is between 0 and 4
-        if not (0 <= self.material_type <= 4):
+        if not (0 <= self.material_type <= 5):
             raise ValueError(f"The integer chosen as material type "
                              f"({self.material_type}) is incorrect. It must be between 0 and 4.")
 
@@ -50,6 +50,9 @@ class CreationMaterial:
             result = self.material_custom()
         elif self.material_type == 4:
             result = self.material_full_transparency()
+        elif self.material_type == 5:
+            result = self.material_colormap_mesh()
+
         else:
             raise ValueError(f"Material Type: {self.material_type}, does not exists!")
 
@@ -356,12 +359,12 @@ class CreationMaterial:
         diffuse = nodes.new(type='ShaderNodeBsdfDiffuse')
         value = nodes.new(type='ShaderNodeValue')
 
-        if not self.color_trasparent_bsdf and not self.color_diffuse_bsdf:
+        if not self.color_transparent_bsdf and not self.color_diffuse_bsdf:
             transparent.inputs['Color'].default_value = (*self.hex_to_rgb(color_transparent_hex), 1)
             diffuse.inputs['Color'].default_value = (*self.hex_to_rgb(color_diffuse_hex), 1)
         else:
-            transparent.inputs['Color'].default_value = (self.color_trasparent_bsdf[0], self.color_trasparent_bsdf[1],
-                                                         self.color_trasparent_bsdf[2], 1)
+            transparent.inputs['Color'].default_value = (self.color_transparent_bsdf[0], self.color_transparent_bsdf[1],
+                                                         self.color_transparent_bsdf[2], 1)
             diffuse.inputs['Color'].default_value = (self.color_diffuse_bsdf[0], self.color_diffuse_bsdf[1],
                                                      self.color_diffuse_bsdf[2], 1)
         value.outputs[0].default_value = 0.080
@@ -445,6 +448,262 @@ class CreationMaterial:
         self.write_message("White-Plane-Emission", False)
 
         return material
+
+
+
+    def material_colormap_mesh(self):
+
+        """
+            Function: create a color-map applied to a mesh
+
+            Returns:
+                bpy.ops.material
+        """
+
+        material = bpy.data.materials.new(name="Color Map")
+        material.use_nodes = True
+
+        nodes = material.node_tree.nodes
+        links = material.node_tree.links
+
+        for node in nodes:
+            nodes.remove(node)
+
+
+        output = nodes.new(type='ShaderNodeOutputMaterial')
+        principled = nodes.new(type='ShaderNodeBsdfPrincipled')
+        color_ramp = nodes.new(type='ShaderNodeValToRGB')
+        separate_xyz = nodes.new(type='ShaderNodeSeparateXYZ')
+        texture_coordinate = nodes.new(type='ShaderNodeTexCoord')
+
+
+
+        # self.propagation_from_origin(links, nodes, output, principled, color_ramp, separate_xyz, texture_coordinate)
+
+        # self.curvature_analysis(links, nodes, output, principled, color_ramp, separate_xyz, texture_coordinate)
+
+        # self.heat_map_on_axis(links, output, principled, color_ramp, separate_xyz, texture_coordinate, type_of_axes='X')
+
+        self.deformation_on_surface(links, nodes, output, principled, color_ramp, texture_coordinate)
+
+        return material
+
+
+
+    def propagation_from_origin(self, links, nodes, output, principled, color_ramp, separate_xyz, texture_coordinate):
+
+        """
+            Function: create a colormap, type - Propagation from Origin.
+            Colors changing based on the distance from the Origin
+
+            Args:
+                links : linking the nodes
+                output : output node to display the color map on the mesh
+                principled : principled node shader
+                nodes : nodes in Shader Editor
+                color_ramp : color ramp to display on the mesh
+                separate_xyz : separate the Three Coordinates to work on
+                texture_coordinate : fetch information from the Object
+
+        """
+
+
+
+        math_one = nodes.new(type='ShaderNodeMath')
+        math_two = nodes.new(type='ShaderNodeMath')
+        math_three = nodes.new(type='ShaderNodeMath')
+        math_four = nodes.new(type='ShaderNodeMath')
+        math_five = nodes.new(type='ShaderNodeMath')
+        math_six = nodes.new(type='ShaderNodeMath')
+
+        math_one.operation = 'POWER'
+        math_one.inputs[1].default_value = 2.0
+        math_two.operation = 'POWER'
+        math_two.inputs[1].default_value = 2.0
+        math_three.operation  = 'ADD'
+        math_four.operation = 'SQRT'
+        math_five.operation = 'MULTIPLY'
+        math_five.inputs[1].default_value = 2.45
+        math_six.operation = 'SINE'
+
+        self.add_color_to_color_ramp(color_ramp, 0.0, "25B600", is_black=True)
+        self.add_color_to_color_ramp(color_ramp, 1.0, "25B600", is_white=True)
+
+        links.new(texture_coordinate.outputs['Object'], separate_xyz.inputs['Vector'])
+        links.new(separate_xyz.outputs['X'], math_one.inputs[0])
+        links.new(separate_xyz.outputs['Y'], math_two.inputs[0])
+        links.new(math_one.outputs['Value'], math_three.inputs[0])
+        links.new(math_two.outputs['Value'], math_three.inputs[1])
+        links.new(math_three.outputs['Value'], math_four.inputs['Value'])
+        links.new(math_four.outputs['Value'], math_five.inputs['Value'])
+        links.new(math_five.outputs['Value'], math_six.inputs['Value'])
+        links.new(math_six.outputs['Value'], color_ramp.inputs['Fac'])
+        links.new(color_ramp.outputs['Color'], principled.inputs['Base Color'])
+        links.new(principled.outputs['BSDF'], output.inputs['Surface'])
+
+        self.write_message("ColorMap=Propagation_fromOrigin", True)
+
+
+    def curvature_analysis(self, links, nodes, output, principled, color_ramp, separate_xyz, texture_coordinate):
+        """
+            Function: create a colormap, type - Curvature Analysis.
+            Define the curvature's level on the mesh surface
+
+            Args:
+                links : linking the nodes
+                output : output node to display the color map on the mesh
+                principled : principled node shader
+                nodes : nodes in Shader Editor
+                color_ramp : color ramp to display on the mesh
+                separate_xyz : separate the Three Coordinates to work on
+                texture_coordinate : fetch information from the Object
+
+        """
+
+        dot_product_node = nodes.new(type='ShaderNodeVectorMath')
+        dot_product_node.operation = 'DOT_PRODUCT'
+
+        self.add_color_to_color_ramp(color_ramp, 0.0, "25B600", is_black=True)
+        self.add_color_to_color_ramp(color_ramp, 0.5, "A89DBD")
+        self.add_color_to_color_ramp(color_ramp, 1.0, "FF0044", flag=1, is_white=True)
+
+        links.new(texture_coordinate.outputs['Normal'], separate_xyz.inputs['Vector'])
+        links.new(separate_xyz.outputs['X'], dot_product_node.inputs[0])
+        links.new(separate_xyz.outputs['Y'], dot_product_node.inputs[1])
+        links.new(dot_product_node.outputs['Value'], color_ramp.inputs['Fac'])
+        links.new(color_ramp.outputs['Color'], principled.inputs['Base Color'])
+        links.new(principled.outputs['BSDF'], output.inputs['Surface'])
+
+        self.write_message("ColorMap=Curvature_Analysis", True)
+
+
+    def heat_map_on_axis(self, links, output, principled, color_ramp, separate_xyz, texture_coordinate, type_of_axes='X'):
+
+        """
+            Function: create a colormap, type - Heat Map on Axes
+            Colors changing based on the position on a particular Axis
+
+            Args:
+                links : linking the nodes
+                output : output node to display the color map on the mesh
+                principled : principled node shader
+                color_ramp : color ramp to display on the mesh
+                separate_xyz : separate the Three Coordinates to work on
+                texture_coordinate : fetch information from the Object
+                type_of_axes : type of axes where apply the colormap
+
+        """
+
+        self.add_color_to_color_ramp(color_ramp, 0.0, "25B600", is_black=True)
+        self.add_color_to_color_ramp(color_ramp, 0.5, "A89DBD")
+        self.add_color_to_color_ramp(color_ramp, 1.0, "FF0044", flag=1, is_white=True)
+
+        links.new(texture_coordinate.outputs['Generated'], separate_xyz.inputs['Vector'])
+        links.new(separate_xyz.outputs[type_of_axes], color_ramp.inputs['Fac'])
+        links.new(color_ramp.outputs['Color'], principled.inputs['Base Color'])
+        links.new(principled.outputs['BSDF'], output.inputs['Surface'])
+
+        self.write_message(f"ColorMap=HeatMap on Axis' {type_of_axes}", True)
+
+
+    def deformation_on_surface(self, links, nodes, output, principled, color_ramp, texture_coordinate):
+
+        """
+            Function: creation of ColorMap, type - Deformation on Surface
+            Check the deformation on Mesh's Surface
+
+            Args:
+                links : linking the nodes
+                output : output node to display the color map on the mesh
+                principled : principled node shader
+                nodes : nodes in Shader Editor
+                color_ramp : color ramp to display on the mesh
+                texture_coordinate : fetch information from the Object
+        """
+
+        self.add_color_to_color_ramp(color_ramp, 0.0, "000000", is_black=True)
+        self.add_color_to_color_ramp(color_ramp, 0.5, "A77843",)
+        self.add_color_to_color_ramp(color_ramp, 1.0, "FFB100", is_white=True, flag=1)
+
+        geometry_node = nodes.new(type="ShaderNodeNewGeometry")
+
+        math_multiply = nodes.new(type='ShaderNodeMath')
+        math_multiply.operation = 'MULTIPLY'
+
+        color_ramp_mask = nodes.new(type='ShaderNodeValToRGB')
+        self.add_color_to_color_ramp(color_ramp_mask, 0.705, "000000", is_white=True)
+        self.add_color_to_color_ramp(color_ramp_mask, 0.182, "FFFFFF", is_black=True)
+
+
+
+        mapping = nodes.new(type='ShaderNodeMapping')
+        mapping.inputs['Scale'].default_value = (0.1, 0.1, 0.1)
+
+        gamma_node = nodes.new(type="ShaderNodeGamma")
+        gamma_node.inputs[1].default_value = 3.7
+
+        noise_node = nodes.new(type="ShaderNodeTexNoise")
+        noise_node.inputs['Scale'].default_value = 10.0
+        noise_node.inputs['Detail'].default_value = 15.0
+
+        brightness_contrast = nodes.new(type="ShaderNodeBrightContrast")
+        brightness_contrast.inputs["Bright"].default_value = 0.4
+        brightness_contrast.inputs["Contrast"].default_value = 0.9
+
+        map_range_node = nodes.new(type="ShaderNodeMapRange")
+        map_range_node.data_type = 'FLOAT'
+        map_range_node.interpolation_type = 'LINEAR'
+        map_range_node.inputs['From Min'].default_value = 0.0
+        map_range_node.inputs['From Max'].default_value = 0.1
+        map_range_node.inputs['To Min'].default_value = 0.0
+        map_range_node.inputs['To Max'].default_value = 1.0
+
+
+        links.new(geometry_node.outputs["Pointiness"], color_ramp_mask.inputs["Fac"])
+        links.new(color_ramp_mask.outputs["Color"], gamma_node.inputs['Color'])
+        links.new(gamma_node.outputs["Color"], math_multiply.inputs[0])
+
+        links.new(texture_coordinate.outputs["Normal"], mapping.inputs["Vector"])
+        links.new(mapping.outputs['Vector'], noise_node.inputs['Vector'])
+        links.new(noise_node.outputs['Fac'], math_multiply.inputs[1])
+
+        links.new(math_multiply.outputs['Value'], map_range_node.inputs['Value'])
+        links.new(map_range_node.outputs['Result'], brightness_contrast.inputs['Color'])
+        links.new(brightness_contrast.outputs['Color'], color_ramp.inputs['Fac'])
+
+        links.new(color_ramp.outputs['Color'], principled.inputs['Base Color'])
+        links.new(principled.outputs['BSDF'], output.inputs['Surface'])
+
+        self.write_message("ColorMap=Deformation on Surface", True)
+
+
+    def add_color_to_color_ramp(self, node, position, color, flag=None, is_black=False, is_white=False):
+        """
+            Function: add color to color-ramp
+
+            Args:
+                node : refers to the color ramp obj
+                position : position of index-color
+                color : hex value
+                flag : Equal to None if two color are chosen, Not None if multiple colors are set up, change None with the number of colors added e.g. added 1 more color then flag = 1
+                is_black : boolean value. Define if it is the Limit at the Left of the Ramp
+                is_white : boolean value. Define if it is the Limit at the Right of the Ramp
+        """
+
+
+        if is_black:
+            element = node.color_ramp.elements[0]
+            element.position = position
+        elif is_white:
+            if flag is not None:
+                element = node.color_ramp.elements[flag+1]
+            else:
+                element = node.color_ramp.elements[1]
+            element.position = position
+        else:
+            element = node.color_ramp.elements.new(position)
+
+        element.color = (*self.hex_to_rgb_color_ramp(color), 1)
 
 
     # Create a variable where to write the material that has been applied, in order to write it on the file

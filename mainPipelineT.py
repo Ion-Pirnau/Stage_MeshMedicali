@@ -142,7 +142,7 @@ if __name__ == '__main__':
         
         """
 
-        my_setup.set_materials(material_value=1, material_plane_value=1,
+        my_setup.set_materials(material_value=5, material_plane_value=1,
                                  color_transp_bsdf=[], color_diff_bsdf=[])
 
 
