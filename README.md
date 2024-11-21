@@ -40,36 +40,37 @@ The configuration file (`config.json`) should follow the sample below:
     "dataname": "000199_tumoredbrain",
     "logfile_name_processing": "logTprocessing",
     "logfile_name_blender": "logTBlender",
-    "file_path_choosen": "sceltaUserRiunione.txt",
-    "dir_name_scelta": "\\log_sceltaUtente\\",
     "value_eps": 1.02,
     "value_minsamples": 5,
     "value_decimation": 140000,
     "value_scalefactor":  1,
     "value_scalingtype": 0,
-    "name_off_file": "processed", 
-    "input_user": "",
+    "name_off_file": "processed",
     "processing_0": true,
     "processing_1": false,
     "blend_file_ex": false,
     "render_file_ex": false,
-    "test_name":"TEST_GILON"
+    "blend_file_name": "testBlend_",
+    "render_file_name": "testION_",
+    "blender_path_execute": "Full path of Blender in your system"
 }
 ```
-- `dataname`: file's name the programm is gonna work on. The User does not have to change the name every single time, 'file_path_choosen' comes to help 
-- `logfile_name_processing`: file txt's name where the description of the operation will be saved ***[Processing Operation Only]***
-- `logfile_name_blender`: file txt's name where the description of the operation will be saved ***[Blender Operation Only]***
-- `value_eps`: value to detect the distance between point. Points inside this are called 'cluster' ***[Processing Operation Only]***
-- `value_minsamples`: value to define the min numbers of points inside a cluster ***[Processing Operation Only]***
-- `value_decimation`: value used to decimanted the mesh ***[Processing Operation Only]***
-- `value_scalefactor`: value used to scale a mesh ***[Processing Operation Only]***
-- `value_scalingtype`: value to choose what scaling type apply on the mesh [**Type 0**: scaling on X, Y and Z. **Type 1**: scaling to UNIT-BOX. **Type 2**: scaling to UNIT-SPHERE] ***[Processing Operation Only]***
-- `name_off_file`: string value added as a prefix on the file Generated during the pipeline's ***Phase 0*** and ***Phase 1***
-- `processing_0`: define the ***Phase 0*** of the Pipeline. Loot at [Pipeline Operation](#pipeline-operation)'s Phases
-- `processing_1`: define the ***Phase 1*** of the Pipeline. Loot at [Pipeline Operation](#pipeline-operation)'s Phases
-- `blend_file_ex`: define the ***Phase 2*** of the Pipeline. Loot at [Pipeline Operation](#pipeline-operation)'s Phases
-- `render_file_ex`: define the ***Phase 2*** of the Pipeline. Loot at [Pipeline Operation](#pipeline-operation)'s Phases
-- `render_file_name`: string name to define the rendering image name
+- `dataname`: **String-value.** File's name the program is going to work on. The User does not have to change the name every single time, **'name_off_file'** comes to help.
+- `logfile_name_processing`: **String-value.** File txt's name where the description of the operation will be saved. ***[Processing Operation Only]***
+- `logfile_name_blender`: **String-value.** File txt's name where the description of the operation will be saved. ***[Blender Operation Only]***
+- `value_eps`: **Float-value.** Value to detect the distance between point. Points inside this are called 'cluster'. ***[Processing Operation Only]***
+- `value_minsamples`: **Integer-value.** Value to define the min numbers of points inside a cluster. ***[Processing Operation Only]***
+- `value_decimation`: **Integer-value.** Value used to decimanted the mesh. ***[Processing Operation Only]***
+- `value_scalefactor`: **Float-value.** Value used to scale a mesh. ***[Processing Operation Only]***
+- `value_scalingtype`: **Integer-value.** Value to choose what scaling type apply on the mesh. [**Type 0**: scaling on X, Y and Z. **Type 1**: scaling to UNIT-BOX. **Type 2**: scaling to UNIT-SPHERE] ***[Processing Operation Only]***
+- `name_off_file`: **String-value.** String value added as a prefix on the file Generated during the pipeline's ***Phase 0*** and ***Phase 1***.
+- `processing_0`: **Boolean-value.** Define the ***Phase 0*** of the Pipeline. Loot at [Pipeline Operation](#pipeline-operation)'s Phases.
+- `processing_1`: **Boolean-value.** Define the ***Phase 1*** of the Pipeline. Loot at [Pipeline Operation](#pipeline-operation)'s Phases.
+- `blend_file_ex`: **Boolean-value.** Define the ***Phase 2*** of the Pipeline. Loot at [Pipeline Operation](#pipeline-operation)'s Phases.
+- `render_file_ex`: **Boolean-value.** Define the ***Phase 3*** of the Pipeline. Loot at [Pipeline Operation](#pipeline-operation)'s Phases.
+- `blend_file_name`: **String-value.** String name to define the blend file.
+- `render_file_name`: **String-value.** String name to define the rendering image name.
+- `blender_path_execute`: **String-value.** String path of Blender program.
 
 
 
@@ -98,7 +99,7 @@ The configuration file (`config.json`) should follow the sample below:
 > - Re-run the CODE again, and check it
 
 **Phase 3:** rendering an image file
-> - Before run the code for the last operation, copy and paste the **PATH** of the blender execution file on the ***blender_path*** variable
+> - Before run the code for the last operation, copy and paste the **PATH** of the blender execution file in the json config file: ***blender_path_execute*** variable
 > - Now you run it
 > - The output file is in ***IMAGE_RENDERED*** folder
 

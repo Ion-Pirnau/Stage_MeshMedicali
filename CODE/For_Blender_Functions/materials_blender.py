@@ -464,7 +464,7 @@ class CreationMaterial:
         """
 
         if type_value:
-            self.message_material = "Material chosen: " + messaggio + "\n"
+            self.message_material = "Material on Mesh chosen: " + messaggio + "\n"
         else:
             self.message_material += "Material Plane chosen: " + messaggio + "\n"
 

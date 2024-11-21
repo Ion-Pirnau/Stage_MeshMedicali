@@ -482,3 +482,515 @@ Material chosen: Transparent-Glass
 Material Plane chosen: White-Plane
 
 --------------------------------------------
+2024-11-21 10:25:26
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created Wall round the Base
+FrontPlane
+
+BackPlane
+
+RightPlane
+
+LeftPlane
+
+
+
+Created empty cube: Cube_Reference
+Dimension: 2
+Location: (0.0, 0.0, 0.0)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 2.5
+light_back: 2.5
+light_right: 2.5
+light_left: 2.5
+light_top: 10
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 1
+Rotation: (58.5735, -0.955358, 133.919)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 1.5
+
+Created Sun Light: LightSun
+Sun Location: [0.0, 0.0, 3.0]
+Sun Rotation: [0.0, 0.0, 0.0]
+Sun color: [1.0, 1.0, 1.0]
+Sun strength: 0.0
+Sun angle: 32.2 deg
+
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 400
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+Material chosen: Transparent-Glass
+Material Plane chosen: White-Plane
+
+--------------------------------------------
+2024-11-21 10:34:40
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created Wall round the Base
+FrontPlane
+BackPlane
+RightPlane
+LeftPlane
+Created empty cube: Cube_Reference
+Dimension: 2
+Location: (0.0, 0.0, 0.0)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 3.5
+light_back: 3.5
+light_right: 4.5
+light_left: 4.5
+light_top: 15
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 1
+Rotation: (58.5735, -0.955358, 133.919)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 1.5
+
+Created Sun Light: LightSun
+Sun Location: [0.0, 0.0, 3.0]
+Sun Rotation: [0.0, 0.0, 0.0]
+Sun color: [1.0, 1.0, 1.0]
+Sun strength: 0.0
+Sun angle: 32.2 deg
+
+
+Material on Mesh chosen: Transparent-Glass
+Material Plane chosen: White-Plane
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 300
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+--------------------------------------------
+2024-11-21 10:35:54
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created Wall round the Base
+FrontPlane
+BackPlane
+RightPlane
+LeftPlane
+Created empty cube: Cube_Reference
+Dimension: 2
+Location: (0.0, 0.0, 0.0)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 3.5
+light_back: 3.5
+light_right: 4.5
+light_left: 4.5
+light_top: 15
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 1
+Rotation: (58.5735, -0.955358, 133.919)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 1.5
+
+Created Sun Light: LightSun
+Sun Location: [0.0, 0.0, 3.0]
+Sun Rotation: [0.0, 0.0, 0.0]
+Sun color: [1.0, 1.0, 1.0]
+Sun strength: 0.0
+Sun angle: 32.2 deg
+
+Material on Mesh chosen: Transparent-Glass
+Material Plane chosen: White-Plane
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 300
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+--------------------------------------------
+2024-11-21 10:44:27
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created Wall round the Base
+FrontPlane
+BackPlane
+RightPlane
+LeftPlane
+Created empty cube: Cube_Reference
+Dimension: 1
+Location: (0.0, 0.0, 0.0)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 0
+light_back: 0
+light_right: 0
+light_left: 0
+light_top: 0
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 1
+Rotation: (58.5735, -0.955358, 133.919)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 1.5
+
+Created Sun Light: LightSun
+Sun Location: [0.0, 0.0, 3.0]
+Sun Rotation: [0.0, 0.0, 0.0]
+Sun color: [1.0, 1.0, 1.0]
+Sun strength: 1.0
+Sun angle: 32.2 deg
+
+Material on Mesh chosen: Transparent-Glass
+Material Plane chosen: White-Plane
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 300
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+--------------------------------------------
+2024-11-21 10:45:25
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created Wall round the Base
+FrontPlane
+BackPlane
+RightPlane
+LeftPlane
+Created empty cube: Cube_Reference
+Dimension: 1
+Location: (0.0, 0.0, 0.0)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 0
+light_back: 0
+light_right: 0
+light_left: 0
+light_top: 0
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 1
+Rotation: (58.5735, -0.955358, 133.919)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 1.5
+
+Created Sun Light: LightSun
+Sun Location: [0.0, 0.0, 3.0]
+Sun Rotation: [0.0, 0.0, 0.0]
+Sun color: [1.0, 1.0, 1.0]
+Sun strength: 1.0
+Sun angle: 32.2 deg
+
+Material on Mesh chosen: Transparent-Glass
+Material Plane chosen: White-Plane-Emission
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 300
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+--------------------------------------------
+2024-11-21 10:53:49
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created Wall round the Base
+FrontPlane
+BackPlane
+RightPlane
+LeftPlane
+Created empty cube: Cube_Reference
+Dimension: 1
+Location: (0.0, 0.0, 0.5)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 0
+light_back: 0
+light_right: 0
+light_left: 0
+light_top: 0
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 1
+Rotation: (58.5735, -0.955358, 133.919)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 1.5
+
+Created Sun Light: LightSun
+Sun Location: [0.0, 0.0, 3.0]
+Sun Rotation: [0.0, 0.0, 0.0]
+Sun color: [1.0, 1.0, 1.0]
+Sun strength: 1.0
+Sun angle: 32.2 deg
+
+Material on Mesh chosen: Transparent-Glass
+Material Plane chosen: White-Plane-Emission
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 300
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+--------------------------------------------
+2024-11-21 10:56:55
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created Wall round the Base
+FrontPlane
+BackPlane
+RightPlane
+LeftPlane
+Created empty cube: Cube_Reference
+Dimension: 1
+Location: (0.0, 0.0, 0.5)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 0
+light_back: 0
+light_right: 0
+light_left: 0
+light_top: 0
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 1
+Rotation: (58.5735, -0.955358, 133.919)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 1.5
+
+Created Sun Light: LightSun
+Sun Location: [0.0, 0.0, 3.0]
+Sun Rotation: [0.0, 0.0, 0.0]
+Sun color: [1.0, 1.0, 1.0]
+Sun strength: 1.0
+Sun angle: 32.2 deg
+
+Material on Mesh chosen: Transparent-Glass
+Material Plane chosen: White-Plane-Emission
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 300
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+--------------------------------------------
+2024-11-21 11:49:06
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created Wall round the Base
+FrontPlane
+BackPlane
+RightPlane
+LeftPlane
+Created empty cube: Cube_Reference
+Dimension: 1
+Location: (0.0, 0.0, 0.5)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 0
+light_back: 0
+light_right: 0
+light_left: 0
+light_top: 0
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 1
+Rotation: (58.5735, -0.955358, 133.919)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 1.5
+
+Created Sun Light: LightSun
+Sun Location: [0.0, 0.0, 3.0]
+Sun Rotation: [0.0, 0.0, 0.0]
+Sun color: [1.0, 1.0, 1.0]
+Sun strength: 1.0
+Sun angle: 32.2 deg
+
+Material on Mesh chosen: Transparent-Glass
+Material Plane chosen: White-Plane-Emission
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 300
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+--------------------------------------------
+2024-11-21 11:49:27
+--------------------------------------------
+DETAILS:
+Created plane on base:
+Size: 300
+Location: (0, 0, -0.000925)
+
+Created Wall round the Base
+FrontPlane
+BackPlane
+RightPlane
+LeftPlane
+Created empty cube: Cube_Reference
+Dimension: 1
+Location: (0.0, 0.0, 0.5)
+Rotation: (0, 0, 0)
+
+Created 6 lights:
+light_front: 0
+light_back: 0
+light_right: 0
+light_left: 0
+light_top: 0
+light_bottom: 0
+
+Created empty axes: Axes_to_Camera
+Location: (0, 0, 0)
+Rotation: (0, 0, 0)
+
+Created camera: Camera_Main
+Offset from Axes_to_Camera: 1
+Rotation: (58.5735, -0.955358, 133.919)
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 1.5
+
+Created Sun Light: LightSun
+Sun Location: [0.0, 0.0, 3.0]
+Sun Rotation: [0.0, 0.0, 0.0]
+Sun color: [1.0, 1.0, 1.0]
+Sun strength: 1.0
+Sun angle: 32.2 deg
+
+Material on Mesh chosen: Transparent-Glass
+Material Plane chosen: White-Plane-Emission
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 300
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+--------------------------------------------

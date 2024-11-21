@@ -92,7 +92,7 @@ if __name__ == '__main__':
     if param.get("blend_file_ex"):
         print("PREPARATION FOR BLENDER RENDERING")
         my_setup = seb(param["dataname"], logfile_name_blender, plane_on_base_size=300)
-        my_setup.change_environment_settings(cube_size=2,
+        my_setup.change_environment_settings(cube_size=1,
                                             cube_rotation=(0, 0, 0),
                                             axes_rotation=(0, 0, 0),
                                             axes_location=(0, 0, 0),
@@ -110,8 +110,7 @@ if __name__ == '__main__':
             # 0 : Customize by the User
             # 1 : mode - 6 light
             # 2 : mode - 6 light
-            # 3 : mode - only for Wireframe Material
-            # 4 : mode - 1 light
+            # 3 : mode - for Wireframe Material or Sun-Light
             
         """
         my_setup.change_energy_light(light_front=0,
@@ -120,10 +119,10 @@ if __name__ == '__main__':
                                      light_left=2.5,
                                      light_top=1.5,
                                      light_bottom=0,
-                                     light_set=2
+                                     light_set=3
                                      )
 
-
+        my_setup.setup_sun_light(sun_strength=1.0, sun_angle=32.2)
 
 
         """
@@ -143,8 +142,12 @@ if __name__ == '__main__':
         
         """
 
-        my_setup.set_materials(material_value=1, material_plane_value=0,
+        my_setup.set_materials(material_value=1, material_plane_value=1,
                                  color_transp_bsdf=[], color_diff_bsdf=[])
+
+
+        my_setup.setup_walls()
+
 
         """
         Type Engine:
@@ -152,7 +155,7 @@ if __name__ == '__main__':
             1 : Eevee
         
         """
-        my_setup.set_rendering_values(type_engine=0, type_device="GPU", n_samples=400,
+        my_setup.set_rendering_values(type_engine=0, type_device="GPU", n_samples=300,
                                         file_format="png", screen_percentage=1)
 
         my_setup.set_the_environment(nome_blend_file=param.get("blend_file_name"))
@@ -167,12 +170,10 @@ if __name__ == '__main__':
         
     """
     if param.get("render_file_ex"):
-        param["name_off_file"] = ""
-        blender_path = r"C:\Program Files\Blender Foundation\Blender 4.2\blender-launcher.exe"
         print("OUTPUT BLENDER RENDERING")
-        out_render = Process_Rendering_Frame(blender_path)
+        out_render = Process_Rendering_Frame(path_blender_exe=param.get("blender_path_execute"))
         out_render.get_parent_dirname()
-        out_render.init_full_command_pipeline(nome_file_image=param.get("test_name"))
+        out_render.init_full_command_pipeline(nome_file_image=param.get("render_file_name"))
         out_render.start_execution()
 
 

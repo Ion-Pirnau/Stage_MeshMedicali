@@ -5,12 +5,12 @@ from CODE.For_Blender_Functions.materials_blender import CreationMaterial
 import bpy
 import numpy as np
 
-
-class SetEnvironmentBlender:
-    """
+"""
     Class used to set the blend file for future rendering
     Create an environment with: The main Mesh, Lights, Plane, Camera
-    """
+"""
+class SetEnvironmentBlender:
+
     output_blend_file = "BLEND_FILE_OUTPUT/"
     extension = ".blend"
     message_to_log = ""
@@ -63,6 +63,20 @@ class SetEnvironmentBlender:
     nome_camera = 'Camera_Main'
     nome_camera_light = 'Light_to_Camera'
 
+    wall_names = ["FrontPlane", "BackPlane", "RightPlane", "LeftPlane"]
+    wall_on_off = [
+        True,
+        True,
+        True,
+        True
+    ]
+
+    sun_strength = None
+    sun_angle = None
+    sun_light_name = None
+    sun_color = None
+    sun_location = None
+    sun_rotation = None
 
     # Initialize the Class
     def __init__(self, nome_mesh: str, nome_log_file: str, plane_on_base_size: int) -> None:
@@ -87,8 +101,16 @@ class SetEnvironmentBlender:
             light_top (float): Custom value for the top-light.
             light_bottom (float): Custom value for the bottom-light.
             light_set (int): Predefined light set mode (0 for custom).
+
+
+        Predefined_sets:
+                    0 - Customized by the User
+                    1 - Film Lighting Scenario
+                    2 - ShowRoom Lighting Scenario
+                    3 - Black Lighting Scenario, useful for Surface with Emission Lighting
+
         """
-        # Predefined light sets ( TO DO AGGIUNGERE UNA DESCRIZIONE DI OGNI SET AD ESEMPIO "PIU' CINEMATOGRAFICO", Insomma che si capisca cosa ci si aspetta in output)
+
         predefined_sets = {
             0: {  # 
                 "light_front": light_front, "light_back": light_back,
@@ -117,10 +139,39 @@ class SetEnvironmentBlender:
 
         self.energy_settings.update(predefined_sets[light_set])
 
+
+    def setup_sun_light(self, sun_strength:float=1.0, sun_angle:float=0.526,
+                      sun_location:tuple[float,float,float]=[0.0, 0.0, 3.0],
+                      sun_rotation:tuple[float,float,float]=[0.0, 0.0, 0.0],
+                      sun_color:tuple[float,float,float]=[1.0, 1.0, 1.0]) -> None:
+
+        """
+            Function: add light type Sun to the Environment
+
+            Args:
+                sun_strength : define the strength of the light
+                sun_angle : define the angle of the light
+                sun_color : define the color of the light, RGB values from 0 to 1
+                sun_rotation : define the rotation of the light
+                sun_location : define the location of the light
+
+            Returns:
+                None
+
+        """
+
+        self.sun_strength = sun_strength
+        self.sun_angle = sun_angle
+        self.sun_light_name = "LightSun"
+        self.sun_location = sun_location
+        self.sun_rotation = sun_rotation
+        self.sun_color = sun_color
+
+
     def change_environment_settings(self,
                                     cube_size=187,
                                     cube_rotation=(0.0, 0.0, 0.0),
-                                    cube_location=(0.0, 0.0, 0.0),
+                                    cube_location=(0.0, 0.0, None),
                                     axes_rotation=(0.0, 0.0, 96.0),
                                     axes_location=(0.0, 0.0, 0.0),
                                     camera_rotation=(62.0, 0.0, 136.0),
@@ -197,13 +248,10 @@ class SetEnvironmentBlender:
 
 
 
-
-
-    # Function for choosing the material to be applied and the COLOR for ONLY the Transparency material
     def set_materials(self, material_value: int =0, material_plane_value: int =0,
                       color_transp_bsdf: list=[], color_diff_bsdf: list=[]) -> None:
         """
-        Sets the material for the blender scene.
+        Sets the material for the blender scene + color for ONLY the Transparency Material
 
         Args:
             material_value (int): The value corrisponding to a material in the CreationMaterial Class (default: 0).
@@ -216,6 +264,28 @@ class SetEnvironmentBlender:
         """
         self.mat_chosen = CreationMaterial(material_value, material_plane_value, color_transp_bsdf, color_diff_bsdf)
         self.mat_chosen.check_parameter()
+
+
+    def setup_walls(self, wall_front:bool=True, wall_back:bool=True, wall_right:bool=True, wall_left:bool=True) -> None:
+        """
+            Function: set up the wall round the plane at the base
+
+            Args:
+                wall_front : bool value to set the Front Wall
+                wall_back : bool value to set the Back Wall
+                wall_right : bool value to set the Right Wall
+                wall_left : bool value to set the Left Wall
+
+            Returns:
+                None
+
+        """
+
+        self.wall_on_off[0] = wall_front
+        self.wall_on_off[1] = wall_back
+        self.wall_on_off[2] = wall_right
+        self.wall_on_off[3] = wall_left
+
 
 
     def set_the_environment(self, nome_blend_file: str = "output1") -> None:
@@ -386,6 +456,11 @@ class SetEnvironmentBlender:
         """
         self.add_plane_on_base(self.plane_on_base)
 
+        """
+            Step 7: Add a Light Type Sun, for Enlightenment of the 3D World
+        """
+
+        self.add_sun_light_world()
 
 
     def select_object(self, obj):
@@ -719,6 +794,7 @@ class SetEnvironmentBlender:
     def add_plane_on_base(self, size_plane=100) -> None:
         """
         Adds a horizontal plane at the origin of the world with a specified size and applies a material.
+        + add a wall round the plane at the base
 
         Args:
             size_plane (float): The size of the plane to be added. Default is 100.
@@ -726,9 +802,11 @@ class SetEnvironmentBlender:
         Returns:
             bpy.types.Object: The created plane object.
         """
-        bpy.ops.mesh.primitive_plane_add(size=size_plane, location=self.base_plane_location)
 
-  
+        new_collection = bpy.data.collections.new(name="SetPlanes")
+        bpy.context.scene.collection.children.link(new_collection)
+
+        bpy.ops.mesh.primitive_plane_add(size=size_plane, location=self.base_plane_location)
         obj_plane = bpy.context.active_object
 
         material = self.mat_chosen.fetch_material_plane()
@@ -738,8 +816,89 @@ class SetEnvironmentBlender:
         else:
             obj_plane.data.materials.append(material)
 
-            
+        new_collection.objects.link(obj_plane)
+        bpy.context.scene.collection.objects.unlink(obj_plane)
+
+        locations = [
+            (0, -size_plane / 2, size_plane / 2),  # Fronte
+            (0, size_plane / 2, size_plane / 2),
+            (size_plane / 2, 0, size_plane / 2),  # Right
+            (-size_plane / 2, 0, size_plane / 2)
+        ]
+
+        rotations = [
+            (-(np.pi / 2), 0, 0),
+            ((np.pi / 2), 0, 0),
+            ((np.pi / 2), 0, -(np.pi / 2)),
+            ((np.pi / 2), 0, (np.pi / 2))
+        ]
+
+
+        for wall_on_off, name, location, rotation in zip(self.wall_on_off, self.wall_names, locations, rotations):
+            if wall_on_off:
+                self.add_wall(name, location, rotation, material, size_plane, new_collection)
+
         print(f"Plane added at {self.base_plane_location} with size {size_plane}")
+
+
+
+    def add_wall(self, name, location, rotation, material, size_plane, new_collection):
+        """
+            Function: add planes round the plane at the base
+
+            Args:
+                name : name of the planes
+                location : location of the plane
+                rotation : rotation of the plane
+                material : material-type is going be applied to the plane
+                size_plane : size of the plane
+                new_collection : plane linked to the collection
+
+            Returns:
+                None
+        """
+
+        bpy.ops.mesh.primitive_plane_add(size=size_plane, location=location, rotation=rotation)
+        obj_plane = bpy.context.active_object
+        obj_plane.name = name
+
+        if obj_plane.data.materials:
+            obj_plane.data.materials[0] = material
+        else:
+            obj_plane.data.materials.append(material)
+
+        new_collection.objects.link(obj_plane)
+        bpy.context.scene.collection.objects.unlink(obj_plane)
+
+
+    def add_sun_light_world(self):
+        """
+            Function: create a Sun-light
+
+        """
+        bpy.ops.object.light_add(type='SUN',
+                                 location=(self.sun_location[0], self.sun_location[1], self.sun_location[2]),
+                                 rotation=(self.sun_rotation[0], self.sun_rotation[1], self.sun_rotation[2]))
+
+        sun_light_obj = bpy.context.object
+        sun_light_obj.name = self.sun_light_name
+        sun_light_obj.data.color = (self.sun_color[0], self.sun_color[1], self.sun_color[2])
+        sun_light_obj.data.angle = np.deg2rad(self.sun_angle)
+        sun_light_obj.data.energy = self.sun_strength
+
+
+    def sun_write_message(self):
+        """
+            Function: write a str value to message to add to the Log File
+
+        """
+        msg = (f"Created Sun Light: {self.sun_light_name}\n"
+               f"Sun Location: {self.sun_location}\n"
+               f"Sun Rotation: {self.sun_rotation}\n"
+               f"Sun color: {self.sun_color}\n"
+               f"Sun strength: {self.sun_strength}\n"
+               f"Sun angle: {self.sun_angle} deg\n")
+        return msg
 
 
 
@@ -772,9 +931,17 @@ class SetEnvironmentBlender:
         Returns:
             None
         """
+
         log_messages = []
 
-        log_messages.append(f"Created plane on base:\nSize: {self.plane_on_base}\nLocation: {self.base_plane_location}\n")
+        log_messages.append(f"Created plane on base:\nSize: {self.plane_on_base}\n"
+                            f"Location: {self.base_plane_location}\n")
+
+        log_messages.append("Created Wall round the Base")
+        for wall_on_off, wall_name in zip(self.wall_on_off, self.wall_names):
+            if wall_on_off:
+                log_messages.append(f"{wall_name}")
+
 
         log_messages.append(f"Created empty cube: {self.nome_cubo}\n"
                             f"Dimension: {self.size_cube}\nLocation: {self.location_cube}\n"
@@ -797,8 +964,11 @@ class SetEnvironmentBlender:
                             f"Energy: {self.energy_light_at_camera}\n")
 
 
-        log_messages.append(self.my_setup_render.get_message())
+        log_messages.append(self.sun_write_message())
+
         log_messages.append(self.mat_chosen.get_message())
+        log_messages.append(self.my_setup_render.get_message())
+
 
         # Join all log messages into a single string
         self.message_to_log = "\n".join(log_messages)
