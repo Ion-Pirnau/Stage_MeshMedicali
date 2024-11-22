@@ -1,7 +1,7 @@
 from CODE.Process_Mesh.setup_processing_on_mesh import SetProcessingOnMesh
 from CODE.For_Blender_Functions.setup_environment_blender import SetEnvironmentBlender as seb
 from CODE.For_Blender_Functions.out_set_render import Process_Rendering_Frame
-import os
+
 import json
 
 
@@ -10,7 +10,27 @@ Initialization of the class for Processing the Mesh
 
 """
 def main_processed(dataname="", logfile_name="", valueeps=1.02, valuesample=5, valuedecimation=140000,
-                   valuescalefactor=1.0, valuescalingtype=0, nomeofffile="processed", is_readyto_repair=False) -> None:
+                   valuescalefactor=1.0, valuescalingtype=0, nomeofffile="processed",
+                   is_readyto_repair=[False, False]) -> None:
+
+    """
+        Function: set up values for processing the mesh
+
+        Args:
+            dataname : string value, define the name of the file the program is going to work on
+            logfile_name : string value, define the name of the txt file to save operations that has been done
+            valueeps : float value, define the distance between points to form a cluster
+            valuesample : integer value, define the min points to form a cluster
+            valuedecimation : integer value to decimate the mesh
+            valuescalefactor : float value, define the value to scale the mesh
+            valuescalingtype : integer value, define the type of scaling to apply on the mesh
+            nomeofffile : string value, define the name of the output file generated at the end of the processing
+            is_readyto_repair : [bool, bool] value, define the type of operation to apply to the mesh
+
+        Returns:
+            bool
+
+    """
 
     my_setup = SetProcessingOnMesh(dataname=dataname, logfile_name=logfile_name)
 
@@ -26,7 +46,13 @@ def main_processed(dataname="", logfile_name="", valueeps=1.02, valuesample=5, v
 
 def load_config(config_file='config.json') -> dict:
     """
-    Import the parameters for the pipline, more details in ReadMe
+        Function: Import the parameters for the pipline, more details in ReadMe
+
+        Args:
+            config_file : string value, define the name of config file
+
+        Returns:
+            dict
 
     """
     with open(config_file, 'r') as file:
@@ -36,9 +62,17 @@ def load_config(config_file='config.json') -> dict:
 
 def write_config(data, config_file='config.json') -> bool:
     """
-       Export the parameters for the pipline next PHASE
+       Function: Export the parameters for the pipline next PHASE
+
+       Args:
+           data : data to write on the JSON file
+           config_file : string value, name of the config file where to write the data
+
+       Returns:
+           bool
 
     """
+
     try:
         with open(config_file, 'w') as file:
             json.dump(data, file, indent=4)
@@ -47,6 +81,9 @@ def write_config(data, config_file='config.json') -> bool:
     except Exception as e:
         print(f"Error occurred while modifying the JSON: {e}")
         return False
+
+
+
 
 if __name__ == '__main__':
 
@@ -154,6 +191,8 @@ if __name__ == '__main__':
 
         my_setup.setup_walls()
 
+        my_setup.setup_scalarfield(param.get("name_scalar_field_txt"), param.get("scalar_field"))
+
 
         """
         Type Engine:
@@ -181,6 +220,3 @@ if __name__ == '__main__':
         out_render.get_parent_dirname()
         out_render.init_full_command_pipeline(nome_file_image=param.get("render_file_name"))
         out_render.start_execution()
-
-
-

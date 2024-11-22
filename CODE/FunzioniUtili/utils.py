@@ -47,7 +47,9 @@ def load_off_with_loadtxt(file_path):
     """
 
     with open(file_path, 'r') as file:
-        if 'NOFF' != file.readline().strip():
+        valid_headers = ['NOFF', 'OFF']
+
+        if file.readline().strip() not in valid_headers:
             raise ValueError('Not a valid OFF header')
 
         n_verts, n_faces, _ = map(int, file.readline().strip().split())
@@ -118,7 +120,8 @@ def create_point_cloud(array_points, array_normal):
 
     pcd = o3d.geometry.PointCloud()
     pcd.points = o3d.utility.Vector3dVector(array_points)
-    pcd.normals = o3d.utility.Vector3dVector(array_normal)
+    if not is_array_empty(array_normal):
+        pcd.normals = o3d.utility.Vector3dVector(array_normal)
     #print("Point of Cloud Created")
     return pcd
 
@@ -205,11 +208,18 @@ def save_off_format(filename, vertices, normals, faces, path=output_path):
     """
 
     with open(path+filename, 'w') as f:
-        f.write("NOFF\n")
+        if not is_array_empty(normals):
+            f.write("NOFF\n")
+        else:
+            f.write("OFF\n")
+
         f.write(f"{len(vertices)} {len(faces)} 0\n")
 
         for vertex, normal in zip(vertices, normals):
-            f.write(f"{vertex[0]} {vertex[1]} {vertex[2]} {normal[0]} {normal[1]} {normal[2]}\n")
+            if any(normal):
+                f.write(f"{vertex[0]} {vertex[1]} {vertex[2]} {normal[0]} {normal[1]} {normal[2]}\n")
+            else:
+                f.write(f"{vertex[0]} {vertex[1]} {vertex[2]}\n")
 
         for face in faces:
             f.write(f"3 {face[0]} {face[1]} {face[2]}\n")
@@ -246,7 +256,8 @@ def initialize_mesh(vet, nr, fac):
 
     mesh = o3d.geometry.TriangleMesh()
     mesh.vertices = o3d.utility.Vector3dVector(vet)
-    mesh.vertex_normals = o3d.utility.Vector3dVector(nr)
+    if not is_array_empty(nr):
+        mesh.vertex_normals = o3d.utility.Vector3dVector(nr)
     # Convert the faces array to int32
     faces_int32 = fac.astype(np.int32)
     mesh.triangles = o3d.utility.Vector3iVector(faces_int32)
@@ -287,3 +298,18 @@ def is_folder_empty():
         print("Empty")
     else:
         print("Not Empty")
+
+
+
+def is_array_empty(arr) -> bool:
+    """
+        Function: define if an array's array is empty
+
+        Args:
+            arr : array to check if is empty
+
+        Returns:
+            bool
+
+    """
+    return all(len(sublist) == 0 for sublist in arr)

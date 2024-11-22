@@ -47,9 +47,14 @@ The configuration file (`config.json`) should follow the sample below:
     "value_scalingtype": 0,
     "name_off_file": "processed",
     "processing_0": true,
-    "processing_1": false,
+    "processing_1": [
+      false,
+      false
+    ],
     "blend_file_ex": false,
     "render_file_ex": false,
+    "scalar_field": false,
+    "name_scalar_field_txt": "registered_fmap.txt",
     "blend_file_name": "testBlend_",
     "render_file_name": "testION_",
     "blender_path_execute": "Full path of Blender in your system"
@@ -65,9 +70,11 @@ The configuration file (`config.json`) should follow the sample below:
 - `value_scalingtype`: **Integer-value.** Value to choose what scaling type apply on the mesh. [**Type 0**: scaling on X, Y and Z. **Type 1**: scaling to UNIT-BOX. **Type 2**: scaling to UNIT-SPHERE] ***[Processing Operation Only]***
 - `name_off_file`: **String-value.** String value added as a prefix on the file Generated during the pipeline's ***Phase 0*** and ***Phase 1***.
 - `processing_0`: **Boolean-value.** Define the ***Phase 0*** of the Pipeline. Loot at [Pipeline Operation](#pipeline-operation)'s Phases.
-- `processing_1`: **Boolean-value.** Define the ***Phase 1*** of the Pipeline. Loot at [Pipeline Operation](#pipeline-operation)'s Phases.
+- `processing_1`: **Array Boolean-value.** Define the ***Phase 1*** of the Pipeline, each item corresponds to the specific operation. Loot at [Pipeline Operation](#pipeline-operation)'s Phases.
 - `blend_file_ex`: **Boolean-value.** Define the ***Phase 2*** of the Pipeline. Loot at [Pipeline Operation](#pipeline-operation)'s Phases.
 - `render_file_ex`: **Boolean-value.** Define the ***Phase 3*** of the Pipeline. Loot at [Pipeline Operation](#pipeline-operation)'s Phases.
+- `scalar_field`: **Boolean-value.** If the User has the txt's file with the scalar field.
+- `name_scalar_field_txt`: **String-value**. Name of the file with the scalar field,
 - `blend_file_name`: **String-value.** String name to define the blend file.
 - `render_file_name`: **String-value.** String name to define the rendering image name.
 - `blender_path_execute`: **String-value.** String path of Blender program.

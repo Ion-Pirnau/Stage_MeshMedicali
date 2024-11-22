@@ -3,11 +3,12 @@ import numpy as np
 import open3d as o3d
 
 
-"""
-Class: Does the actual processing operation on the mesh
-
-"""
 class Processing_Mesh_PoC:
+
+    """
+        Class: Does the actual processing operation on the mesh
+
+    """
 
     extension_file = ".off"
     input_path = "INPUT_SOURCE/"
@@ -26,7 +27,10 @@ class Processing_Mesh_PoC:
 
     def check_mesh_file(self) -> bool:
         """
-            Check if the file exists
+            Function : Check if the file exists
+
+            Returns:
+                bool
 
         """
         result =  utl.check_file_exists(self.input_path + self.dataname + self.extension_file)
@@ -37,10 +41,10 @@ class Processing_Mesh_PoC:
 
     def load_vert_normal_face(self):
         """
-            Read from the file the values:
-            1. vertices
-            2. normals
-            3. faces
+            Function: read from the file values:
+            - vertices
+            - normals
+            - faces
 
         """
         vertices, normals, faces, n_verts = utl.load_off_with_loadtxt(self.input_path + self.dataname + self.extension_file)
@@ -57,7 +61,10 @@ class Processing_Mesh_PoC:
 
     def create_point_cloud(self) -> None:
         """
-            Create a point cloud
+            Function: create a point cloud
+
+            Returns:
+                None
 
         """
         self.message_to_log += "\nPoint Of Cloud Created\n"
@@ -76,7 +83,7 @@ class Processing_Mesh_PoC:
 
     def remove_zero_area_faces_call(self) -> None:
         """
-            Remove Null Area Faces
+            Function: Remove Null Area Faces
 
         """
         self.face, n_facesremoved = self.remove_zero_area_faces()
@@ -135,7 +142,14 @@ class Processing_Mesh_PoC:
 
     def save_mesh(self, nome="", path=None) -> None:
         """
-            Save the mesh in the off file
+            Function: Save the mesh in the off file
+
+            Args:
+                nome : string value, define the name of the file where to save the mesh
+                path : string value, define the path where to save the file
+
+            Returns:
+                None
 
         """
 
@@ -154,6 +168,9 @@ class Processing_Mesh_PoC:
         """
             Function for initializing the mesh, NOT the point cloud but the actual mesh.
 
+            Returns:
+                None
+
         """
         self.message_to_log += "\nMesh Initialized\n"
         self.mesh = utl.initialize_mesh(self.vertex, self.normal, self.face)
@@ -163,6 +180,12 @@ class Processing_Mesh_PoC:
     def visualize_mesh(self, nome="") -> None:
         """
             Function for visualizing the mesh
+
+            Args:
+                nome : string value, define the name of the window to display the mesh
+
+            Returns:
+                None
 
         """
         utl.visualize_3d_screen(self.mesh, name_window=nome)
@@ -231,11 +254,20 @@ class Processing_Mesh_PoC:
 
 
 
-    # Function for removing the not connected components.
-    # Thanks to the Open-3d methods
-    # I work on the point cloud and by implementing a built-in function by Open3d and choosing the correct values
-    # The function is working fine by removing additional noise on the mesh
+
     def remove_not_connected_component(self, distance=1.02, n_punti_vicini=1):
+        """
+            Function for removing the not connected components.
+            Thanks to the Open-3d methods
+            I work on the point cloud and by implementing a built-in function by Open3d and choosing the correct values
+            The function is working fine by removing additional noise on the mesh
+
+            Args:
+                distance : float value to define the distance between points to form a cluster
+                n_punti_vicini : integer value to define the min points to form a cluster
+
+        """
+
         self.message_to_log += "\nApplied: Remove Not Connected Component Algorithm\n"
 
         filtered_points, face_list = self.find_cluster_connected(distance, n_punti_vicini)
@@ -257,16 +289,16 @@ class Processing_Mesh_PoC:
         # Stampa l'array delle isole
         main_island = max(island_on_mesh, key=len)  # La mesh principale è l'isola più grande
         other_islands = [island for island in island_on_mesh if island != main_island]
-        print("Ci sono: " + str(len(other_islands)) + " isole nella mesh")
+        # print("Ci sono: " + str(len(other_islands)) + " isole nella mesh")
         self.message_to_log += f"\nCi sono: " + str(len(other_islands)) + " isole nella mesh\n\n"
         other_islands = [[int(elemento) for elemento in riga] for riga in other_islands]
         self.islands_on_mesh = other_islands
-        print(other_islands)
+        # print(other_islands)
 
 
     def get_message_log(self):
         """
-            Get the message log
+            Function : Get the message log
 
         """
         return self.message_to_log

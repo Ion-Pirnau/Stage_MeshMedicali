@@ -169,7 +169,7 @@ class Process_Rendering_Frame:
     def start_execution(self):
 
         """
-            Function that run the actual command, the result is used just to be
+            Function: run the actual command, the result is used just to be
             sure if everything is done correctly
 
             The RETURN_CODE:

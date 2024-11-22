@@ -2,6 +2,7 @@ from CODE.Process_Mesh.processing_functions import Processing_Mesh_PoC
 from CODE.FunzioniUtili import utils as utl
 from CODE.For_Blender_Functions.set_rendering import RenderingSetup
 from CODE.For_Blender_Functions.materials_blender import CreationMaterial
+from CODE.For_Blender_Functions.fetch_scalarmap_value import ScalarFieldValue as sfv
 import bpy
 import numpy as np
 
@@ -37,26 +38,6 @@ class SetEnvironmentBlender:
         'light_bottom'
     ]
 
-    energy_light_at_camera = 100000
-    size_cube = 187.0
-    location_cube = (0.0, 0.0, 0.0)
-    rotation_camera = (0.0, 0.0, 0.0)
-    rotation_empty_axes = (0.0, 0.0, 0.0)
-    location_axes = (0.0, 0.0, 0.0)
-    rotation_empty_cube = (0.0, 0.0, 0.0)
-    camera_offset_value_from_empty_axes = 72
-    light_offset_value_from_camera = 0
-    base_plane_location = None
-    type_engine = None
-    type_device = None
-    n_samples = None
-    file_format = None
-    screen_percentage = None
-    my_setup_render = None
-    nome_file_blend = None
-    mat_chosen = None
-
-
 
     nome_cubo = 'Cube_Reference'
     nome_axes = 'Axes_to_Camera'
@@ -71,18 +52,42 @@ class SetEnvironmentBlender:
         True
     ]
 
-    sun_strength = None
-    sun_angle = None
-    sun_light_name = None
-    sun_color = None
-    sun_location = None
-    sun_rotation = None
 
     # Initialize the Class
     def __init__(self, nome_mesh: str, nome_log_file: str, plane_on_base_size: int) -> None:
         self.nome_mesh = nome_mesh
         self.nome_log_file = nome_log_file
         self.plane_on_base = plane_on_base_size
+
+        self.energy_light_at_camera = 100000
+        self.size_cube = 187.0
+        self.location_cube = (0.0, 0.0, 0.0)
+        self.rotation_camera = (0.0, 0.0, 0.0)
+        self.rotation_empty_axes = (0.0, 0.0, 0.0)
+        self.location_axes = (0.0, 0.0, 0.0)
+        self.rotation_empty_cube = (0.0, 0.0, 0.0)
+        self.camera_offset_value_from_empty_axes = 72
+        self.light_offset_value_from_camera = 0
+        self.base_plane_location = None
+        self.type_engine = None
+        self.type_device = None
+        self.n_samples = None
+        self.file_format = None
+        self.screen_percentage = None
+        self.my_setup_render = None
+        self.nome_file_blend = None
+        self.mat_chosen = None
+
+        self.sun_strength = None
+        self.sun_angle = None
+        self.sun_light_name = None
+        self.sun_color = None
+        self.sun_location = None
+        self.sun_rotation = None
+        self.scalar_field = None
+
+        self.is_scalar_active = False
+
 
 
     def change_energy_light(self, 
@@ -291,6 +296,20 @@ class SetEnvironmentBlender:
         self.wall_on_off[3] = wall_left
 
 
+    def setup_scalarfield(self, scalar_field_file:str, is_scalar_active:bool=False):
+        """
+            Function: load scalar data
+
+            Args:
+                scalar_field_file : path of the scalar field file
+                is_scalar_active : define if apply the scalar to the mesh
+
+            Returns:
+                None
+        """
+        self.scalar_field = sfv(scalar_field_file)
+        self.is_scalar_active = is_scalar_active
+
 
     def set_the_environment(self, nome_blend_file: str = "output1") -> None:
         """
@@ -398,7 +417,8 @@ class SetEnvironmentBlender:
         mesh.from_pydata(self.vertices, [], self.faces)
         mesh.update()
         # Set custom vertex normals
-        mesh.normals_split_custom_set_from_vertices(self.normals)
+        if not utl.is_array_empty(self.normals) and len(self.normals) > 0:
+            mesh.normals_split_custom_set_from_vertices(self.normals)
 
 
         for area in bpy.context.screen.areas:
@@ -412,6 +432,9 @@ class SetEnvironmentBlender:
         obj = self.move_mesh_up_z(obj)
 
         material = self.mat_chosen.fetch_material()
+
+        if self.is_scalar_active:
+            obj = self.scalar_field.add_value_to_mesh_vertex(obj, self.scalar_field.fetch_data())
 
         if obj.data.materials:
             obj.data.materials[0] = material
@@ -930,13 +953,23 @@ class SetEnvironmentBlender:
 
     def create_file_log(self) -> None:
         """
-        Creates and writes a log file with detailed information about the scene setup.
+            Function : Creates and writes a log file with detailed information about the scene setup.
                 
-        Returns:
-            None
+            Returns:
+                None
         """
 
         log_messages = []
+
+        if not utl.is_array_empty(self.normals):
+            lenght_norm = len(self.normals)
+        else:
+            lenght_norm = 0
+
+        log_messages.append(f"Created Mesh: {self.nome_mesh}\n"
+                            f"Vertex: {len(self.vertices)}\n"
+                            f"Normals: {lenght_norm}\n"
+                            f"FacesNormals: {len(self.faces)}\n")
 
         log_messages.append(f"Created plane on base:\nSize: {self.plane_on_base}\n"
                             f"Location: {self.base_plane_location}\n")
