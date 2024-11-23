@@ -174,6 +174,7 @@ if __name__ == '__main__':
                     - 1 : Curvature Analysis
                     - 2 : Heat-Map on Axis
                     - 3 : Deformation on Surface
+                6 : ColorMaps - Scalar Value
     
             Tipo Material Plane:
                 0 : White
@@ -184,7 +185,7 @@ if __name__ == '__main__':
         
         """
 
-        my_setup.set_materials(material_value=0, material_plane_value=1,
+        my_setup.set_materials(material_value=6, material_plane_value=1,
                                color_map_value=3, hex_color=["000000", "A77843", "FFB100"],
                                color_transp_bsdf=[], color_diff_bsdf=[])
 

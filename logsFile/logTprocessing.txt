@@ -363,3 +363,21 @@ Mesh scaled by: x0.00547206701312147 factor
 
 File saved as: test_MNI_clean.off
 --------------------------------------------
+2024-11-23 12:05:31
+--------------------------------------------
+DETAILS:
+Working on: MNI_clean
+vertices: 32510
+normals: 0
+faces: 65016
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Scaling Algorithm UNIT BOX
+Mesh scaled by: x0.00547206701312147 factor
+
+File saved as: test_MNI_clean.off
+--------------------------------------------

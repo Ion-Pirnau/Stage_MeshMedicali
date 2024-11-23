@@ -1,5 +1,5 @@
 {
-    "dataname": "MNI_clean",
+    "dataname": "test_MNI_clean",
     "logfile_name_processing": "logTprocessing",
     "logfile_name_blender": "logTBlender",
     "value_eps": 1.02,
@@ -15,7 +15,7 @@
     ],
     "blend_file_ex": true,
     "render_file_ex": false,
-    "scalar_field": false,
+    "scalar_field": true,
     "name_scalar_field_txt": "registered_fmap.txt",
     "blend_file_name": "testBlend_",
     "render_file_name": "testION_",

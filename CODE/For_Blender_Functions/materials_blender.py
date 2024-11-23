@@ -15,7 +15,8 @@ class CreationMaterial:
     hex_color = []
 
     # Initialize the class with default values or User' values
-    def __init__(self, material_type=0, material_plane_type=0, color_map_value=0, hex_color=[], color_transparent_bsdf=[], color_diffuse_bsdf=[]) -> None:
+    def __init__(self, material_type=0, material_plane_type=0, color_map_value=0,
+                 hex_color=[], color_transparent_bsdf=[], color_diffuse_bsdf=[]) -> None:
         self.material_type = material_type
         self.material_plane_type = material_plane_type
         self.color_map_value = color_map_value
@@ -25,9 +26,9 @@ class CreationMaterial:
 
     def check_parameter(self) -> None:
         # Check material_type is between 0 and 4
-        if not (0 <= self.material_type <= 5):
+        if not (0 <= self.material_type <= 6):
             raise ValueError(f"The integer chosen as material type "
-                             f"({self.material_type}) is incorrect. It must be between 0 and 4.")
+                             f"({self.material_type}) is incorrect. It must be between 0 and 6.")
 
         # Check material_plane_type is between 0 and 1
         if not (0 <= self.material_plane_type <= 1):
@@ -59,7 +60,8 @@ class CreationMaterial:
             result = self.material_full_transparency()
         elif self.material_type == 5:
             result = self.material_colormap_mesh()
-
+        elif self.material_type == 6:
+            result = self.scalar_map_material()
         else:
             raise ValueError(f"Material Type: {self.material_type}, does not exists!")
 
@@ -493,7 +495,7 @@ class CreationMaterial:
         elif self.color_map_value == 3:
             self.deformation_on_surface(links, nodes, output, principled, color_ramp, texture_coordinate)
         else:
-            raise ValueError(f"ColorMap Type: {self.color_map_value}, does not exists!")
+            raise ValueError(f"ColorMap Type: {self.color_map_value}, does not exists. Values Accepted: 0 to 3!")
 
         return material
 
@@ -685,6 +687,53 @@ class CreationMaterial:
         links.new(principled.outputs['BSDF'], output.inputs['Surface'])
 
         self.write_message("ColorMap=Deformation on Surface", True)
+
+
+    def scalar_map_material(self):
+        """
+            Function: material to show better the scalar field values applied to the mesh
+
+            Returns:
+                bpy.ops.material
+
+        """
+
+        material = bpy.data.materials.new(name="Scalar Map")
+        material.use_nodes = True
+
+        nodes = material.node_tree.nodes
+        links = material.node_tree.links
+
+        for node in nodes:
+            nodes.remove(node)
+
+        output = nodes.new(type='ShaderNodeOutputMaterial')
+        principled = nodes.new(type='ShaderNodeBsdfPrincipled')
+        attribute_node = nodes.new(type='ShaderNodeAttribute')
+        bump_node = nodes.new(type='ShaderNodeBump')
+        color_ramp_color = nodes.new(type='ShaderNodeValToRGB')
+        color_ramp_mask = nodes.new(type='ShaderNodeValToRGB')
+
+        attribute_node.attribute_name = 'fmap_values'
+        bump_node.inputs["Strength"].default_value = 0.88
+        bump_node.inputs["Distance"].default_value = 1.0
+
+        self.add_color_to_color_ramp(color_ramp_color, 0.0, self.hex_color[0], is_black=True)
+        self.add_color_to_color_ramp(color_ramp_color, 0.5, self.hex_color[1])
+        self.add_color_to_color_ramp(color_ramp_color, 1.0, self.hex_color[2], is_white=True, flag=1)
+
+        links.new(attribute_node.outputs['Fac'], color_ramp_mask.inputs['Fac'])
+        links.new(attribute_node.outputs['Fac'], color_ramp_color.inputs['Fac'])
+
+        links.new(color_ramp_color.outputs['Color'], principled.inputs['Base Color'])
+        links.new(color_ramp_mask.outputs['Color'], bump_node.inputs['Height'])
+        links.new(bump_node.outputs['Normal'], principled.inputs['Normal'])
+
+        links.new(principled.outputs['BSDF'], output.inputs['Surface'])
+
+        self.write_message("ColorMap=Scalar Map", True)
+
+        return material
 
 
     def add_color_to_color_ramp(self, node, position, color, flag=None, is_black=False, is_white=False):
