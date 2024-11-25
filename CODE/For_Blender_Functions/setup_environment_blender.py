@@ -296,18 +296,20 @@ class SetEnvironmentBlender:
         self.wall_on_off[3] = wall_left
 
 
-    def setup_scalarfield(self, scalar_field_file:str, is_scalar_active:bool=False):
+    def setup_scalarfield(self, scalar_field_file:str, scalar_template_labels:str,
+                          is_scalar_active:bool=False):
         """
             Function: load scalar data
 
             Args:
                 scalar_field_file : path of the scalar field file
+                scalar_template_labels : path of the scalar template labels
                 is_scalar_active : define if apply the scalar to the mesh
 
             Returns:
                 None
         """
-        self.scalar_field = sfv(scalar_field_file)
+        self.scalar_field = sfv(scalar_field_file, scalar_template_labels)
         self.is_scalar_active = is_scalar_active
 
 
@@ -434,7 +436,8 @@ class SetEnvironmentBlender:
         material = self.mat_chosen.fetch_material()
 
         if self.is_scalar_active:
-            obj = self.scalar_field.add_value_to_mesh_vertex(obj, self.scalar_field.fetch_data())
+            obj = self.scalar_field.add_value_to_mesh_vertex(obj, self.scalar_field.fetch_data_scalar(),
+                                                             self.scalar_field.fetch_data_labels())
 
         if obj.data.materials:
             obj.data.materials[0] = material

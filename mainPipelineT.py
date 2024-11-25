@@ -192,7 +192,8 @@ if __name__ == '__main__':
 
         my_setup.setup_walls()
 
-        my_setup.setup_scalarfield(param.get("name_scalar_field_txt"), param.get("scalar_field"))
+        my_setup.setup_scalarfield(param.get("name_scalar_field_txt"),
+                                   param.get("name_scalar_labels_txt"), param.get("scalar_field"))
 
 
         """

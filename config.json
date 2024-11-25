@@ -17,6 +17,7 @@
     "render_file_ex": false,
     "scalar_field": true,
     "name_scalar_field_txt": "registered_fmap.txt",
+    "name_scalar_labels_txt": "template_labels.txt",
     "blend_file_name": "testBlend_",
     "render_file_name": "testION_",
     "blender_path_execute": "C:\\Program Files\\Blender Foundation\\Blender 4.2\\blender-launcher.exe"

@@ -709,12 +709,14 @@ class CreationMaterial:
 
         output = nodes.new(type='ShaderNodeOutputMaterial')
         principled = nodes.new(type='ShaderNodeBsdfPrincipled')
-        attribute_node = nodes.new(type='ShaderNodeAttribute')
+        attribute_node_scalar = nodes.new(type='ShaderNodeAttribute')
+        attribute_node_labels = nodes.new(type='ShaderNodeAttribute')
         bump_node = nodes.new(type='ShaderNodeBump')
         color_ramp_color = nodes.new(type='ShaderNodeValToRGB')
         color_ramp_mask = nodes.new(type='ShaderNodeValToRGB')
 
-        attribute_node.attribute_name = 'fmap_values'
+        attribute_node_scalar.attribute_name = 'fmap_values'
+        attribute_node_labels.attribute_name = 'labels_values'
         bump_node.inputs["Strength"].default_value = 0.88
         bump_node.inputs["Distance"].default_value = 1.0
 
@@ -722,8 +724,8 @@ class CreationMaterial:
         self.add_color_to_color_ramp(color_ramp_color, 0.5, self.hex_color[1])
         self.add_color_to_color_ramp(color_ramp_color, 1.0, self.hex_color[2], is_white=True, flag=1)
 
-        links.new(attribute_node.outputs['Fac'], color_ramp_mask.inputs['Fac'])
-        links.new(attribute_node.outputs['Fac'], color_ramp_color.inputs['Fac'])
+        links.new(attribute_node_labels.outputs['Fac'], color_ramp_mask.inputs['Fac'])
+        links.new(attribute_node_scalar.outputs['Fac'], color_ramp_color.inputs['Fac'])
 
         links.new(color_ramp_color.outputs['Color'], principled.inputs['Base Color'])
         links.new(color_ramp_mask.outputs['Color'], bump_node.inputs['Height'])
