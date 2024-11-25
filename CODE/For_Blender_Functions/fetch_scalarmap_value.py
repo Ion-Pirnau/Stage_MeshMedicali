@@ -54,6 +54,17 @@ class ScalarFieldValue:
 
 
     def normalize(self, values, new_min=0.0, new_max=1.0):
+
+        """
+            Function: normalize the scalar values in a range
+
+            Args:
+                values : values to normalize
+                new_min : min value to start normalize
+                new_max : max value to start normalize
+
+        """
+
         old_min = np.min(values)
 
         old_max = np.max(values)
@@ -62,6 +73,15 @@ class ScalarFieldValue:
 
 
     def add_value_to_mesh_vertex(self, obj, fmap_values):
+
+        """
+            Function: add scalar value to mesh vertex
+
+            Args:
+                obj : obj to which add the values
+                fmap_values : array with values to add to the mesh's vertex
+        """
+
         mesh = obj.data
 
         if 'fmap_values' not in mesh.attributes:

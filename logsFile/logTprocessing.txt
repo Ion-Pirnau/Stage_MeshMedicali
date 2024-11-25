@@ -1,201 +1,4 @@
-2024-11-22 21:28:14
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 32510
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.00547206701312147 factor
-
-File saved as: test_MNI_clean.off
---------------------------------------------
-2024-11-22 21:28:57
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 32510
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.00547206701312147 factor
-
-File saved as: test_MNI_clean.off
---------------------------------------------
-2024-11-22 21:29:20
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 32510
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.00547206701312147 factor
-
-File saved as: test_MNI_clean.off
---------------------------------------------
-2024-11-22 21:32:29
---------------------------------------------
-DETAILS:
-Working on: test_MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x1.0 factor
-
-File saved as: test_test_MNI_clean.off
---------------------------------------------
-2024-11-22 21:48:27
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.00547206701312147 factor
-
-File saved as: test_MNI_clean.off
---------------------------------------------
-2024-11-22 21:52:09
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Remove Zero Area Faces Algorithm
-Zero Area Faces removed: 0
-
-
-Mesh Initialized
-
-Ci sono: 0 isole nella mesh
-
-
-Applied: Remove Not Connected Component Algorithm
-
-Mesh Initialized
-
-Ci sono: 0 isole nella mesh
-
-File saved as: test2_MNI_clean.off
---------------------------------------------
-2024-11-22 21:57:28
---------------------------------------------
-DETAILS:
-File test2_MNI_clean non trovato
---------------------------------------------
-2024-11-22 21:57:40
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.00547206701312147 factor
-
-File saved as: test2_MNI_clean.off
---------------------------------------------
-2024-11-22 21:58:34
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.00547206701312147 factor
-
-File saved as: test2_MNI_clean.off
---------------------------------------------
-2024-11-22 21:59:48
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Scaling Algorithm
-Mesh scaled by: x1 factor
-
-File saved as: test2_MNI_clean.off
---------------------------------------------
-2024-11-22 22:23:23
---------------------------------------------
-DETAILS:
-Working on: 000199_tumoredbrain
-vertices: 111586
-normals: 0
-faces: 223018
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Scaling Algorithm
-Mesh scaled by: x1 factor
-
-File saved as: test_000199_tumoredbrain.off
---------------------------------------------
-2024-11-22 22:26:04
+2024-11-25 10:01:28
 --------------------------------------------
 DETAILS:
 Working on: 000199_tumoredbrain
@@ -208,12 +11,17 @@ Point Of Cloud Created
 
 Mesh Initialized
 
-Applied: Scaling Algorithm
-Mesh scaled by: x1 factor
+Applied: Repair Mesh Algorithm
+There are: 1 holes in the mesh
 
+AFTER RECOSTRUCTION:
+Number of Points on Mesh: 198011
+There are: 0 holes in the mesh
+AFTER DECIMATION:
+Number of Points on Mesh: 70020
 File saved as: test_000199_tumoredbrain.off
 --------------------------------------------
-2024-11-22 22:28:55
+2024-11-25 10:05:10
 --------------------------------------------
 DETAILS:
 Working on: 000199_tumoredbrain
@@ -226,12 +34,12 @@ Point Of Cloud Created
 
 Mesh Initialized
 
-Applied: Scaling Algorithm
-Mesh scaled by: x1 factor
+Applied: Scaling Algorithm UNIT BOX
+Mesh scaled by: x0.005759401906845821 factor
 
 File saved as: test_000199_tumoredbrain.off
 --------------------------------------------
-2024-11-22 22:30:18
+2024-11-25 10:05:52
 --------------------------------------------
 DETAILS:
 Working on: 000199_tumoredbrain
@@ -259,12 +67,12 @@ Mesh Initialized
 
 Ci sono: 0 isole nella mesh
 
-File saved as: test_000199_tumoredbrain.off
+File saved as: test_r_000199_tumoredbrain.off
 --------------------------------------------
-2024-11-22 22:31:06
+2024-11-25 10:06:14
 --------------------------------------------
 DETAILS:
-Working on: test_000199_tumoredbrain
+Working on: test_r_000199_tumoredbrain
 vertices: 109442
 normals: 109442
 faces: 215211
@@ -282,88 +90,13 @@ Number of Points on Mesh: 197870
 There are: 0 holes in the mesh
 AFTER DECIMATION:
 Number of Points on Mesh: 70002
-
-Applied: Scaling Algorithm
-Mesh scaled by: x1 factor
-
-File saved as: test_test_000199_tumoredbrain.off
---------------------------------------------
-2024-11-22 22:41:00
---------------------------------------------
-DETAILS:
-Working on: 000199_tumoredbrain
-vertices: 111586
-normals: 111586
-faces: 223018
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Remove Zero Area Faces Algorithm
-Zero Area Faces removed: 14
-
-
-Mesh Initialized
-
-Ci sono: 9 isole nella mesh
-
-
-Applied: Remove Not Connected Component Algorithm
-
-Mesh Initialized
-
-Ci sono: 0 isole nella mesh
-
-File saved as: test_000199_tumoredbrain.off
---------------------------------------------
-2024-11-22 22:41:24
---------------------------------------------
-DETAILS:
-Working on: test_000199_tumoredbrain
-vertices: 109442
-normals: 109442
-faces: 215211
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Repair Mesh Algorithm
-There are: 399 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 197870
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 70002
-
-Applied: Scaling Algorithm UNIT SPHERE
-Mesh scaled by: x0.010777930368732794 factor
-
-File saved as: test_test_000199_tumoredbrain.off
---------------------------------------------
-2024-11-22 22:51:44
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
 
 Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.00547206701312147 factor
+Mesh scaled by: x0.005753765356344305 factor
 
-File saved as: test_MNI_clean.off
+File saved as: test_test_r_000199_tumoredbrain.off
 --------------------------------------------
-2024-11-23 12:05:31
+2024-11-25 10:10:26
 --------------------------------------------
 DETAILS:
 Working on: MNI_clean
