@@ -394,6 +394,10 @@ class Processing_Mesh_PoC:
         return holes
 
 
+    def reconstruction_no_normals(self, poisson_density:int=750):
+        self.mesh.compute_vertex_normals()
+        self.pcd = self.mesh.sample_points_poisson_disk(poisson_density)
+
 
     def reconstruction_mesh_poisson(self, profondita=9):
         """

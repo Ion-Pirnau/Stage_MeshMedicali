@@ -59,7 +59,7 @@ class SetProcessingOnMesh:
 
 
 
-    def start_operation_processing(self, eps=1.02, min_samples=1, depth=9, decimation_value=190000, scale_factor=1,
+    def start_operation_processing(self, off_type="", eps=1.02, min_samples=1, depth=9, decimation_value=190000, scale_factor=1,
                                    scaling_type=0, nome_off_file_output="", is_readyto_repair=[False, False]) -> None:
 
         """
@@ -97,6 +97,8 @@ class SetProcessingOnMesh:
         """
         if is_readyto_repair[0]:
             print("Entrato PHASE 1 REPAIR")
+            if off_type.lower() == 'off':
+                self.pm_poc.reconstruction_no_normals(poisson_density=12300)
             self.pm_poc.repair_mesh(profondita=depth, n_decimation=decimation_value)
 
         if is_readyto_repair[1]:

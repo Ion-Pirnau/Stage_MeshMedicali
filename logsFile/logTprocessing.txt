@@ -1,45 +1,4 @@
-2024-11-25 10:01:28
---------------------------------------------
-DETAILS:
-Working on: 000199_tumoredbrain
-vertices: 111586
-normals: 111586
-faces: 223018
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Repair Mesh Algorithm
-There are: 1 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 198011
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 70020
-File saved as: test_000199_tumoredbrain.off
---------------------------------------------
-2024-11-25 10:05:10
---------------------------------------------
-DETAILS:
-Working on: 000199_tumoredbrain
-vertices: 111586
-normals: 111586
-faces: 223018
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.005759401906845821 factor
-
-File saved as: test_000199_tumoredbrain.off
---------------------------------------------
-2024-11-25 10:05:52
+2024-11-25 17:54:44
 --------------------------------------------
 DETAILS:
 Working on: 000199_tumoredbrain
@@ -67,12 +26,12 @@ Mesh Initialized
 
 Ci sono: 0 isole nella mesh
 
-File saved as: test_r_000199_tumoredbrain.off
+File saved as: test_1_000199_tumoredbrain.off
 --------------------------------------------
-2024-11-25 10:06:14
+2024-11-25 17:56:22
 --------------------------------------------
 DETAILS:
-Working on: test_r_000199_tumoredbrain
+Working on: test_1_000199_tumoredbrain
 vertices: 109442
 normals: 109442
 faces: 215211
@@ -94,23 +53,32 @@ Number of Points on Mesh: 70002
 Applied: Scaling Algorithm UNIT BOX
 Mesh scaled by: x0.005753765356344305 factor
 
-File saved as: test_test_r_000199_tumoredbrain.off
+File saved as: test_1_test_1_000199_tumoredbrain.off
 --------------------------------------------
-2024-11-25 10:10:26
+2024-11-25 18:17:03
 --------------------------------------------
 DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
+Working on: test_1_test_1_000199_tumoredbrain
+vertices: 70002
+normals: 70002
+faces: 140000
 
 
 Point Of Cloud Created
 
 Mesh Initialized
 
-Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.00547206701312147 factor
+Applied: Repair Mesh Algorithm
+There are: 0 holes in the mesh
 
-File saved as: test_MNI_clean.off
+AFTER RECOSTRUCTION:
+Number of Points on Mesh: 193875
+There are: 0 holes in the mesh
+AFTER DECIMATION:
+Number of Points on Mesh: 70002
+
+Applied: Scaling Algorithm UNIT BOX
+Mesh scaled by: x1.0000039339220308 factor
+
+File saved as: test_1_test_1_test_1_000199_tumoredbrain.off
 --------------------------------------------

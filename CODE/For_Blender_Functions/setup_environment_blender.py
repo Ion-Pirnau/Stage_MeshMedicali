@@ -146,9 +146,9 @@ class SetEnvironmentBlender:
 
 
     def setup_sun_light(self, sun_strength:float=1.0, sun_angle:float=0.526,
-                      sun_location:tuple[float,float,float]=[0.0, 0.0, 3.0],
-                      sun_rotation:tuple[float,float,float]=[0.0, 0.0, 0.0],
-                      sun_color:tuple[float,float,float]=[1.0, 1.0, 1.0]) -> None:
+                      sun_location:[float,float,float]=[0.0, 0.0, 3.0],
+                      sun_rotation:[float,float,float]=[0.0, 0.0, 0.0],
+                      sun_color:[float,float,float]=[1.0, 1.0, 1.0]) -> None:
 
         """
             Function: add light type Sun to the Environment
@@ -175,11 +175,11 @@ class SetEnvironmentBlender:
 
     def change_environment_settings(self,
                                     cube_size=187,
-                                    cube_rotation=(0.0, 0.0, 0.0),
-                                    cube_location=(0.0, 0.0, None),
-                                    axes_rotation=(0.0, 0.0, 96.0),
-                                    axes_location=(0.0, 0.0, 0.0),
-                                    camera_rotation=(62.0, 0.0, 136.0),
+                                    cube_rotation=[0.0, 0.0, 0.0],
+                                    cube_location=[0.0, 0.0, None],
+                                    axes_rotation=[0.0, 0.0, 96.0],
+                                    axes_location=[0.0, 0.0, 0.0],
+                                    camera_rotation=[62.0, 0.0, 136.0],
                                     camera_axes_offset=72.0,
                                     camera_light_offset=0.0,
                                     light_energy=100000.0,
@@ -189,15 +189,15 @@ class SetEnvironmentBlender:
 
         Parameters:
             cube_size (float): Size of the cube.
-            cube_rotation (tuple): Rotation of the cube (x, y, z).
-            cube_location (tuple): Location of the cube (x, y, z). If z is None, it defaults to cube_size/2.
-            axes_rotation (tuple): Rotation of the axes (x, y, z).
-            axes_location (tuple): Location of the axes (x, y, z).
-            camera_rotation (tuple): Rotation of the camera (x, y, z).
+            cube_rotation (list): Rotation of the cube (x, y, z).
+            cube_location (list): Location of the cube (x, y, z). If z is None, it defaults to cube_size/2.
+            axes_rotation (list): Rotation of the axes (x, y, z).
+            axes_location (list): Location of the axes (x, y, z).
+            camera_rotation (list): Rotation of the camera (x, y, z).
             camera_axes_offset (float): Offset distance between the camera and axes.
             camera_light_offset (float): Offset distance between the camera and the light.
             light_energy (float): Energy of the light at the camera.
-            base_plane_location (tuple): Location of the base plane (x, y, z).
+            base_plane_location (list): Location of the base plane (x, y, z).
         """
         self.size_cube = cube_size
 

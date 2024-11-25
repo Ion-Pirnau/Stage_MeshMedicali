@@ -214,12 +214,13 @@ def save_off_format(filename, vertices, normals, faces, path=output_path):
             f.write("OFF\n")
 
         f.write(f"{len(vertices)} {len(faces)} 0\n")
-
-        for vertex, normal in zip(vertices, normals):
-            if any(normal):
+        if not is_array_empty(normals):
+            for vertex, normal in zip(vertices, normals):
                 f.write(f"{vertex[0]} {vertex[1]} {vertex[2]} {normal[0]} {normal[1]} {normal[2]}\n")
-            else:
+        else:
+            for vertex in vertices:
                 f.write(f"{vertex[0]} {vertex[1]} {vertex[2]}\n")
+
 
         for face in faces:
             f.write(f"3 {face[0]} {face[1]} {face[2]}\n")

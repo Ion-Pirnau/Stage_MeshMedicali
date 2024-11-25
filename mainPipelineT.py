@@ -9,14 +9,16 @@ import json
 Initialization of the class for Processing the Mesh
 
 """
-def main_processed(dataname="", logfile_name="", valueeps=1.02, valuesample=5, valuedecimation=140000,
-                   valuescalefactor=1.0, valuescalingtype=0, nomeofffile="processed",
+def main_processed(type_off_file:str="", dataname:str="", logfile_name:str="", valueeps:float=1.02,
+                   valuesample:float=5, valuedecimation:int=140000,
+                   valuescalefactor:float=1.0, valuescalingtype:int=0, nomeofffile:str="processed",
                    is_readyto_repair=[False, False]) -> None:
 
     """
         Function: set up values for processing the mesh
 
         Args:
+            type_off_file : string value, define the off file type: OFF or NOFF
             dataname : string value, define the name of the file the program is going to work on
             logfile_name : string value, define the name of the txt file to save operations that has been done
             valueeps : float value, define the distance between points to form a cluster
@@ -35,7 +37,7 @@ def main_processed(dataname="", logfile_name="", valueeps=1.02, valuesample=5, v
     my_setup = SetProcessingOnMesh(dataname=dataname, logfile_name=logfile_name)
 
     if my_setup.check_file_existence():
-        my_setup.start_operation_processing(eps=valueeps,
+        my_setup.start_operation_processing(off_type=type_off_file, eps=valueeps,
                                             min_samples=valuesample,
                                             depth=9,
                                             decimation_value=valuedecimation,
@@ -107,7 +109,8 @@ if __name__ == '__main__':
         print("MESH's PROCESSING")
         print(param.get("dataname"))
 
-        main_processed(dataname=param.get("dataname"), logfile_name=logfile_name_processing,
+        main_processed(type_off_file=param.get("type_off_file"),dataname=param.get("dataname"),
+                logfile_name=logfile_name_processing,
                 valueeps=param.get("value_eps"), valuesample=param.get("value_minsamples"),
                 valuedecimation=param.get("value_decimation"), valuescalefactor=param.get("value_scalefactor"),
                 valuescalingtype=param.get("value_scalingtype"), nomeofffile=param.get("name_off_file"),
@@ -128,16 +131,16 @@ if __name__ == '__main__':
     """
     if param.get("blend_file_ex"):
         print("PREPARATION FOR BLENDER RENDERING")
-        my_setup = seb(param["dataname"], logfile_name_blender, plane_on_base_size=300)
-        my_setup.change_environment_settings(cube_size=1,
-                                            cube_rotation=(0, 0, 0),
-                                            axes_rotation=(0, 0, 0),
-                                            axes_location=(0, 0, 0),
-                                            camera_rotation=(58.5735, -0.955358, 133.919),
-                                            camera_axes_offset=1,
-                                            camera_light_offset=0,
-                                            light_energy=1.5,
-                                            base_plane_location=(0, 0, -0.000925)
+        my_setup = seb(param["dataname"], logfile_name_blender, plane_on_base_size=param.get("plane_on_base_size"))
+        my_setup.change_environment_settings(cube_size=param.get("cube_size"),
+                                            cube_rotation=param.get("cube_rotation"),
+                                            axes_rotation=param.get("axes_rotation"),
+                                            axes_location=param.get("axes_location"),
+                                            camera_rotation=param.get("camera_rotation"),
+                                            camera_axes_offset=param.get("camera_axes_offset"),
+                                            camera_light_offset=param.get("camera_light_offset"),
+                                            light_energy=param.get("light_energy_at_camera"),
+                                            base_plane_location=param.get("base_plane_location")
                                             )
 
 
@@ -150,16 +153,16 @@ if __name__ == '__main__':
             # 3 : mode - for Wireframe Material or Sun-Light
             
         """
-        my_setup.change_energy_light(light_front=0,
-                                     light_back=3,
-                                     light_right=0,
-                                     light_left=2.5,
-                                     light_top=1.5,
-                                     light_bottom=0,
-                                     light_set=3
+        my_setup.change_energy_light(light_front=param.get("light_front"),
+                                     light_back=param.get("light_back"),
+                                     light_right=param.get("light_right"),
+                                     light_left=param.get("light_left"),
+                                     light_top=param.get("light_top"),
+                                     light_bottom=param.get("light_bottom"),
+                                     light_set=param.get("light_set")
                                      )
 
-        my_setup.setup_sun_light(sun_strength=1.0, sun_angle=32.2)
+        my_setup.setup_sun_light(sun_strength=param.get("sun_strength"), sun_angle=param.get("sun_angle"))
 
 
         """
@@ -181,29 +184,27 @@ if __name__ == '__main__':
                 1 : White with Emission - better for Full-Transparency Material
     
             RBG VALUE TESTED: 0.586, 0.663, 0.612 ------- 0.713, 0.836, 1
-            color_transp_bsdf=[], color_diff_bsdf=[] only for the FULL-TRANSPARENCY Material
         
         """
 
-        my_setup.set_materials(material_value=6, material_plane_value=1,
-                               color_map_value=3, hex_color=["000000", "A77843", "FFB100"],
-                               color_transp_bsdf=[], color_diff_bsdf=[])
+        my_setup.set_materials(material_value=param.get("material_value"),
+                               material_plane_value=param.get("material_plane_value"),
+                               color_map_value=param.get("color_map_value"), hex_color=param.get("hex_color"),
+                               color_transp_bsdf=param.get("color_transp_bsdf"),
+                               color_diff_bsdf=param.get("color_diff_bsdf"))
 
 
-        my_setup.setup_walls()
+        my_setup.setup_walls(wall_front=param.get("wall_front"), wall_back=param.get("wall_back"),
+                             wall_right=param.get("wall_right"), wall_left=param.get("wall_left"))
+
 
         my_setup.setup_scalarfield(param.get("name_scalar_field_txt"),
                                    param.get("name_scalar_labels_txt"), param.get("scalar_field"))
 
 
-        """
-        Type Engine:
-            0 : Cycles
-            1 : Eevee
-        
-        """
-        my_setup.set_rendering_values(type_engine=0, type_device="GPU", n_samples=300,
-                                        file_format="png", screen_percentage=1)
+        my_setup.set_rendering_values(type_engine=param.get("type_engine"), type_device=param.get("type_device"),
+                                      n_samples=param.get("n_samples"), file_format=param.get("file_format"),
+                                      screen_percentage=param.get("screen_percentage"))
 
         my_setup.set_the_environment(nome_blend_file=param.get("blend_file_name"))
 
