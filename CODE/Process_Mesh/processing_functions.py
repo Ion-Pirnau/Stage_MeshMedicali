@@ -395,6 +395,15 @@ class Processing_Mesh_PoC:
 
 
     def reconstruction_no_normals(self, poisson_density:int=750):
+        """
+            Function: for mesh without normals, compute vertex normal first and then do the reconstruciton
+
+            Args:
+                 poisson_density : integer-value for density of the mesh generated
+
+        """
+        self.message_to_log += f"\nOperation: Compute Normals Before Reconstruction"
+        self.message_to_log += f"\nPoisson Density: {poisson_density}\n"
         self.mesh.compute_vertex_normals()
         self.pcd = self.mesh.sample_points_poisson_disk(poisson_density)
 

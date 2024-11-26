@@ -60,7 +60,8 @@ class SetProcessingOnMesh:
 
 
     def start_operation_processing(self, off_type="", eps=1.02, min_samples=1, depth=9, decimation_value=190000, scale_factor=1,
-                                   scaling_type=0, nome_off_file_output="", is_readyto_repair=[False, False]) -> None:
+                                   scaling_type=0, nome_off_file_output="",
+                                   poisson_density=12300, is_readyto_repair=[False, False]) -> None:
 
         """
             Function: Do processing-operation on the mesh based on the arguments
@@ -73,6 +74,7 @@ class SetProcessingOnMesh:
                 scale_factor - float value used to scale the mesh
                 scaling_type - integer value to choose the type of scaling to apply to the mesh
                 nome_off_file_output - string value to define the name of the output off file
+                poisson_density - integer value, used for off file with no normals for reconstruction, same function as the decimation_value
                 is_readyto_repair - [bool, bool] values to define when to do the repair or scaling operation
 
         """
@@ -98,7 +100,7 @@ class SetProcessingOnMesh:
         if is_readyto_repair[0]:
             print("Entrato PHASE 1 REPAIR")
             if off_type.lower() == 'off':
-                self.pm_poc.reconstruction_no_normals(poisson_density=12300)
+                self.pm_poc.reconstruction_no_normals(poisson_density=poisson_density)
             self.pm_poc.repair_mesh(profondita=depth, n_decimation=decimation_value)
 
         if is_readyto_repair[1]:

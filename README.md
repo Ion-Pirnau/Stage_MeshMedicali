@@ -46,6 +46,7 @@ The configuration file (`config.json`) should follow the sample below:
     "value_decimation": 140000,
     "value_scalefactor": 1,
     "value_scalingtype": 1,
+    "poisson_density" : 12300,
     "name_off_file": "test_1",
     "processing_0": false,
     "processing_1": [
@@ -53,6 +54,7 @@ The configuration file (`config.json`) should follow the sample below:
         false
     ],
     "blend_file_ex": true,
+    "fill_holes": true,
     "blend_file_name": "testBlend_",
     "plane_on_base_size": 300,
     "base_plane_location": [0, 0, -0.000925],
@@ -109,10 +111,12 @@ The configuration file (`config.json`) should follow the sample below:
 - `value_decimation`: **Integer-value.** Value used to decimanted the mesh. ***[Processing Operation Only]***
 - `value_scalefactor`: **Float-value.** Value used to scale a mesh. ***[Processing Operation Only]***
 - `value_scalingtype`: **Integer-value.** Value to choose what scaling type apply on the mesh. [**Type 0**: scaling on X, Y and Z. **Type 1**: scaling to UNIT-BOX. **Type 2**: scaling to UNIT-SPHERE] ***[Processing Operation Only]***
+- `poisson_density` : **Integer-value.** Value for reconstruction off type file with no normals. Same function as the ***value_decimantion***.
 - `name_off_file`: **String-value.** String value added as a prefix on the file Generated during the pipeline's ***Phase 0*** and ***Phase 1***.
 - `processing_0`: **Boolean-value.** Define the ***Phase 0*** of the Pipeline. Loot at [Pipeline Operation](#pipeline-operation)'s Phases.
 - `processing_1`: **Array Boolean-value.** Define the ***Phase 1*** of the Pipeline, each item corresponds to the specific operation. Loot at [Pipeline Operation](#pipeline-operation)'s Phases.
 - `blend_file_ex`: **Boolean-value.** Define the ***Phase 2*** of the Pipeline. Loot at [Pipeline Operation](#pipeline-operation)'s Phases.
+- `fill_holes`: **Boolean-value.** Apply the fill holes in Blender Environment.
 - `blend_file_name`: **String-value.** String name to define the blend file.
 - `plane_on_base_size`: **Integer-value.** Dimension of the plane at the base.
 - `base_plane_location`: **List-value.** Location of the plane base on X, Y and Z.

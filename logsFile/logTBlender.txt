@@ -1,68 +1,7 @@
-2024-11-25 17:56:23
+2024-11-26 17:49:03
 --------------------------------------------
 DETAILS:
-Created Mesh: test_1_test_1_000199_tumoredbrain
-Vertex: 70002
-Normals: 70002
-FacesNormals: 140000
-
-Created plane on base:
-Size: 300
-Location: (0, 0, -0.000925)
-
-Created Wall round the Base
-FrontPlane
-BackPlane
-RightPlane
-LeftPlane
-Created empty cube: Cube_Reference
-Dimension: 1
-Location: (0.0, 0.0, 0.5)
-Rotation: (0, 0, 0)
-
-Created 6 lights:
-light_front: 0
-light_back: 0
-light_right: 0
-light_left: 0
-light_top: 0
-light_bottom: 0
-
-Created empty axes: Axes_to_Camera
-Location: (0, 0, 0)
-Rotation: (0, 0, 0)
-
-Created camera: Camera_Main
-Offset from Axes_to_Camera: 1
-Rotation: (58.5735, -0.955358, 133.919)
-
-Created light at camera: Light_to_Camera
-Offset from camera: 0
-Energy: 1.5
-
-Created Sun Light: LightSun
-Sun Location: [0.0, 0.0, 3.0]
-Sun Rotation: [0.0, 0.0, 0.0]
-Sun color: [1.0, 1.0, 1.0]
-Sun strength: 1.0
-Sun angle: 32.2 deg
-
-Material on Mesh chosen: ColorMap=Scalar Map
-Material Plane chosen: White-Plane-Emission
-
-RENDERING SETUP:
-Render engine set to: CYCLES
-Render device set to: GPU
-RENDER SAMPLES: 300
-File format set to: PNG
-Resolution set to: 1920x1080
-Resolution scale set to: 100%
-
---------------------------------------------
-2024-11-25 18:17:03
---------------------------------------------
-DETAILS:
-Created Mesh: test_1_test_1_test_1_000199_tumoredbrain
+Created Mesh: test_repaired_test2_test_000058_tumoredbrain
 Vertex: 70002
 Normals: 70002
 FacesNormals: 140000
@@ -70,286 +9,47 @@ FacesNormals: 140000
 Created plane on base:
 Size: 300
 Location: [0, 0, -0.000925]
+Transparency: False
 
 Created Wall round the Base
 FrontPlane
 BackPlane
 RightPlane
 LeftPlane
+
 Created empty cube: Cube_Reference
 Dimension: 1
 Location: (0.0, 0.0, 0.5)
 Rotation: [0, 0, 0]
 
 Created 6 lights:
-light_front: 0
-light_back: 0
-light_right: 0
-light_left: 0
-light_top: 0
-light_bottom: 0
+light_front: Energy=2.5 Radius=0.0
+light_back: Energy=2.5 Radius=0.0
+light_right: Energy=2.5 Radius=0.0
+light_left: Energy=2.5 Radius=0.0
+light_top: Energy=10 Radius=0.73
+light_bottom: Energy=0 Radius=0.0
 
 Created empty axes: Axes_to_Camera
-Location: [0, 0, 0]
-Rotation: [0, 0, 0]
-
-Created camera: Camera_Main
-Offset from Axes_to_Camera: 1
-Rotation: [58.5735, -0.955358, 133.919]
-
-Created light at camera: Light_to_Camera
-Offset from camera: 0
-Energy: 1.5
-
-Created Sun Light: LightSun
-Sun Location: [0.0, 0.0, 3.0]
-Sun Rotation: [0.0, 0.0, 0.0]
-Sun color: [1.0, 1.0, 1.0]
-Sun strength: 1.0
-Sun angle: 32.2 deg
-
-Material on Mesh chosen: ColorMap=Scalar Map
-Material Plane chosen: White-Plane-Emission
-
-RENDERING SETUP:
-Render engine set to: CYCLES
-Render device set to: GPU
-RENDER SAMPLES: 300
-File format set to: PNG
-Resolution set to: 1920x1080
-Resolution scale set to: 100%
-
---------------------------------------------
-2024-11-25 18:17:54
---------------------------------------------
-DETAILS:
-Created Mesh: test_1_test_1_000199_tumoredbrain
-Vertex: 70002
-Normals: 70002
-FacesNormals: 140000
-
-Created plane on base:
-Size: 300
-Location: [0, 0, -0.000925]
-
-Created Wall round the Base
-FrontPlane
-BackPlane
-RightPlane
-LeftPlane
-Created empty cube: Cube_Reference
-Dimension: 1
-Location: (0.0, 0.0, 0.5)
-Rotation: [0, 0, 0]
-
-Created 6 lights:
-light_front: 0
-light_back: 0
-light_right: 0
-light_left: 0
-light_top: 0
-light_bottom: 0
-
-Created empty axes: Axes_to_Camera
-Location: [0, 0, 0]
-Rotation: [0, 0, 0]
-
-Created camera: Camera_Main
-Offset from Axes_to_Camera: 1
-Rotation: [58.5735, -0.955358, 133.919]
-
-Created light at camera: Light_to_Camera
-Offset from camera: 0
-Energy: 1.5
-
-Created Sun Light: LightSun
-Sun Location: [0.0, 0.0, 3.0]
-Sun Rotation: [0.0, 0.0, 0.0]
-Sun color: [1.0, 1.0, 1.0]
-Sun strength: 1.0
-Sun angle: 32.2 deg
-
-Material on Mesh chosen: ColorMap=Scalar Map
-Material Plane chosen: White-Plane-Emission
-
-RENDERING SETUP:
-Render engine set to: CYCLES
-Render device set to: GPU
-RENDER SAMPLES: 300
-File format set to: PNG
-Resolution set to: 1920x1080
-Resolution scale set to: 100%
-
---------------------------------------------
-2024-11-25 18:19:42
---------------------------------------------
-DETAILS:
-Created Mesh: test_1_test_1_000199_tumoredbrain
-Vertex: 70002
-Normals: 70002
-FacesNormals: 140000
-
-Created plane on base:
-Size: 300
-Location: [0, 0, -0.000925]
-
-Created Wall round the Base
-FrontPlane
-BackPlane
-RightPlane
-LeftPlane
-Created empty cube: Cube_Reference
-Dimension: 1
-Location: (0.0, 0.0, 0.5)
-Rotation: [0, 0, 0]
-
-Created 6 lights:
-light_front: 0
-light_back: 0
-light_right: 0
-light_left: 0
-light_top: 0
-light_bottom: 0
-
-Created empty axes: Axes_to_Camera
-Location: [0, 0, 0]
-Rotation: [0, 0, 0]
-
-Created camera: Camera_Main
-Offset from Axes_to_Camera: 1
-Rotation: [58.5735, -0.955358, 133.919]
-
-Created light at camera: Light_to_Camera
-Offset from camera: 0
-Energy: 1.5
-
-Created Sun Light: LightSun
-Sun Location: [0.0, 0.0, 3.0]
-Sun Rotation: [0.0, 0.0, 0.0]
-Sun color: [1.0, 1.0, 1.0]
-Sun strength: 1.0
-Sun angle: 32.2 deg
-
-Material on Mesh chosen: ColorMap=Deformation on Surface
-Material Plane chosen: White-Plane-Emission
-
-RENDERING SETUP:
-Render engine set to: CYCLES
-Render device set to: GPU
-RENDER SAMPLES: 300
-File format set to: PNG
-Resolution set to: 1920x1080
-Resolution scale set to: 100%
-
---------------------------------------------
-2024-11-25 18:23:20
---------------------------------------------
-DETAILS:
-Created Mesh: test_1_test_1_000199_tumoredbrain
-Vertex: 70002
-Normals: 70002
-FacesNormals: 140000
-
-Created plane on base:
-Size: 300
-Location: [0, 0, -0.000925]
-
-Created Wall round the Base
-FrontPlane
-BackPlane
-RightPlane
-LeftPlane
-Created empty cube: Cube_Reference
-Dimension: 1
-Location: (0.0, 0.0, 0.5)
-Rotation: [0, 0, 0]
-
-Created 6 lights:
-light_front: 0
-light_back: 0
-light_right: 0
-light_left: 0
-light_top: 0
-light_bottom: 0
-
-Created empty axes: Axes_to_Camera
-Location: [0, 0, 0]
-Rotation: [0, 0, 0]
-
-Created camera: Camera_Main
-Offset from Axes_to_Camera: 1
-Rotation: [58.5735, -0.955358, 133.919]
-
-Created light at camera: Light_to_Camera
-Offset from camera: 0
-Energy: 1.5
-
-Created Sun Light: LightSun
-Sun Location: [0.0, 0.0, 3.0]
-Sun Rotation: [0.0, 0.0, 0.0]
-Sun color: [1.0, 1.0, 1.0]
-Sun strength: 1.0
-Sun angle: 32.2 deg
-
-Material on Mesh chosen: ColorMap=Deformation on Surface
-Material Plane chosen: White-Plane-Emission
-
-RENDERING SETUP:
-Render engine set to: CYCLES
-Render device set to: GPU
-RENDER SAMPLES: 300
-File format set to: PNG
-Resolution set to: 1920x1080
-Resolution scale set to: 100%
-
---------------------------------------------
-2024-11-25 18:26:39
---------------------------------------------
-DETAILS:
-Created Mesh: test_1_test_1_000199_tumoredbrain
-Vertex: 70002
-Normals: 70002
-FacesNormals: 140000
-
-Created plane on base:
-Size: 300
-Location: [0, 0, -0.000925]
-
-Created Wall round the Base
-FrontPlane
-BackPlane
-RightPlane
-LeftPlane
-Created empty cube: Cube_Reference
-Dimension: 1
-Location: (0.0, 0.0, 0.5)
-Rotation: [0, 0, 0]
-
-Created 6 lights:
-light_front: 0
-light_back: 0
-light_right: 0
-light_left: 0
-light_top: 0
-light_bottom: 0
-
-Created empty axes: Axes_to_Camera
-Location: [0, 0, 0]
+Location: [0, 0, -1.52386]
 Rotation: [0, 0, -161.18]
 
 Created camera: Camera_Main
+Type: PERSP
+Focal Length: 50
 Offset from Axes_to_Camera: 1
-Rotation: [60.8653, -0.955358, 133.919]
+Rotation: [90, 0, 135.458]
 
 Created light at camera: Light_to_Camera
 Offset from camera: 0
 Energy: 90
+Radius: 1.12
 
 Created Sun Light: LightSun
 Sun Location: [0.0, 0.0, 3.0]
 Sun Rotation: [0.0, 0.0, 0.0]
 Sun color: [1.0, 1.0, 1.0]
-Sun strength: 1.0
+Sun strength: 0.0
 Sun angle: 32.2 deg
 
 Material on Mesh chosen: ColorMap=Deformation on Surface
@@ -359,6 +59,7 @@ RENDERING SETUP:
 Render engine set to: CYCLES
 Render device set to: GPU
 RENDER SAMPLES: 300
+Film-Transparency: False
 File format set to: PNG
 Resolution set to: 1920x1080
 Resolution scale set to: 100%

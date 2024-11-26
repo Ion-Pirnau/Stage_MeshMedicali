@@ -2,25 +2,22 @@ import bpy
 from CODE.For_Blender_Functions.out_set_render import ScreenMonitorResolution as smr, OutputFileRender as oft
 
 
-
-
-"""
-Class for setting the blend file for rendering.
-
-Set up the engine, device, sample, file format,
-percentage of the screen, resolution of the screen
-
-Every value are saved in the log file
-
-HOW IT WORKS: setup_environment_blender, create our environment and save the file
-the class open the file and apply the correct rendering values
-
-Because I find it difficult to re-save it the file again I just create a new one called outFinal,
-outFinal is the same file as the setup_enviroment_blender gives in output plus the values for rendering
-
-"""
-
 class RenderingSetup:
+    """
+        Class for setting the blend file for rendering.
+
+        Set up the engine, device, sample, file format,
+        percentage of the screen, resolution of the screen
+
+        Every value are saved in the log file
+
+        HOW IT WORKS: setup_environment_blender, create our environment and save the file
+        the class open the file and apply the correct rendering values
+
+        Because I find it difficult to re-save it the file again I just create a new one called outFinal,
+        outFinal is the same file as the setup_enviroment_blender gives in output plus the values for rendering
+    """
+
     output_blend_file = "BLEND_FILE_OUTPUT/"
 
     engines = {
@@ -34,12 +31,14 @@ class RenderingSetup:
 
     message_to_log = "RENDERING SETUP:\n"
 
-    def __init__(self, type_engine: int, type_device: str, n_samples: int, file_format: str, screen_percentage):
+    def __init__(self, type_engine: int, type_device: str, n_samples: int, file_format: str, screen_percentage: float,
+                 film_transparency: bool):
         self.type_engine = type_engine
         self.type_device = type_device
         self.n_samples = n_samples
         self.file_format = file_format
         self.screen_percentage = screen_percentage
+        self.film_transparency = film_transparency
 
     def set_engine_device(self):
         """
@@ -54,6 +53,8 @@ class RenderingSetup:
                 if single_engine == 'CYCLES' and single_device in self.devices:
                     bpy.context.scene.cycles.device = self.type_device.upper()
                     bpy.context.scene.render.engine = single_engine
+                    if self.film_transparency:
+                        bpy.context.scene.render.film_transparent = True
                     self.set_cycles_samples()
                 else:
                     raise ValueError("Invalid device type: Use 'CPU' or 'GPU'")
@@ -68,7 +69,8 @@ class RenderingSetup:
                 self.message_to_log += f"Render device set to: {single_device}\n"
 
             print(f"RENDER SAMPLES: {self.n_samples}")
-            self.message_to_log += f"RENDER SAMPLES: {self.n_samples}\n"
+            self.message_to_log += (f"RENDER SAMPLES: {self.n_samples}\n"
+                                    f"Film-Transparency: {self.film_transparency}\n")
         else:
             raise ValueError("Invalid engine type. Use 'CYCLE' or 'EEVEE'.")
 

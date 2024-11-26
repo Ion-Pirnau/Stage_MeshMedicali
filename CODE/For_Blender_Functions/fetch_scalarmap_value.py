@@ -1,5 +1,4 @@
 import numpy as np
-import bpy
 import os
 
 class ScalarFieldValue:

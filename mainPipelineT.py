@@ -12,7 +12,7 @@ Initialization of the class for Processing the Mesh
 def main_processed(type_off_file:str="", dataname:str="", logfile_name:str="", valueeps:float=1.02,
                    valuesample:float=5, valuedecimation:int=140000,
                    valuescalefactor:float=1.0, valuescalingtype:int=0, nomeofffile:str="processed",
-                   is_readyto_repair=[False, False]) -> None:
+                   poisson_density:int=12300, is_readyto_repair=[False, False]) -> None:
 
     """
         Function: set up values for processing the mesh
@@ -44,6 +44,7 @@ def main_processed(type_off_file:str="", dataname:str="", logfile_name:str="", v
                                             scale_factor=valuescalefactor,
                                             scaling_type=valuescalingtype,
                                             nome_off_file_output=nomeofffile,
+                                            poisson_density=poisson_density,
                                             is_readyto_repair=is_readyto_repair)
 
 def load_config(config_file='config.json') -> dict:
@@ -114,7 +115,7 @@ if __name__ == '__main__':
                 valueeps=param.get("value_eps"), valuesample=param.get("value_minsamples"),
                 valuedecimation=param.get("value_decimation"), valuescalefactor=param.get("value_scalefactor"),
                 valuescalingtype=param.get("value_scalingtype"), nomeofffile=param.get("name_off_file"),
-                is_readyto_repair=param.get("processing_1"))
+                poisson_density=param.get("poisson_density"), is_readyto_repair=param.get("processing_1"))
 
         param["dataname"] = param.get("name_off_file") + "_" + param.get("dataname")
         result = write_config(data=param)
@@ -131,7 +132,8 @@ if __name__ == '__main__':
     """
     if param.get("blend_file_ex"):
         print("PREPARATION FOR BLENDER RENDERING")
-        my_setup = seb(param["dataname"], logfile_name_blender, plane_on_base_size=param.get("plane_on_base_size"))
+        my_setup = seb(param["dataname"], logfile_name_blender, plane_on_base_size=param.get("plane_on_base_size"),
+                       fill_holes=param.get("fill_holes"))
         my_setup.change_environment_settings(cube_size=param.get("cube_size"),
                                             cube_rotation=param.get("cube_rotation"),
                                             axes_rotation=param.get("axes_rotation"),
@@ -139,6 +141,10 @@ if __name__ == '__main__':
                                             camera_rotation=param.get("camera_rotation"),
                                             camera_axes_offset=param.get("camera_axes_offset"),
                                             camera_light_offset=param.get("camera_light_offset"),
+                                            camera_type=param.get("camera_type"),
+                                            lens_camera=param.get("lens_camera"),
+                                            ortho_scale=param.get("ortho_scale"),
+                                            light_energy_radius=param.get("light_energy_at_camera_radius"),
                                             light_energy=param.get("light_energy_at_camera"),
                                             base_plane_location=param.get("base_plane_location")
                                             )
@@ -159,6 +165,7 @@ if __name__ == '__main__':
                                      light_left=param.get("light_left"),
                                      light_top=param.get("light_top"),
                                      light_bottom=param.get("light_bottom"),
+                                     lights_radius=param.get("lights_radius"),
                                      light_set=param.get("light_set")
                                      )
 
@@ -199,12 +206,18 @@ if __name__ == '__main__':
 
 
         my_setup.setup_scalarfield(param.get("name_scalar_field_txt"),
-                                   param.get("name_scalar_labels_txt"), param.get("scalar_field"))
+                                   param.get("name_scalar_labels_txt"))
+
+
+        my_setup.setup_deformation(is_deformation_active=False, min_value=0.4,
+                                   median_coordinate=[0.044331, -0.036054, 0.696824])
 
 
         my_setup.set_rendering_values(type_engine=param.get("type_engine"), type_device=param.get("type_device"),
                                       n_samples=param.get("n_samples"), file_format=param.get("file_format"),
-                                      screen_percentage=param.get("screen_percentage"))
+                                      screen_percentage=param.get("screen_percentage"),
+                                      floor_transparency=param.get("floor_transparency"),
+                                      film_transparency=param.get("film_transparency"))
 
         my_setup.set_the_environment(nome_blend_file=param.get("blend_file_name"))
 

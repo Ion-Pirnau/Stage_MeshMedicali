@@ -1,3 +1,5 @@
+from CODE.For_Blender_Functions.deformation_on_mesh import DeformMesh
+from CODE.For_Blender_Functions.fill_holes_mesh import FillHoles
 from CODE.Process_Mesh.processing_functions import Processing_Mesh_PoC
 from CODE.FunzioniUtili import utils as utl
 from CODE.For_Blender_Functions.set_rendering import RenderingSetup
@@ -29,6 +31,15 @@ class SetEnvironmentBlender:
         'light_bottom': 100000
     }
 
+    lights_radius_value = {
+        'light_front': 0.0,
+        'light_back': 0.0,
+        'light_right': 0.0,
+        'light_left': 0.0,
+        'light_top': 0.0,
+        'light_bottom': 0.0
+    }
+
     light_names = [
         'light_front',
         'light_back',
@@ -54,10 +65,12 @@ class SetEnvironmentBlender:
 
 
     # Initialize the Class
-    def __init__(self, nome_mesh: str, nome_log_file: str, plane_on_base_size: int) -> None:
+    def __init__(self, nome_mesh: str, nome_log_file: str, plane_on_base_size: int,
+                 fill_holes: bool) -> None:
         self.nome_mesh = nome_mesh
         self.nome_log_file = nome_log_file
         self.plane_on_base = plane_on_base_size
+        self.is_fill_holes = fill_holes
 
         self.energy_light_at_camera = 100000
         self.size_cube = 187.0
@@ -87,13 +100,31 @@ class SetEnvironmentBlender:
         self.scalar_field = None
 
         self.is_scalar_active = False
+        self.is_deformation_active = False
+        self.deformation_on_mesh = None
+        self.median_coordinate = None
+        self.min_value_d = None
+        self.max_value_d = None
+        self.uv_scale_factor = None
+        self.deform_message = None
+        self.fillholes = None
+
+        self.light_energy_radius_at_camera = 0.0
+        self.lights_radius = []
+
+        self.floor_transparency = False
+        self.film_transparency = False
+        self.camera_type = "",
+        self.lens_camera = 0.0,
+        self.ortho_scale = 0.0,
 
 
 
     def change_energy_light(self, 
                             light_front=100000, light_back=100000, 
                             light_right=100000, light_left=100000, 
-                            light_top=100000, light_bottom=100000, 
+                            light_top=100000, light_bottom=100000,
+                            lights_radius=[],
                             light_set=0) -> None:
         """
         Update energy light settings either with custom values or selecting a predefined set.
@@ -144,6 +175,11 @@ class SetEnvironmentBlender:
 
         self.energy_settings.update(predefined_sets[light_set])
 
+        keys = list(self.lights_radius_value.keys())
+        for i, key in enumerate(keys):
+            self.lights_radius_value[key] = lights_radius[i]
+
+
 
     def setup_sun_light(self, sun_strength:float=1.0, sun_angle:float=0.526,
                       sun_location:[float,float,float]=[0.0, 0.0, 3.0],
@@ -182,7 +218,11 @@ class SetEnvironmentBlender:
                                     camera_rotation=[62.0, 0.0, 136.0],
                                     camera_axes_offset=72.0,
                                     camera_light_offset=0.0,
-                                    light_energy=100000.0,
+                                    camera_type="",
+                                    lens_camera=0.0,
+                                    ortho_scale=0.0,
+                                    light_energy_radius=0.0,
+                                    light_energy=10.0,
                                     base_plane_location=(0.0, 0.0, 0.0)) -> None:
         """
         Update various settings in the blender environment.
@@ -196,6 +236,10 @@ class SetEnvironmentBlender:
             camera_rotation (list): Rotation of the camera (x, y, z).
             camera_axes_offset (float): Offset distance between the camera and axes.
             camera_light_offset (float): Offset distance between the camera and the light.
+            camera_type (str) : type camera view
+            lens_camera (float) : lens camera value
+            ortho_scale (float) : ortho scale value
+            light_energy_radius (float): Value for light radius
             light_energy (float): Energy of the light at the camera.
             base_plane_location (list): Location of the base plane (x, y, z).
         """
@@ -214,17 +258,23 @@ class SetEnvironmentBlender:
         self.camera_offset_value_from_empty_axes = camera_axes_offset
 
         self.light_offset_value_from_camera = camera_light_offset
+        self.camera_type = camera_type
+        self.lens_camera = lens_camera
+        self.ortho_scale = ortho_scale
+        self.light_energy_radius_at_camera = light_energy_radius
         self.energy_light_at_camera = light_energy
 
         self.base_plane_location = base_plane_location
 
 
     def set_rendering_values(self,
-                               type_engine: int = 1,
-                               type_device: str = "GPU",
-                               n_samples: int = 300,
-                               file_format: str = "JPEG",
-                               screen_percentage: float = 1.0
+                            type_engine: int = 1,
+                            type_device: str = "GPU",
+                            n_samples: int = 300,
+                            file_format: str = "JPEG",
+                            screen_percentage: float = 1.0,
+                            floor_transparency:bool=False,
+                            film_transparency:bool=False
                                ) -> None:
         """
         Updates the rendering settings with the provided values. 
@@ -235,6 +285,8 @@ class SetEnvironmentBlender:
             n_samples (int): number of sample for rendering the image.
             file_format (str): Output file format, e.g., "JPEG" or "PNG" (default: JPEG).
             screen_percentage (float): Screen percentage for render resolution (default: 1.0).
+            floor_transparency : bool value to activate transparency on floor
+            film_transparency : bool value to active transparency on world
 
         Returns:
             None
@@ -244,6 +296,10 @@ class SetEnvironmentBlender:
         self.type_device = type_device
         self.n_samples = n_samples
         self.file_format = file_format
+
+        if self.type_engine == 0:
+            self.floor_transparency = floor_transparency
+            self.film_transparency = film_transparency
 
         try:
             assert screen_percentage<=1 or screen_percentage>=0
@@ -270,6 +326,10 @@ class SetEnvironmentBlender:
         Returns:
             None
         """
+        if material_value == 6:
+            self.is_scalar_active = True
+        else:
+            self.is_scalar_active = False
         self.mat_chosen = CreationMaterial(material_value, material_plane_value, color_map_value,
                                            hex_color, color_transp_bsdf, color_diff_bsdf)
         self.mat_chosen.check_parameter()
@@ -296,8 +356,7 @@ class SetEnvironmentBlender:
         self.wall_on_off[3] = wall_left
 
 
-    def setup_scalarfield(self, scalar_field_file:str, scalar_template_labels:str,
-                          is_scalar_active:bool=False):
+    def setup_scalarfield(self, scalar_field_file:str, scalar_template_labels:str):
         """
             Function: load scalar data
 
@@ -310,7 +369,27 @@ class SetEnvironmentBlender:
                 None
         """
         self.scalar_field = sfv(scalar_field_file, scalar_template_labels)
-        self.is_scalar_active = is_scalar_active
+
+
+
+    def setup_deformation(self, median_coordinate=[], min_value:float=-1.0, max_value:float=1.0, uv_scale_factor:float=0.1,
+                          is_deformation_active:bool=False):
+        """
+            Function: setup for deformation on mesh
+
+            Args:
+                median_coordinate : array's of 3D coordinate
+                min_value : min value to deform the mesh
+                max_value : max value to deform the mesh
+                uv_scale_factor : scale value for uv_sphere
+                is_deformation_active : bool value for applying the deformation
+
+        """
+        self.is_deformation_active = is_deformation_active
+        self.median_coordinate = median_coordinate
+        self.min_value_d = min_value
+        self.max_value_d = max_value
+        self.uv_scale_factor = uv_scale_factor
 
 
     def set_the_environment(self, nome_blend_file: str = "output1") -> None:
@@ -329,7 +408,8 @@ class SetEnvironmentBlender:
             type_device=self.type_device,
             n_samples=self.n_samples,
             file_format=self.file_format,
-            screen_percentage=self.screen_percentage
+            screen_percentage=self.screen_percentage,
+            film_transparency=self.film_transparency
         )
 
         # Perform initial setup tasks
@@ -412,6 +492,7 @@ class SetEnvironmentBlender:
 
         mesh = bpy.data.meshes.new(name=self.nome_mesh)
         obj = bpy.data.objects.new(self.nome_mesh + "_Object", mesh)
+        mesh_name = self.nome_mesh+"_Object"
 
         # Link the object to the current collection
         bpy.context.collection.objects.link(obj)
@@ -432,8 +513,14 @@ class SetEnvironmentBlender:
         self.set_geometry_origin()
 
         obj = self.move_mesh_up_z(obj)
+        self.apply_transformation(obj,[True, False, False])
 
         material = self.mat_chosen.fetch_material()
+
+        if self.is_fill_holes:
+            self.fillholes = FillHoles(mesh_name)
+            self.fillholes.fill_holes()
+
 
         if self.is_scalar_active:
             obj = self.scalar_field.add_value_to_mesh_vertex(obj, self.scalar_field.fetch_data_scalar(),
@@ -478,7 +565,7 @@ class SetEnvironmentBlender:
         """
             Modify light energy for all lights
         """
-        self.modify_light_energy(lights_spot, self.energy_settings)
+        self.modify_light_energy(lights_spot, self.energy_settings, self.lights_radius_value)
 
 
         """
@@ -491,6 +578,16 @@ class SetEnvironmentBlender:
         """
 
         self.add_sun_light_world()
+
+        """
+            Step 8: If True apply deformation
+        """
+        if self.is_deformation_active:
+            self.deformation_on_mesh = DeformMesh(mesh_name, self.median_coordinate, self.uv_scale_factor,
+                                                  self.min_value_d, self.max_value_d)
+            self.deformation_on_mesh.apply_deformation()
+            self.deform_message = self.deformation_on_mesh.get_message_deform()
+
 
 
     def select_object(self, obj):
@@ -558,21 +655,19 @@ class SetEnvironmentBlender:
 
 
 
-    """
-        Function not used for NOW. Applying Transformation
-    """
-    def apply_transformation(self, obj) -> None:
+    def apply_transformation(self, obj, values:[bool, bool, bool]=[False, False, True]) -> None:
         """
         Applies the scale transformation to the specified object.
 
         Args:
             obj (bpy.types.Object): The object whose scale transformation is to be applied.
+            values : bool values
 
         Returns:
             None
         """
         bpy.context.view_layer.objects.active = obj
-        bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+        bpy.ops.object.transform_apply(location=values[0], rotation=values[1], scale=values[2])
     
 
 
@@ -646,7 +741,7 @@ class SetEnvironmentBlender:
         return lights_spot_dict
 
     def add_spot_light(self, name:str, parent, location:[], rotation:[], spot_size: int =127, spot_blend:
-                        float =0.15, energy: int=100000):
+                        float =0.15, energy: float=10.0):
         """
         Adds a spotlight to the Blender scene with specified properties and parents it to a given object.
 
@@ -657,7 +752,7 @@ class SetEnvironmentBlender:
             rotation (tuple[float, float, float]): The rotation of the spotlight in radians.
             spot_size (float, optional): The cone angle of the spotlight in degrees. Defaults to 127.
             spot_blend (float, optional): The softness of the spotlight's edge. Defaults to 0.15.
-            energy (float, optional): The intensity of the spotlight. Defaults to 100000.
+            energy (float, optional): The intensity of the spotlight. Defaults to 10.0.
 
         Returns:
             bpy.types.Object: The created spotlight object.
@@ -740,9 +835,21 @@ class SetEnvironmentBlender:
 
         rotation_radians = np.deg2rad(rotation)
 
+        type_camera = ["ORTHO", "PERSP"]
         bpy.ops.object.camera_add(location=location, rotation=rotation_radians)
         camera = bpy.context.object
         camera.name = self.nome_camera
+
+        camera_type_upper = self.camera_type.upper()
+        if camera_type_upper in type_camera:
+            if camera_type_upper == type_camera[0]:
+                camera.data.type = type_camera[0]
+                if self.ortho_scale is not None:
+                    camera.data.ortho_scale = self.ortho_scale
+            elif camera_type_upper == type_camera[1]:
+                camera.data.type = type_camera[1]
+                if self.lens_camera is not None:
+                    camera.data.lens = self.lens_camera
 
         # Parent the camera to the empty object
         camera.parent = empty_axes
@@ -794,18 +901,20 @@ class SetEnvironmentBlender:
         light.data.spot_size = np.deg2rad(spot_size)
         light.data.spot_blend = spot_blend
         light.data.energy = energy
+        light.data.shadow_soft_size = self.light_energy_radius_at_camera
 
         light.parent = empty_axes
 
 
 
-    def modify_light_energy(self, all_lights, lights_energy):
+    def modify_light_energy(self, all_lights, lights_energy, lights_radius):
         """
         Modifies the energy settings of a collection of lights.
 
         Args:
             all_lights (dict): A dictionary where keys are light names and values are Blender light objects.
             lights_energy (dict): A dictionary where keys are light names and values are desired energy values.
+            lights_radius (dict): A dictionary where keys are light names and values are desired radius values.
 
         Returns:
             None
@@ -813,9 +922,14 @@ class SetEnvironmentBlender:
         for name, energy in lights_energy.items():
             light = all_lights.get(name)
             if light:
+                radius = lights_radius.get(name)
                 if light.data.energy != energy:
                     light.data.energy = energy
                     print(f"Energy of {name} set to {energy}")
+                if light.data.shadow_soft_size != radius:
+                    light.data.shadow_soft_size = radius
+                    print(f"Radius of {name} set to {radius}")
+
             else:
                 print(f"Warning: Light '{name}' not found in the provided lights dictionary.")
 
@@ -845,6 +959,9 @@ class SetEnvironmentBlender:
             obj_plane.data.materials[0] = material
         else:
             obj_plane.data.materials.append(material)
+
+        if self.floor_transparency:
+            bpy.context.object.is_shadow_catcher = True
 
         new_collection.objects.link(obj_plane)
         bpy.context.scene.collection.objects.unlink(obj_plane)
@@ -896,6 +1013,9 @@ class SetEnvironmentBlender:
             obj_plane.data.materials[0] = material
         else:
             obj_plane.data.materials.append(material)
+
+        if self.floor_transparency:
+            bpy.context.object.is_shadow_catcher = True
 
         new_collection.objects.link(obj_plane)
         bpy.context.scene.collection.objects.unlink(obj_plane)
@@ -975,7 +1095,8 @@ class SetEnvironmentBlender:
                             f"FacesNormals: {len(self.faces)}\n")
 
         log_messages.append(f"Created plane on base:\nSize: {self.plane_on_base}\n"
-                            f"Location: {self.base_plane_location}\n")
+                            f"Location: {self.base_plane_location}\n"
+                            f"Transparency: {self.floor_transparency}\n")
 
         log_messages.append("Created Wall round the Base")
         for wall_on_off, wall_name in zip(self.wall_on_off, self.wall_names):
@@ -983,34 +1104,54 @@ class SetEnvironmentBlender:
                 log_messages.append(f"{wall_name}")
 
 
-        log_messages.append(f"Created empty cube: {self.nome_cubo}\n"
+        log_messages.append(f"\nCreated empty cube: {self.nome_cubo}\n"
                             f"Dimension: {self.size_cube}\nLocation: {self.location_cube}\n"
                             f"Rotation: {self.rotation_empty_cube}\n")
 
         log_messages.append(f"Created {len(self.light_names)} lights:")
         for light in self.light_names:
-            log_messages.append(f"{light}: {self.energy_settings[light]}")
+            log_messages.append(f"{light}: Energy={self.energy_settings.get(light)} "
+                                f"Radius={self.lights_radius_value.get(light)}")
 
 
         log_messages.append(f"\nCreated empty axes: {self.nome_axes}\n"
                             f"Location: {self.location_axes}\nRotation: {self.rotation_empty_axes}\n")
 
+        type_camera = ["ORTHO", "PERSP"]
+        type_value = ""
+        value_numeric = ""
+        camera_type_upper = self.camera_type.upper()
+        if camera_type_upper == type_camera[0]:
+            type_value = type_camera[0]
+            value_numeric = f"Orthographic scale: {self.ortho_scale}"
+        elif camera_type_upper == type_camera[1]:
+            type_value = type_camera[1]
+            value_numeric = f"Focal Length: {self.lens_camera}"
+
         log_messages.append(f"Created camera: {self.nome_camera}\n"
+                            f"Type: {type_value}\n"
+                            f"{value_numeric}\n"
                             f"Offset from {self.nome_axes}: {self.camera_offset_value_from_empty_axes}\n"
                             f"Rotation: {self.rotation_camera}\n")
 
         log_messages.append(f"Created light at camera: {self.nome_camera_light}\n"
                             f"Offset from camera: {self.light_offset_value_from_camera}\n"
-                            f"Energy: {self.energy_light_at_camera}\n")
+                            f"Energy: {self.energy_light_at_camera}\n"
+                            f"Radius: {self.light_energy_radius_at_camera}\n")
 
 
         log_messages.append(self.sun_write_message())
 
         log_messages.append(self.mat_chosen.get_message())
-        log_messages.append(self.my_setup_render.get_message())
 
+        if self.is_deformation_active:
+            log_messages.append(self.deform_message)
+
+        if self.is_fill_holes:
+            log_messages.append(self.fillholes.get_message())
+
+        log_messages.append(self.my_setup_render.get_message())
 
         # Join all log messages into a single string
         self.message_to_log = "\n".join(log_messages)
-
         utl.write_to_log(file_name=self.nome_log_file, message=self.message_to_log, where_at=1)
