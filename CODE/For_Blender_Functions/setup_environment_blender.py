@@ -103,6 +103,7 @@ class SetEnvironmentBlender:
         self.is_deformation_active = False
         self.deformation_on_mesh = None
         self.median_coordinate = None
+        self.number_deformation = 1
         self.min_value_d = None
         self.max_value_d = None
         self.uv_scale_factor = None
@@ -373,7 +374,7 @@ class SetEnvironmentBlender:
 
 
     def setup_deformation(self, median_coordinate=[], min_value:float=-1.0, max_value:float=1.0, uv_scale_factor:float=0.1,
-                          is_deformation_active:bool=False):
+                          is_deformation_active:bool=False, number_deformation:int=1):
         """
             Function: setup for deformation on mesh
 
@@ -383,6 +384,7 @@ class SetEnvironmentBlender:
                 max_value : max value to deform the mesh
                 uv_scale_factor : scale value for uv_sphere
                 is_deformation_active : bool value for applying the deformation
+                number_deformation : number of deformation to apply on mesh
 
         """
         self.is_deformation_active = is_deformation_active
@@ -390,6 +392,7 @@ class SetEnvironmentBlender:
         self.min_value_d = min_value
         self.max_value_d = max_value
         self.uv_scale_factor = uv_scale_factor
+        self.number_deformation = number_deformation
 
 
     def set_the_environment(self, nome_blend_file: str = "output1") -> None:
@@ -584,7 +587,7 @@ class SetEnvironmentBlender:
         """
         if self.is_deformation_active:
             self.deformation_on_mesh = DeformMesh(mesh_name, self.median_coordinate, self.uv_scale_factor,
-                                                  self.min_value_d, self.max_value_d)
+                                                  self.min_value_d, self.max_value_d, self.number_deformation)
             self.deformation_on_mesh.apply_deformation()
             self.deform_message = self.deformation_on_mesh.get_message_deform()
 

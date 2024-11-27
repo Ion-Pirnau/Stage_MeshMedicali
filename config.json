@@ -73,6 +73,16 @@
     "color_map_value": 3,
     "name_scalar_field_txt": "registered_fmap.txt",
     "name_scalar_labels_txt": "template_labels.txt",
+    "is_deformation_active": false,
+    "median_coordinate": [
+        [0.113773, 0.450449, 0.409456],
+        [0.163708, -0.307038, 0.556879],
+        [0.218791, -0.259485, 0.163292]
+    ],
+    "number_deformation" : 0,
+    "min_value" : -0.5,
+    "max_value" : 0.5,
+    "uv_scale_factor" : 0.1,
     "material_plane_value": 1,
     "hex_color": [
         "000000",

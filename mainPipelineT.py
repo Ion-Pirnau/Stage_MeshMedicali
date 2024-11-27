@@ -150,15 +150,6 @@ if __name__ == '__main__':
                                             )
 
 
-
-        """ 
-            Four Light-set mode:
-            # 0 : Customize by the User
-            # 1 : mode - 6 light
-            # 2 : mode - 6 light
-            # 3 : mode - for Wireframe Material or Sun-Light
-            
-        """
         my_setup.change_energy_light(light_front=param.get("light_front"),
                                      light_back=param.get("light_back"),
                                      light_right=param.get("light_right"),
@@ -171,28 +162,6 @@ if __name__ == '__main__':
 
         my_setup.setup_sun_light(sun_strength=param.get("sun_strength"), sun_angle=param.get("sun_angle"))
 
-
-        """
-            Tipo Material:
-                0 : Dull Yellow
-                1 : Transparent / Glass
-                2 : Wireframe
-                3 : Custom
-                4 : Full-Transparency
-                5 : ColorMap's Values:
-                    - 0 : Propagation from Origin
-                    - 1 : Curvature Analysis
-                    - 2 : Heat-Map on Axis
-                    - 3 : Deformation on Surface
-                6 : ColorMaps - Scalar Value
-    
-            Tipo Material Plane:
-                0 : White
-                1 : White with Emission - better for Full-Transparency Material
-    
-            RBG VALUE TESTED: 0.586, 0.663, 0.612 ------- 0.713, 0.836, 1
-        
-        """
 
         my_setup.set_materials(material_value=param.get("material_value"),
                                material_plane_value=param.get("material_plane_value"),
@@ -208,9 +177,12 @@ if __name__ == '__main__':
         my_setup.setup_scalarfield(param.get("name_scalar_field_txt"),
                                    param.get("name_scalar_labels_txt"))
 
-
-        my_setup.setup_deformation(is_deformation_active=False, min_value=0.4,
-                                   median_coordinate=[0.044331, -0.036054, 0.696824])
+        my_setup.setup_deformation(is_deformation_active=param.get("is_deformation_active"),
+                                   min_value=param.get("min_value"),
+                                   max_value=param.get("max_value"),
+                                   median_coordinate=param.get("median_coordinate"),
+                                   number_deformation=param.get("number_deformation"),
+                                   uv_scale_factor=param.get("uv_scale_factor"))
 
 
         my_setup.set_rendering_values(type_engine=param.get("type_engine"), type_device=param.get("type_device"),

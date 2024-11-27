@@ -10,13 +10,14 @@ class DeformMesh:
     """
 
     def __init__(self, obj_name:str="", median_coordinate=[], scale_uv_sphere:float=0.1,
-                 min_value:float=-1.0, max_value:float=1.0):
+                 min_value:float=-1.0, max_value:float=1.0, number_deformation:int=1):
         self.obj_name = obj_name
         self.median_coordinate = median_coordinate
         self.scale_uv_sphere = scale_uv_sphere
         self.min_value = min_value
         self.max_value = max_value
         self.log_message = ""
+        self.number_deformation = number_deformation
 
 
     def apply_deformation(self):
@@ -36,12 +37,20 @@ class DeformMesh:
 
         target_sphere = self.create_uv_sphere(uv_sphere_name, self.scale_uv_sphere)
 
-        if self.median_coordinate:
-            face_index = self.select_face_by_medians(obj, self.median_coordinate)
-        else:
-            face_index = self.select_face_on_mesh(obj)
+        face_index = []
+        if not utl.is_array_empty(self.median_coordinate) and self.number_deformation == 0:
+            for coordinate in self.median_coordinate:
+                face_index.append(self.select_face_by_medians(obj, coordinate))
+                bpy.ops.object.mode_set(mode='OBJECT')
+        elif self.number_deformation > 0:
+            for i in range(self.number_deformation):
+                index = self.select_face_on_mesh(obj)
+                face_index.append(index)
+                bpy.ops.object.mode_set(mode='OBJECT')
 
-        self.translate_face_within_sphere(obj, target_sphere, face_index, self.min_value, self.max_value)
+        if face_index:
+            for index in face_index:
+                self.translate_face_within_sphere(obj, target_sphere, index, self.min_value, self.max_value)
 
         self.remove_uv_sphere(uv_sphere_name)
         self.write_to_log_deformation()
@@ -241,11 +250,13 @@ class DeformMesh:
                 None
         """
 
+        deformation_random = 0 if self.number_deformation == 0 else self.number_deformation
         self.log_message = (f"Applied Deformation on mesh: {self.obj_name}")
         self.log_message += (f"Details:\n"
-                           f"UV-SPHERE scale: {self.scale_uv_sphere}\n"
-                           f"Range value (Min-Max): From {self.min_value} to {self.max_value}\n"
-                           f"Coordinates Deform applied: {self.median_coordinate}\n\n")
+                            f"UV-SPHERE scale: {self.scale_uv_sphere}\n"
+                            f"Range value (Min-Max): From {self.min_value} to {self.max_value}\n"
+                            f"Random Deformation: {deformation_random}\n"
+                            f"Coordinates Deform applied: {self.median_coordinate}\n\n")
 
 
     def get_message_deform(self) -> str:
