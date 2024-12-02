@@ -165,7 +165,7 @@ The configuration file (`config.json`) should follow the sample below:
 - `dataname`: **String-value.** File's name the program is going to work on. The User does not have to change the name every single time, **'name_off_file'** comes to help.
 - `logfile_name_processing`: **String-value.** File txt's name where the description of the operation will be saved. ***[Processing Operation Only]***
 - `logfile_name_blender`: **String-value.** File txt's name where the description of the operation will be saved. ***[Blender Operation Only]***
-- `value_eps`: **Float-value.** Value to detect the distance between point. Points inside this are called 'cluster'. ***[Processing Operation Only]***
+- `value_eps`: **Float-value.** Value to detect the distance between point. Points inside this are called 'cluster'. **Suggestion:** values_eps=2.5 and values_minsamples=1 (for **MNI_clean**). ***[Processing Operation Only]***
 - `value_minsamples`: **Integer-value.** Value to define the min numbers of points inside a cluster. ***[Processing Operation Only]***
 - `value_decimation`: **Integer-value.** Value used to decimanted the mesh. ***[Processing Operation Only]***
 - `value_scalefactor`: **Float-value.** Value used to scale a mesh. ***[Processing Operation Only]***
