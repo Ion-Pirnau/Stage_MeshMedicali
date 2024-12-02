@@ -168,7 +168,10 @@ The configuration file (`config.json`) should follow the sample below:
 - `cube_rotation`: **List-value.** Rotation on X, Y and Z.
 - `axes_rotation`: **List-value.** Rotation on X, Y and Z.
 - `axes_location`: **List-value.** Location on X, Y and Z.
-- `camera_roration`: **List-value.** Rotation on X, Y and Z.
+- `camera_rotation`: **List-value.** Rotation on X, Y and Z.
+- `camera_type`: **String-value.** Choose the type for the camera; ***"persp"*=Perspective*** and ***"ortho"*=Orthogonal***
+- `lens_camera`: **Float-value.** Focal Length of the camera in **Perspective**-mode.
+- `ortho_scale`: **Float-value.** Scale of the camera in **Orthographic**-mode.
 - `camera_axes_offset`: **Float-value.** Offset value from Axes to Camera
 - `camera_light_offset`: **Float-value.** Offset value from Camera to Light-at-Camera
 - `light_energy_at_camera`: **Float-value.** Energy value for light.
