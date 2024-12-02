@@ -69,6 +69,21 @@
     "light_set": 2,
     "sun_strength": 0.0,
     "sun_angle": 32.2,
+    "sun_location": [
+        0.0,
+        0.0,
+        3.0
+    ],
+    "sun_rotation": [
+        0.0,
+        0.0,
+        0.0
+    ],
+    "sun_color": [
+        1.0,
+        1.0,
+        1.0
+    ],
     "material_value": 5,
     "color_map_value": 3,
     "name_scalar_field_txt": "registered_fmap.txt",

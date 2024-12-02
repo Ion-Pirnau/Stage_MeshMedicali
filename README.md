@@ -108,6 +108,21 @@ The configuration file (`config.json`) should follow the sample below:
     "light_set": 2,
     "sun_strength": 0.0,
     "sun_angle": 32.2,
+    "sun_location": [
+          0.0, 
+          0.0, 
+          3.0
+      ],
+      "sun_rotation": [
+          0.0, 
+          0.0, 
+          0.0
+      ],
+      "sun_color": [
+          1.0, 
+          1.0, 
+          1.0
+      ],
     "material_value": 5,
     "color_map_value": 3,
     "name_scalar_field_txt": "registered_fmap.txt",
@@ -185,7 +200,10 @@ The configuration file (`config.json`) should follow the sample below:
 - `ligths_radius`: **Array with Float-values.** Radius of lights in 3D environment for soft ray-light
 - `light_set`: **Integer-value.** Value to choose a light set ***(Look at: [Light](#light)).***
 - `sun_strength`: **Float-value.** Energy value for light.
-- `sun_angle`: **Float-value.** Angle of the light
+- `sun_angle`: **Float-value.** Angle of the light.
+- `sun_location`: **Array-Float values.** Define the location of the sun-light.
+- `sun_rotation`: **Array-Float values.** Define the rotation of the sun-light.
+- `sun_color`: **Array-Float values.** Define the color of the sun-light.
 - `material_value`: **Integer-value.** Value to choose a material to apply to the mesh ***(Look at: [Material](#material)).***
 - `color_map_value`: **Integer-value.** Value to choose a color-map material ***(material_value=6 in order to choose the color-map).***
 - `scalar_field`: **Boolean-value.** If the User has the txt's file with the scalar field.

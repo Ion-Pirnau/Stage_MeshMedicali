@@ -65,3 +65,335 @@ Resolution set to: 1920x1080
 Resolution scale set to: 100%
 
 --------------------------------------------
+2024-12-02 15:33:41
+--------------------------------------------
+DETAILS:
+Created Mesh: test_repaired_test2_test_000058_tumoredbrain
+Vertex: 70002
+Normals: 70002
+FacesNormals: 140000
+
+Created plane on base:
+Size: 300
+Location: [0, 0, -0.000925]
+Transparency: False
+
+Created Wall round the Base
+FrontPlane
+BackPlane
+RightPlane
+LeftPlane
+
+Created empty cube: Cube_Reference
+Dimension: 1
+Location: (0.0, 0.0, 0.5)
+Rotation: [0, 0, 0]
+
+Created 6 lights:
+light_front: Energy=2.5 Radius=0.0
+light_back: Energy=2.5 Radius=0.0
+light_right: Energy=2.5 Radius=0.0
+light_left: Energy=2.5 Radius=0.0
+light_top: Energy=10 Radius=0.73
+light_bottom: Energy=0 Radius=0.0
+
+Created empty axes: Axes_to_Camera
+Location: [0, 0, -1.52386]
+Rotation: [0, 0, -161.18]
+
+Created camera: Camera_Main
+Type: PERSP
+Focal Length: 50
+Offset from Axes_to_Camera: 1
+Rotation: [90, 0, 135.458]
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 90
+Radius: 1.12
+
+Created Sun Light: LightSun
+Sun Location: [0.0, 0.0, 3.0]
+Sun Rotation: [0.0, 0.0, 0.0]
+Sun color: [1.0, 1.0, 1.0]
+Sun strength: 0.0
+Sun angle: 32.2 deg
+
+Material on Mesh chosen: ColorMap=Deformation on Surface
+Material Plane chosen: White-Plane-Emission
+
+RENDERING SETUP:
+Render engine set to: BLENDER_EEVEE_NEXT
+RENDER SAMPLES: 300
+Film-Transparency: False
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+--------------------------------------------
+2024-12-02 15:38:37
+--------------------------------------------
+DETAILS:
+Created Mesh: test_repaired_test2_test_000058_tumoredbrain
+Vertex: 70002
+Normals: 70002
+FacesNormals: 140000
+
+Created plane on base:
+Size: 300
+Location: [0, 0, -0.000925]
+Transparency: False
+
+Created Wall round the Base
+FrontPlane
+BackPlane
+RightPlane
+LeftPlane
+
+Created empty cube: Cube_Reference
+Dimension: 1
+Location: (0.0, 0.0, 0.5)
+Rotation: [0, 0, 0]
+
+Created 6 lights:
+light_front: Energy=2.5 Radius=0.0
+light_back: Energy=2.5 Radius=0.0
+light_right: Energy=2.5 Radius=0.0
+light_left: Energy=2.5 Radius=0.0
+light_top: Energy=10 Radius=0.73
+light_bottom: Energy=0 Radius=0.0
+
+Created empty axes: Axes_to_Camera
+Location: [0, 0, -1.52386]
+Rotation: [0, 0, -161.18]
+
+Created camera: Camera_Main
+Type: PERSP
+Focal Length: 50
+Offset from Axes_to_Camera: 1
+Rotation: [90, 0, 135.458]
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 90
+Radius: 1.12
+
+Created Sun Light: LightSun
+Sun Location: [0.0, 0.0, 3.0]
+Sun Rotation: [0.0, 0.0, 0.0]
+Sun color: [1.0, 1.0, 1.0]
+Sun strength: 0.0
+Sun angle: 32.2 deg
+
+Material on Mesh chosen: ColorMap=Deformation on Surface
+Material Plane chosen: White-Plane-Emission
+
+RENDERING SETUP:
+Render engine set to: BLENDER_EEVEE_NEXT
+RENDER SAMPLES: 300
+Film-Transparency: True
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+--------------------------------------------
+2024-12-02 15:39:32
+--------------------------------------------
+DETAILS:
+Created Mesh: test_repaired_test2_test_000058_tumoredbrain
+Vertex: 70002
+Normals: 70002
+FacesNormals: 140000
+
+Created plane on base:
+Size: 300
+Location: [0, 0, -0.000925]
+Transparency: False
+
+Created Wall round the Base
+FrontPlane
+BackPlane
+RightPlane
+LeftPlane
+
+Created empty cube: Cube_Reference
+Dimension: 1
+Location: (0.0, 0.0, 0.5)
+Rotation: [0, 0, 0]
+
+Created 6 lights:
+light_front: Energy=2.5 Radius=0.0
+light_back: Energy=2.5 Radius=0.0
+light_right: Energy=2.5 Radius=0.0
+light_left: Energy=2.5 Radius=0.0
+light_top: Energy=10 Radius=0.73
+light_bottom: Energy=0 Radius=0.0
+
+Created empty axes: Axes_to_Camera
+Location: [0, 0, -1.52386]
+Rotation: [0, 0, -161.18]
+
+Created camera: Camera_Main
+Type: PERSP
+Focal Length: 50
+Offset from Axes_to_Camera: 1
+Rotation: [90, 0, 135.458]
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 90
+Radius: 1.12
+
+Created Sun Light: LightSun
+Sun Location: [0.0, 0.0, 3.0]
+Sun Rotation: [0.0, 0.0, 0.0]
+Sun color: [1.0, 1.0, 1.0]
+Sun strength: 0.0
+Sun angle: 32.2 deg
+
+Material on Mesh chosen: ColorMap=Deformation on Surface
+Material Plane chosen: White-Plane-Emission
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 300
+Film-Transparency: True
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+--------------------------------------------
+2024-12-02 15:40:10
+--------------------------------------------
+DETAILS:
+Created Mesh: test_repaired_test2_test_000058_tumoredbrain
+Vertex: 70002
+Normals: 70002
+FacesNormals: 140000
+
+Created plane on base:
+Size: 300
+Location: [0, 0, -0.000925]
+Transparency: True
+
+Created Wall round the Base
+FrontPlane
+BackPlane
+RightPlane
+LeftPlane
+
+Created empty cube: Cube_Reference
+Dimension: 1
+Location: (0.0, 0.0, 0.5)
+Rotation: [0, 0, 0]
+
+Created 6 lights:
+light_front: Energy=2.5 Radius=0.0
+light_back: Energy=2.5 Radius=0.0
+light_right: Energy=2.5 Radius=0.0
+light_left: Energy=2.5 Radius=0.0
+light_top: Energy=10 Radius=0.73
+light_bottom: Energy=0 Radius=0.0
+
+Created empty axes: Axes_to_Camera
+Location: [0, 0, -1.52386]
+Rotation: [0, 0, -161.18]
+
+Created camera: Camera_Main
+Type: PERSP
+Focal Length: 50
+Offset from Axes_to_Camera: 1
+Rotation: [90, 0, 135.458]
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 90
+Radius: 1.12
+
+Created Sun Light: LightSun
+Sun Location: [0.0, 0.0, 3.0]
+Sun Rotation: [0.0, 0.0, 0.0]
+Sun color: [1.0, 1.0, 1.0]
+Sun strength: 0.0
+Sun angle: 32.2 deg
+
+Material on Mesh chosen: ColorMap=Deformation on Surface
+Material Plane chosen: White-Plane-Emission
+
+RENDERING SETUP:
+Render engine set to: CYCLES
+Render device set to: GPU
+RENDER SAMPLES: 300
+Film-Transparency: True
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+--------------------------------------------
+2024-12-02 15:42:13
+--------------------------------------------
+DETAILS:
+Created Mesh: test_repaired_test2_test_000058_tumoredbrain
+Vertex: 70002
+Normals: 70002
+FacesNormals: 140000
+
+Created plane on base:
+Size: 300
+Location: [0, 0, -0.000925]
+Transparency: False
+
+Created Wall round the Base
+FrontPlane
+BackPlane
+RightPlane
+LeftPlane
+
+Created empty cube: Cube_Reference
+Dimension: 1
+Location: (0.0, 0.0, 0.5)
+Rotation: [0, 0, 0]
+
+Created 6 lights:
+light_front: Energy=2.5 Radius=0.0
+light_back: Energy=2.5 Radius=0.0
+light_right: Energy=2.5 Radius=0.0
+light_left: Energy=2.5 Radius=0.0
+light_top: Energy=10 Radius=0.73
+light_bottom: Energy=0 Radius=0.0
+
+Created empty axes: Axes_to_Camera
+Location: [0, 0, -1.52386]
+Rotation: [0, 0, -161.18]
+
+Created camera: Camera_Main
+Type: PERSP
+Focal Length: 50
+Offset from Axes_to_Camera: 1
+Rotation: [90, 0, 135.458]
+
+Created light at camera: Light_to_Camera
+Offset from camera: 0
+Energy: 90
+Radius: 1.12
+
+Created Sun Light: LightSun
+Sun Location: [0.0, 0.0, 3.0]
+Sun Rotation: [0.0, 0.0, 0.0]
+Sun color: [1.0, 1.0, 1.0]
+Sun strength: 0.0
+Sun angle: 32.2 deg
+
+Material on Mesh chosen: ColorMap=Deformation on Surface
+Material Plane chosen: White-Plane-Emission
+
+RENDERING SETUP:
+Render engine set to: BLENDER_EEVEE_NEXT
+RENDER SAMPLES: 300
+Film-Transparency: True
+File format set to: PNG
+Resolution set to: 1920x1080
+Resolution scale set to: 100%
+
+--------------------------------------------

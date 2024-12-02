@@ -160,7 +160,9 @@ if __name__ == '__main__':
                                      light_set=param.get("light_set")
                                      )
 
-        my_setup.setup_sun_light(sun_strength=param.get("sun_strength"), sun_angle=param.get("sun_angle"))
+        my_setup.setup_sun_light(sun_strength=param.get("sun_strength"), sun_angle=param.get("sun_angle"),
+                                 sun_location=param.get("sun_location"), sun_rotation=param.get("sun_rotation"),
+                                 sun_color=param.get("sun_color"))
 
 
         my_setup.set_materials(material_value=param.get("material_value"),

@@ -297,10 +297,11 @@ class SetEnvironmentBlender:
         self.type_device = type_device
         self.n_samples = n_samples
         self.file_format = file_format
+        self.film_transparency = film_transparency
 
         if self.type_engine == 0:
             self.floor_transparency = floor_transparency
-            self.film_transparency = film_transparency
+
 
         try:
             assert screen_percentage<=1 or screen_percentage>=0

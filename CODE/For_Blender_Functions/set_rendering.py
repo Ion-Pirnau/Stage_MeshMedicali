@@ -60,6 +60,8 @@ class RenderingSetup:
                     raise ValueError("Invalid device type: Use 'CPU' or 'GPU'")
             else:
                 bpy.context.scene.render.engine = single_engine
+                if self.film_transparency:
+                    bpy.context.scene.render.film_transparent = True
                 self.set_eevee_samples()
 
             print(f"Render engine set to: {single_engine}")
