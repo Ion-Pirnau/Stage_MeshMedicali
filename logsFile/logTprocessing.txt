@@ -609,3 +609,69 @@ AFTER DECIMATION:
 Number of Points on Mesh: 70002
 File saved as: test_repaired_test2_test_000058_tumoredbrain.off
 --------------------------------------------
+2024-12-03 13:33:20
+--------------------------------------------
+DETAILS:
+Working on: 000058_tumoredbrain
+vertices: 111147
+normals: 111147
+faces: 222080
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Remove Zero Area Faces Algorithm
+Zero Area Faces removed: 8
+
+
+Mesh Initialized
+
+Ci sono: 0 isole nella mesh
+
+
+Applied: Remove Not Connected Component Algorithm
+
+Mesh Initialized
+
+Ci sono: 0 isole nella mesh
+
+File saved as: testp0_000058_tumoredbrain.off
+--------------------------------------------
+2024-12-03 13:34:49
+--------------------------------------------
+DETAILS:
+Working on: testp0_000058_tumoredbrain
+vertices: 109307
+normals: 109307
+faces: 215129
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Scaling Algorithm UNIT BOX
+Mesh scaled by: x0.00576776575672856 factor
+
+File saved as: scale_testp0_000058_tumoredbrain.off
+--------------------------------------------
+2024-12-03 13:43:28
+--------------------------------------------
+DETAILS:
+Working on: MNI_clean
+vertices: 32510
+normals: 0
+faces: 65016
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Scaling Algorithm UNIT BOX
+Mesh scaled by: x0.00547206701312147 factor
+
+File saved as: scale_MNI_clean.off
+--------------------------------------------

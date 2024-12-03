@@ -18,7 +18,7 @@ class FillHoles:
         """
 
         obj = self.get_obj_from_context(self.obj_name)
-
+        self.fill_mesh_obj(obj)
         self.actual_fill_holes(obj)
 
 
@@ -40,7 +40,7 @@ class FillHoles:
 
     def actual_fill_holes(self, obj):
         """
-            Function: fill holes in mesh
+            Function: fill holes in mesh mode 2-triangulation
 
             Args:
                 obj : obj that has to get holes filled
@@ -54,6 +54,27 @@ class FillHoles:
 
         if len([e for e in bpy.context.object.data.edges if e.select]) > 0:
             bpy.ops.mesh.fill(use_beauty=True)
+
+        bpy.ops.object.mode_set(mode='OBJECT')
+        bpy.context.view_layer.update()
+
+
+    def fill_mesh_obj(self, obj):
+        """
+            Function: fill holes in mesh mode 1 - fill region
+
+            Args:
+                obj : obj that has to get holes filled
+        """
+
+        bpy.ops.object.mode_set(mode='EDIT')
+        bpy.ops.mesh.select_mode(type='EDGE')
+        bpy.ops.mesh.select_all(action='DESELECT')
+
+        bpy.ops.mesh.select_non_manifold()
+
+        if len([e for e in bpy.context.object.data.edges if e.select]) > 0:
+            bpy.ops.mesh.fill_holes(sides=0)
 
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.context.view_layer.update()

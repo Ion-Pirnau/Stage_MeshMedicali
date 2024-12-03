@@ -1,6 +1,6 @@
 {
-    "type_off_file": "noff",
-    "dataname": "test_repaired_test2_test_000058_tumoredbrain",
+    "type_off_file": "off",
+    "dataname": "scale_MNI_clean",
     "logfile_name_processing": "logTprocessing",
     "logfile_name_blender": "logTBlender",
     "value_eps": 1.02,
@@ -9,7 +9,7 @@
     "value_scalefactor": 1,
     "value_scalingtype": 1,
     "poisson_density": 12390,
-    "name_off_file": "test_repaired",
+    "name_off_file": "scale",
     "processing_0": false,
     "processing_1": [
         false,
@@ -45,9 +45,9 @@
         0,
         135.458
     ],
-    "camera_type" : "persp",
-    "lens_camera" : 50,
-    "ortho_scale" : 6,
+    "camera_type": "persp",
+    "lens_camera": 50,
+    "ortho_scale": 6,
     "camera_axes_offset": 1,
     "camera_light_offset": 0,
     "light_energy_at_camera": 90,
@@ -84,20 +84,32 @@
         1.0,
         1.0
     ],
-    "material_value": 5,
-    "color_map_value": 3,
+    "material_value": 6,
+    "color_map_value": 0,
     "name_scalar_field_txt": "registered_fmap.txt",
     "name_scalar_labels_txt": "template_labels.txt",
     "is_deformation_active": false,
     "median_coordinate": [
-        [0.113773, 0.450449, 0.409456],
-        [0.163708, -0.307038, 0.556879],
-        [0.218791, -0.259485, 0.163292]
+        [
+            0.113773,
+            0.450449,
+            0.409456
+        ],
+        [
+            0.163708,
+            -0.307038,
+            0.556879
+        ],
+        [
+            0.218791,
+            -0.259485,
+            0.163292
+        ]
     ],
-    "number_deformation" : 0,
-    "min_value" : -0.5,
-    "max_value" : 0.5,
-    "uv_scale_factor" : 0.1,
+    "number_deformation": 0,
+    "min_value": -0.5,
+    "max_value": 0.5,
+    "uv_scale_factor": 0.1,
     "material_plane_value": 1,
     "hex_color": [
         "000000",
@@ -111,8 +123,8 @@
     "wall_right": true,
     "wall_left": true,
     "type_engine": 0,
-    "floor_transparency" : false,
-    "film_transparency" : false,
+    "floor_transparency": false,
+    "film_transparency": false,
     "type_device": "GPU",
     "n_samples": 300,
     "file_format": "png",
