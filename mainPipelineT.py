@@ -169,7 +169,8 @@ if __name__ == '__main__':
                                material_plane_value=param.get("material_plane_value"),
                                color_map_value=param.get("color_map_value"), hex_color=param.get("hex_color"),
                                color_transp_bsdf=param.get("color_transp_bsdf"),
-                               color_diff_bsdf=param.get("color_diff_bsdf"))
+                               color_diff_bsdf=param.get("color_diff_bsdf"),
+                               mix_shader_fac=param.get("mix_shader_fac"))
 
 
         my_setup.setup_walls(wall_front=param.get("wall_front"), wall_back=param.get("wall_back"),

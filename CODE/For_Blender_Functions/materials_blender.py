@@ -16,13 +16,14 @@ class CreationMaterial:
 
     # Initialize the class with default values or User' values
     def __init__(self, material_type=0, material_plane_type=0, color_map_value=0,
-                 hex_color=[], color_transparent_bsdf=[], color_diffuse_bsdf=[]) -> None:
+                 hex_color=[], color_transparent_bsdf=[], color_diffuse_bsdf=[], mix_shader_fac=0.5) -> None:
         self.material_type = material_type
         self.material_plane_type = material_plane_type
         self.color_map_value = color_map_value
         self.hex_color = hex_color
         self.color_transparent_bsdf = color_transparent_bsdf
         self.color_diffuse_bsdf = color_diffuse_bsdf
+        self.mix_shader_fac = mix_shader_fac
 
     def check_parameter(self) -> None:
         # Check material_type is between 0 and 4
@@ -709,20 +710,54 @@ class CreationMaterial:
 
         output = nodes.new(type='ShaderNodeOutputMaterial')
         principled = nodes.new(type='ShaderNodeBsdfPrincipled')
+        principled_two = nodes.new(type='ShaderNodeBsdfPrincipled')
+        mix_shader = nodes.new(type='ShaderNodeMixShader')
         attribute_node_scalar = nodes.new(type='ShaderNodeAttribute')
         attribute_node_labels = nodes.new(type='ShaderNodeAttribute')
         bump_node = nodes.new(type='ShaderNodeBump')
+        bump_node_two = nodes.new(type='ShaderNodeBump')
         color_ramp_color = nodes.new(type='ShaderNodeValToRGB')
         color_ramp_mask = nodes.new(type='ShaderNodeValToRGB')
+        color_ramp_two = nodes.new(type='ShaderNodeValToRGB')
+        brightness_contrast = nodes.new(type="ShaderNodeBrightContrast")
+        mapping_node = nodes.new(type='ShaderNodeMapping')
+        noise_texture = nodes.new(type='ShaderNodeTexNoise')
+        separate_rgb = nodes.new(type='ShaderNodeSeparateRGB')
+        combine_rgb = nodes.new(type='ShaderNodeCombineRGB')
+        rgb_curves = nodes.new(type='ShaderNodeRGBCurve')
+
 
         attribute_node_scalar.attribute_name = 'fmap_values'
         attribute_node_labels.attribute_name = 'labels_values'
         bump_node.inputs["Strength"].default_value = 0.88
         bump_node.inputs["Distance"].default_value = 1.0
+        bump_node_two.inputs["Strength"].default_value = 0.2
+        bump_node_two.inputs["Distance"].default_value = 1.0
+
+        brightness_contrast.inputs["Bright"].default_value = 0.5
+        brightness_contrast.inputs["Contrast"].default_value = 2.4
 
         self.add_color_to_color_ramp(color_ramp_color, 0.0, self.hex_color[0], is_black=True)
         self.add_color_to_color_ramp(color_ramp_color, 0.5, self.hex_color[1])
         self.add_color_to_color_ramp(color_ramp_color, 1.0, self.hex_color[2], is_white=True, flag=1)
+
+        color_ramp_two.color_ramp.elements[0].position = 0.378
+        color_ramp_two.color_ramp.elements[1].position = 0.738
+
+        mix_shader.inputs["Fac"].default_value = self.mix_shader_fac
+        noise_texture.inputs['Scale'].default_value = 19.0
+        noise_texture.inputs['Detail'].default_value = 15.0
+        noise_texture.inputs['Roughness'].default_value = 0.3
+
+        curve = rgb_curves.mapping.curves[0]
+        curve.points.new(0.556363, 0.46)
+        curve = rgb_curves.mapping.curves[1]
+        curve.points.new(0.563636, 0.52)
+        curve = rgb_curves.mapping.curves[2]
+        curve.points.new(0.0, 0.0)
+        curve = rgb_curves.mapping.curves[3]
+        curve.points.new(0.603636, 0.45)
+
 
         links.new(attribute_node_labels.outputs['Fac'], color_ramp_mask.inputs['Fac'])
         links.new(attribute_node_scalar.outputs['Fac'], color_ramp_color.inputs['Fac'])
@@ -731,7 +766,23 @@ class CreationMaterial:
         links.new(color_ramp_mask.outputs['Color'], bump_node.inputs['Height'])
         links.new(bump_node.outputs['Normal'], principled.inputs['Normal'])
 
-        links.new(principled.outputs['BSDF'], output.inputs['Surface'])
+        links.new(principled.outputs['BSDF'], mix_shader.inputs[1])
+
+        links.new(attribute_node_labels.outputs['Vector'], mapping_node.inputs['Vector'])
+        links.new(mapping_node.outputs['Vector'], noise_texture.inputs['Vector'])
+        links.new(noise_texture.outputs['Fac'], color_ramp_two.inputs['Fac'])
+        links.new(noise_texture.outputs['Color'], separate_rgb.inputs[0])
+        links.new(color_ramp_two.outputs['Color'], bump_node_two.inputs['Height'])
+        links.new(bump_node_two.outputs['Normal'], principled_two.inputs['Normal'])
+        links.new(separate_rgb.outputs['R'], combine_rgb.inputs['R'])
+        links.new(separate_rgb.outputs['G'], combine_rgb.inputs['G'])
+        links.new(separate_rgb.outputs['B'], combine_rgb.inputs['B'])
+        links.new(combine_rgb.outputs[0], rgb_curves.inputs['Color'])
+        links.new(rgb_curves.outputs['Color'], brightness_contrast.inputs['Color'])
+        links.new(brightness_contrast.outputs['Color'], principled_two.inputs['Base Color'])
+
+        links.new(principled_two.outputs['BSDF'], mix_shader.inputs[2])
+        links.new(mix_shader.outputs['Shader'], output.inputs['Surface'])
 
         self.write_message("ColorMap=Scalar Map", True)
 

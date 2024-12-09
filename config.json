@@ -86,6 +86,7 @@
     ],
     "material_value": 6,
     "color_map_value": 0,
+    "mix_shader_fac": 0.0,
     "name_scalar_field_txt": "registered_fmap.txt",
     "name_scalar_labels_txt": "template_labels.txt",
     "is_deformation_active": false,

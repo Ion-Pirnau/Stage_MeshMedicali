@@ -313,7 +313,7 @@ class SetEnvironmentBlender:
 
     def set_materials(self, material_value: int =0, material_plane_value: int =0,
                       color_map_value: int =0, hex_color: list=[],
-                      color_transp_bsdf: list=[], color_diff_bsdf: list=[]) -> None:
+                      color_transp_bsdf: list=[], color_diff_bsdf: list=[], mix_shader_fac: float=0.5) -> None:
         """
         Sets the material for the blender scene + color for ONLY the Transparency Material
 
@@ -324,6 +324,7 @@ class SetEnvironmentBlender:
             hex_color (List[]) : list of hex_value to apply to the color-ramp. This is only for the ColorMap
             color_transp_bsdf (List[]): list of float values, 0 to 1. Only for the FULL-TRANSPARENCY Material
             color_diff_bsdf (List[]): list of float values, 0 to 1. Only for the FULL-TRANSPARENCY Material
+            mix_shader_fac (float): value to define which Principled Shader Apply. Only for the SCALAR-MAP material
 
         Returns:
             None
@@ -333,7 +334,7 @@ class SetEnvironmentBlender:
         else:
             self.is_scalar_active = False
         self.mat_chosen = CreationMaterial(material_value, material_plane_value, color_map_value,
-                                           hex_color, color_transp_bsdf, color_diff_bsdf)
+                                           hex_color, color_transp_bsdf, color_diff_bsdf, mix_shader_fac)
         self.mat_chosen.check_parameter()
 
 

@@ -125,6 +125,7 @@ The configuration file (`config.json`) should follow the sample below:
       ],
     "material_value": 5,
     "color_map_value": 3,
+    "mix_shader_fac": 1.0,
     "name_scalar_field_txt": "registered_fmap.txt",
     "name_scalar_labels_txt": "template_labels.txt",
     "is_deformation_active": true,
@@ -207,6 +208,7 @@ The configuration file (`config.json`) should follow the sample below:
 - `material_value`: **Integer-value.** Value to choose a material to apply to the mesh ***(Look at: [Material](#material)).***
 - `color_map_value`: **Integer-value.** Value to choose a color-map material ***(material_value=6 in order to choose the color-map).***
 - `scalar_field`: **Boolean-value.** If the User has the txt's file with the scalar field.
+- `mix_shader_fac`: **Float-value.** Value to define which Principled Shader apply. Only for the **Scalar Value** material. ***(Look at: [Material](#material)).***
 - `name_scalar_field_txt`: **String-value.** Name of the file with the scalar field.
 - `name_scalar_labels_txt`: **String-value.** Name of the file with labels referring to the mesh.
 - `is_deformation_active`: **Boolean-value.** Value to activate or deactivate the customized deformation on mesh.
