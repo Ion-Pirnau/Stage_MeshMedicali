@@ -241,7 +241,7 @@ The configuration file (`config.json`) should follow the sample below:
 >The program give the User the permission to choose on different type of materials.
 >Below you can find the ***name of the material*** and the ***number to apply it***.
 
->**MESH**
+>**Mesh**
 - **0** : **Dull Yellow**
 - **1** : **Transparent / Glass**
 - **2** : **Wireframe**
@@ -254,7 +254,7 @@ The configuration file (`config.json`) should follow the sample below:
     - **3** : **Deformation on Surface**
 - **6** : **ColorMaps - Scalar Value**
 
->**PLANE**:
+>**Plane**:
 - **0** : **White**
 - **1** : **White with Emission - better for Full-Transparency Material**
 
