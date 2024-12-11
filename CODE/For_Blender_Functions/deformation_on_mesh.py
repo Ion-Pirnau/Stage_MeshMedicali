@@ -194,7 +194,8 @@ class DeformMesh:
         bpy.ops.object.mode_set(mode='EDIT')
 
         bpy.ops.transform.translate(value=translation, proportional_edit_falloff='SMOOTH',
-                                    use_proportional_edit=True, proportional_size=sphere_radius)
+                                    use_proportional_edit=True, use_proportional_connected=True,
+                                    proportional_size=sphere_radius)
 
         bpy.context.tool_settings.use_proportional_edit = False
         bpy.ops.object.mode_set(mode='OBJECT')
@@ -251,12 +252,13 @@ class DeformMesh:
         """
 
         deformation_random = 0 if self.number_deformation == 0 else self.number_deformation
+        median_coord = [] if self.number_deformation > 0 else self.median_coordinate
         self.log_message = (f"Applied Deformation on mesh: {self.obj_name}")
         self.log_message += (f"Details:\n"
                             f"UV-SPHERE scale: {self.scale_uv_sphere}\n"
                             f"Range value (Min-Max): From {self.min_value} to {self.max_value}\n"
                             f"Random Deformation: {deformation_random}\n"
-                            f"Coordinates Deform applied: {self.median_coordinate}\n\n")
+                            f"Coordinates Deform applied: {median_coord}\n\n")
 
 
     def get_message_deform(self) -> str:
