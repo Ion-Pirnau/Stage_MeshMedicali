@@ -1,6 +1,6 @@
 {
     "type_off_file": "off",
-    "dataname": "scale_MNI_clean",
+    "dataname": "test_repaired_test2_test_000058_tumoredbrain",
     "logfile_name_processing": "logTprocessing",
     "logfile_name_blender": "logTBlender",
     "value_eps": 1.02,
