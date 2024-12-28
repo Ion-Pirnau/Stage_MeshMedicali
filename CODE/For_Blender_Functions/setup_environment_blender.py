@@ -115,9 +115,10 @@ class SetEnvironmentBlender:
 
         self.floor_transparency = False
         self.film_transparency = False
-        self.camera_type = "",
-        self.lens_camera = 0.0,
-        self.ortho_scale = 0.0,
+        self.camera_type = ""
+        self.lens_camera = 0.0
+        self.ortho_scale = 0.0
+        self.set_light_mode = 0
 
 
 
@@ -171,6 +172,7 @@ class SetEnvironmentBlender:
             }
         }
 
+        self.set_light_mode = light_set
         if light_set not in predefined_sets:
             raise ValueError(f"Light set mode {light_set} does not exist!")
 
@@ -201,7 +203,8 @@ class SetEnvironmentBlender:
                 None
 
         """
-
+        if self.set_light_mode in [1, 2]:
+            sun_strength = 0.0
         self.sun_strength = sun_strength
         self.sun_angle = sun_angle
         self.sun_light_name = "LightSun"

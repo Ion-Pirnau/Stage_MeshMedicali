@@ -38,7 +38,7 @@
     "axes_location": [
         0,
         0,
-        -1.52386
+        -1.71761
     ],
     "camera_rotation": [
         90,
@@ -52,12 +52,12 @@
     "camera_light_offset": 0,
     "light_energy_at_camera": 0.0,
     "light_energy_at_camera_radius": 1.12,
-    "light_front": 0,
+    "light_front": 2.0,
     "light_back": 3,
-    "light_right": 0,
+    "light_right": 2.0,
     "light_left": 2.5,
-    "light_top": 1.5,
-    "light_bottom": 0,
+    "light_top": 2.5,
+    "light_bottom": 2.0,
     "lights_radius": [
         0.0,
         0.0,

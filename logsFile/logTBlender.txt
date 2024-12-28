@@ -1,4 +1,4 @@
-2024-12-11 11:29:33
+2024-12-28 14:45:01
 --------------------------------------------
 DETAILS:
 Created Mesh: scale_MNI_clean
@@ -9,7 +9,7 @@ FacesNormals: 65016
 Created plane on base:
 Size: 300
 Location: [0, 0, -0.000925]
-Transparency: True
+Transparency: False
 
 Created Wall round the Base
 FrontPlane
@@ -31,7 +31,7 @@ light_top: Energy=0 Radius=0.73
 light_bottom: Energy=0 Radius=0.0
 
 Created empty axes: Axes_to_Camera
-Location: [0, 0, -1.52386]
+Location: [0, 0, -1.71761]
 Rotation: [0, 0, -161.18]
 
 Created camera: Camera_Main
@@ -54,13 +54,6 @@ Sun angle: 32.2 deg
 
 Material on Mesh chosen: ColorMap=Scalar Map
 Material Plane chosen: White-Plane
-
-Applied Deformation on mesh: scale_MNI_clean_ObjectDetails:
-UV-SPHERE scale: 0.1
-Range value (Min-Max): From -0.5 to 0.5
-Random Deformation: 2
-Coordinates Deform applied: []
-
 
 RENDERING SETUP:
 Render engine set to: CYCLES
