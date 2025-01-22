@@ -1,6 +1,6 @@
 {
-    "type_off_file": "off",
-    "dataname": "test_repaired_test2_test_000058_tumoredbrain",
+    "type_off_file": "noff",
+    "dataname": "scale_p1_p0_001313_brain",
     "logfile_name_processing": "logTprocessing",
     "logfile_name_blender": "logTBlender",
     "value_eps": 1.02,
@@ -24,6 +24,16 @@
         0,
         -0.000925
     ],
+    "mesh_location": [
+        0,
+        0,
+        0.82
+    ],
+    "mesh_rotation": [
+        179.87,
+        3.0588,
+        6.8838
+    ],
     "cube_size": 1,
     "cube_rotation": [
         0,
@@ -33,12 +43,12 @@
     "axes_rotation": [
         0,
         0,
-        -161.18
+        225
     ],
     "axes_location": [
         0,
         0,
-        -1.71761
+        -1.6294
     ],
     "camera_rotation": [
         90,
@@ -84,33 +94,23 @@
         1.0,
         1.0
     ],
-    "material_value": 6,
+    "material_value": 0,
     "color_map_value": 0,
     "mix_shader_fac": 1.0,
     "name_scalar_field_txt": "registered_fmap.txt",
     "name_scalar_labels_txt": "template_labels.txt",
-    "is_deformation_active": false,
+    "is_deformation_active": true,
     "median_coordinate": [
         [
-            0.113773,
-            0.450449,
-            0.409456
-        ],
-        [
-            0.163708,
-            -0.307038,
-            0.556879
-        ],
-        [
-            0.218791,
-            -0.259485,
-            0.163292
+            -0.051045,
+            0.379029,
+            0.180037
         ]
     ],
     "number_deformation": 0,
-    "min_value": -0.5,
-    "max_value": 0.5,
-    "uv_scale_factor": 0.1,
+    "min_value": 0.1,
+    "max_value": 0.25,
+    "uv_scale_factor": 0.4,
     "material_plane_value": 0,
     "hex_color": [
         "000000",

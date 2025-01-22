@@ -227,8 +227,9 @@ class DeformMesh:
         face_index = 0
         for f_index in range(num_faces):
             face = obj.data.polygons[f_index]
-            vert_coords = [np.array(obj.matrix_world @ obj.data.vertices[vert_index].co) for vert_index in
-                           face.vertices]
+            #vert_coords = [np.array(obj.matrix_world @ obj.data.vertices[vert_index].co) for vert_index in
+            #              face.vertices]
+            vert_coords = [obj.data.vertices[vert_index].co for vert_index in face.vertices]
             face_center = np.mean(vert_coords, axis=0)
 
             if np.allclose(face_center, chosen_mean_values):

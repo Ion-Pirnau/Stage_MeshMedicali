@@ -146,7 +146,9 @@ if __name__ == '__main__':
                                             ortho_scale=param.get("ortho_scale"),
                                             light_energy_radius=param.get("light_energy_at_camera_radius"),
                                             light_energy=param.get("light_energy_at_camera"),
-                                            base_plane_location=param.get("base_plane_location")
+                                            base_plane_location=param.get("base_plane_location"),
+                                            mesh_location=param.get("mesh_location"),
+                                            mesh_rotation=param.get("mesh_rotation")
                                             )
 
 

@@ -119,6 +119,8 @@ class SetEnvironmentBlender:
         self.lens_camera = 0.0
         self.ortho_scale = 0.0
         self.set_light_mode = 0
+        self.mesh_location = (0.0, 0.0, 0.0)
+        self.mesh_rotation = (0.0, 0.0, 0.0)
 
 
 
@@ -138,6 +140,7 @@ class SetEnvironmentBlender:
             light_left (float): Custom value for the left-light.
             light_top (float): Custom value for the top-light.
             light_bottom (float): Custom value for the bottom-light.
+            lights_radius (List of float): value for lights radius, define the edge's smoothness of the light
             light_set (int): Predefined light set mode (0 for custom).
 
 
@@ -227,7 +230,9 @@ class SetEnvironmentBlender:
                                     ortho_scale=0.0,
                                     light_energy_radius=0.0,
                                     light_energy=10.0,
-                                    base_plane_location=(0.0, 0.0, 0.0)) -> None:
+                                    base_plane_location=(0.0, 0.0, 0.0),
+                                    mesh_location=[0.0, 0.0, 0.0],
+                                    mesh_rotation=[0.0, 0.0, 0.0]) -> None:
         """
         Update various settings in the blender environment.
 
@@ -246,6 +251,8 @@ class SetEnvironmentBlender:
             light_energy_radius (float): Value for light radius
             light_energy (float): Energy of the light at the camera.
             base_plane_location (list): Location of the base plane (x, y, z).
+            mesh_location (list): Location of the mesh (x, y, z)
+            mesh_rotation (list): Rotation of the mesh (x, y, z)
         """
         self.size_cube = cube_size
 
@@ -269,6 +276,9 @@ class SetEnvironmentBlender:
         self.energy_light_at_camera = light_energy
 
         self.base_plane_location = base_plane_location
+        self.mesh_location = mesh_location
+        self.mesh_rotation = mesh_rotation
+
 
 
     def set_rendering_values(self,
@@ -522,6 +532,11 @@ class SetEnvironmentBlender:
 
         obj = self.move_mesh_up_z(obj)
         self.apply_transformation(obj,[True, False, False])
+
+        if any(value != 0.0 for value in self.mesh_rotation):
+            self.rotate_empty_object(obj, rotation=self.mesh_rotation)
+        if any(value != 0.0 for value in self.mesh_location):
+            self.move_empty_object(obj, location=self.mesh_location)
 
         material = self.mat_chosen.fetch_material()
 
@@ -1100,7 +1115,7 @@ class SetEnvironmentBlender:
         log_messages.append(f"Created Mesh: {self.nome_mesh}\n"
                             f"Vertex: {len(self.vertices)}\n"
                             f"Normals: {lenght_norm}\n"
-                            f"FacesNormals: {len(self.faces)}\n")
+                            f"Faces: {len(self.faces)}\n")
 
         log_messages.append(f"Created plane on base:\nSize: {self.plane_on_base}\n"
                             f"Location: {self.base_plane_location}\n"

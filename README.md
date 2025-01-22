@@ -63,6 +63,16 @@ The configuration file (`config.json`) should follow the sample below:
         0,
         -0.000925
     ],
+    "mesh_location": [
+          0.82,
+          0,
+          0
+      ],
+      "mesh_rotation": [
+          179.87,
+          3.0588,
+          6.8838
+      ],
     "cube_size": 1,
     "cube_rotation": [
         0,
@@ -180,6 +190,8 @@ The configuration file (`config.json`) should follow the sample below:
 - `blend_file_name`: **String-value.** String name to define the blend file.
 - `plane_on_base_size`: **Integer-value.** Dimension of the plane at the base.
 - `base_plane_location`: **List-value.** Location of the plane base on X, Y and Z.
+- `mesh_location`: **List-value.** Mesh's Location on X, Y and Z.
+- `mesh_rotation`: **List-value.** Mesh's Rotation on X, Y and Z.
 - `cube_size`: **Integer-value.** Dimension of the CUBE.
 - `cube_rotation`: **List-value.** Rotation on X, Y and Z.
 - `axes_rotation`: **List-value.** Rotation on X, Y and Z.

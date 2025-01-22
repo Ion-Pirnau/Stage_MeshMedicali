@@ -1,10 +1,10 @@
-2024-11-25 17:54:44
+2025-01-22 11:57:16
 --------------------------------------------
 DETAILS:
-Working on: 000199_tumoredbrain
-vertices: 111586
-normals: 111586
-faces: 223018
+Working on: 001313_brain
+vertices: 77160
+normals: 77160
+faces: 154316
 
 
 Point Of Cloud Created
@@ -12,12 +12,12 @@ Point Of Cloud Created
 Mesh Initialized
 
 Applied: Remove Zero Area Faces Algorithm
-Zero Area Faces removed: 14
+Zero Area Faces removed: 0
 
 
 Mesh Initialized
 
-Ci sono: 9 isole nella mesh
+Ci sono: 0 isole nella mesh
 
 
 Applied: Remove Not Connected Component Algorithm
@@ -26,15 +26,15 @@ Mesh Initialized
 
 Ci sono: 0 isole nella mesh
 
-File saved as: test_1_000199_tumoredbrain.off
+File saved as: p0_001313_brain.off
 --------------------------------------------
-2024-11-25 17:56:22
+2025-01-22 11:58:26
 --------------------------------------------
 DETAILS:
-Working on: test_1_000199_tumoredbrain
-vertices: 109442
-normals: 109442
-faces: 215211
+Working on: p0_001313_brain
+vertices: 27538
+normals: 27538
+faces: 54141
 
 
 Point Of Cloud Created
@@ -42,23 +42,107 @@ Point Of Cloud Created
 Mesh Initialized
 
 Applied: Repair Mesh Algorithm
-There are: 399 holes in the mesh
+There are: 25 holes in the mesh
 
 AFTER RECOSTRUCTION:
-Number of Points on Mesh: 197870
+Number of Points on Mesh: 79615
+There are: 1 holes in the mesh
+AFTER DECIMATION:
+Number of Points on Mesh: 70096
+File saved as: p1_p0_001313_brain.off
+--------------------------------------------
+2025-01-22 11:59:45
+--------------------------------------------
+DETAILS:
+Working on: 001313_brain
+vertices: 77160
+normals: 77160
+faces: 154316
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Remove Zero Area Faces Algorithm
+Zero Area Faces removed: 0
+
+
+Mesh Initialized
+
+Ci sono: 0 isole nella mesh
+
+
+Applied: Remove Not Connected Component Algorithm
+
+Mesh Initialized
+
+Ci sono: 7 isole nella mesh
+
+File saved as: p0_001313_brain.off
+--------------------------------------------
+2025-01-22 12:00:07
+--------------------------------------------
+DETAILS:
+File p0_001313_brain non trovato
+--------------------------------------------
+2025-01-22 12:00:31
+--------------------------------------------
+DETAILS:
+Working on: 001313_brain
+vertices: 77160
+normals: 77160
+faces: 154316
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Remove Zero Area Faces Algorithm
+Zero Area Faces removed: 0
+
+
+Mesh Initialized
+
+Ci sono: 0 isole nella mesh
+
+
+Applied: Remove Not Connected Component Algorithm
+
+Mesh Initialized
+
+Ci sono: 0 isole nella mesh
+
+File saved as: p0_001313_brain.off
+--------------------------------------------
+2025-01-22 12:01:12
+--------------------------------------------
+DETAILS:
+Working on: p0_001313_brain
+vertices: 77160
+normals: 77160
+faces: 154316
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Repair Mesh Algorithm
+There are: 0 holes in the mesh
+
+AFTER RECOSTRUCTION:
+Number of Points on Mesh: 187880
 There are: 0 holes in the mesh
 AFTER DECIMATION:
 Number of Points on Mesh: 70002
-
-Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.005753765356344305 factor
-
-File saved as: test_1_test_1_000199_tumoredbrain.off
+File saved as: p1_p0_001313_brain.off
 --------------------------------------------
-2024-11-25 18:17:03
+2025-01-22 12:01:54
 --------------------------------------------
 DETAILS:
-Working on: test_1_test_1_000199_tumoredbrain
+Working on: p1_p0_001313_brain
 vertices: 70002
 normals: 70002
 faces: 140000
@@ -68,87 +152,18 @@ Point Of Cloud Created
 
 Mesh Initialized
 
-Applied: Repair Mesh Algorithm
-There are: 0 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 193875
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 70002
-
 Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x1.0000039339220308 factor
+Mesh scaled by: x0.006493000180019856 factor
 
-File saved as: test_1_test_1_test_1_000199_tumoredbrain.off
+File saved as: scale_p1_p0_001313_brain.off
 --------------------------------------------
-2024-11-26 10:44:27
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Remove Zero Area Faces Algorithm
-Zero Area Faces removed: 0
-
-
-Mesh Initialized
-
-Ci sono: 0 isole nella mesh
-
-
-Applied: Remove Not Connected Component Algorithm
-
-Mesh Initialized
-
-Ci sono: 0 isole nella mesh
-
-File saved as: test_1_MNI_clean.off
---------------------------------------------
-2024-11-26 10:46:57
+2025-01-22 14:59:00
 --------------------------------------------
 DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Remove Zero Area Faces Algorithm
-Zero Area Faces removed: 0
-
-
-Mesh Initialized
-
-Ci sono: 0 isole nella mesh
-
-
-Applied: Remove Not Connected Component Algorithm
-
-Mesh Initialized
-
-Ci sono: 0 isole nella mesh
-
-File saved as: test_1_MNI_clean.off
---------------------------------------------
-2024-11-26 10:47:44
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
+Working on: 000028_tumoredbrain
+vertices: 113162
+normals: 113162
+faces: 226320
 
 
 Point Of Cloud Created
@@ -156,579 +171,7 @@ Point Of Cloud Created
 Mesh Initialized
 
 Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.00547206701312147 factor
+Mesh scaled by: x0.005829336497341736 factor
 
-File saved as: test_scale__MNI_clean.off
---------------------------------------------
-2024-11-26 10:50:16
---------------------------------------------
-DETAILS:
-Working on: test_1_MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Repair Mesh Algorithm
-There are: 0 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 30705
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 30705
-
-Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.005478590665655537 factor
-
-File saved as: test_scale_test_1_MNI_clean.off
---------------------------------------------
-2024-11-26 11:05:15
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Poisson Density: 12300
-Applied: Repair Mesh Algorithm
-There are: 0 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 30360
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 30360
-File saved as: test__MNI_clean.off
---------------------------------------------
-2024-11-26 11:06:47
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Compute Normals:
-Poisson Density: 12300
-
-Applied: Repair Mesh Algorithm
-There are: 0 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 31184
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 31184
-File saved as: test_MNI_clean.off
---------------------------------------------
-2024-11-26 11:41:49
---------------------------------------------
-DETAILS:
-Working on: 000058_tumoredbrain
-vertices: 111147
-normals: 111147
-faces: 222080
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Repair Mesh Algorithm
-There are: 3 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 197297
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 70002
-File saved as: test_000058_tumoredbrain.off
---------------------------------------------
-2024-11-26 11:46:16
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Operation: Compute Normals Before Reconstruction
-Poisson Density: 12400
-
-Applied: Repair Mesh Algorithm
-There are: 0 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 32726
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 32726
-File saved as: test2_MNI_clean.off
---------------------------------------------
-2024-11-26 11:46:45
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Operation: Compute Normals Before Reconstruction
-Poisson Density: 12350
-
-Applied: Repair Mesh Algorithm
-There are: 0 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 31027
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 31027
-File saved as: test3_MNI_clean.off
---------------------------------------------
-2024-11-26 11:47:12
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Operation: Compute Normals Before Reconstruction
-Poisson Density: 12380
-
-Applied: Repair Mesh Algorithm
-There are: 0 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 32097
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 32097
-File saved as: test4_MNI_clean.off
---------------------------------------------
-2024-11-26 11:47:39
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Operation: Compute Normals Before Reconstruction
-Poisson Density: 12390
-
-Applied: Repair Mesh Algorithm
-There are: 0 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 32933
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 32932
-File saved as: test5_MNI_clean.off
---------------------------------------------
-2024-11-26 11:47:59
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Operation: Compute Normals Before Reconstruction
-Poisson Density: 12385
-
-Applied: Repair Mesh Algorithm
-There are: 0 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 33098
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 33098
-File saved as: test6_MNI_clean.off
---------------------------------------------
-2024-11-26 11:48:19
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Operation: Compute Normals Before Reconstruction
-Poisson Density: 12382
-
-Applied: Repair Mesh Algorithm
-There are: 0 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 31765
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 31765
-File saved as: test7_MNI_clean.off
---------------------------------------------
-2024-11-26 11:51:38
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Operation: Compute Normals Before Reconstruction
-Poisson Density: 12385
-
-Applied: Repair Mesh Algorithm
-There are: 0 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 32379
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 32379
-File saved as: test8_MNI_clean.off
---------------------------------------------
-2024-11-26 11:52:02
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Operation: Compute Normals Before Reconstruction
-Poisson Density: 12386
-
-Applied: Repair Mesh Algorithm
-There are: 0 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 32211
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 32211
-File saved as: test9_MNI_clean.off
---------------------------------------------
-2024-11-26 11:52:21
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Operation: Compute Normals Before Reconstruction
-Poisson Density: 12388
-
-Applied: Repair Mesh Algorithm
-There are: 0 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 32094
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 32094
-File saved as: test10_MNI_clean.off
---------------------------------------------
-2024-11-26 11:53:51
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Operation: Compute Normals Before Reconstruction
-Poisson Density: 12390
-
-Applied: Repair Mesh Algorithm
-There are: 0 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 32709
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 32709
-File saved as: test2_MNI_clean.off
---------------------------------------------
-2024-11-26 14:49:13
---------------------------------------------
-DETAILS:
-Working on: 000058_tumoredbrain
-vertices: 111147
-normals: 111147
-faces: 222080
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.00576776575672856 factor
-
-File saved as: test2_000058_tumoredbrain.off
---------------------------------------------
-2024-11-26 15:35:09
---------------------------------------------
-DETAILS:
-Working on: 000058_tumoredbrain
-vertices: 111147
-normals: 111147
-faces: 222080
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Remove Zero Area Faces Algorithm
-Zero Area Faces removed: 8
-
-
-Mesh Initialized
-
-Ci sono: 0 isole nella mesh
-
-
-Applied: Remove Not Connected Component Algorithm
-
-Mesh Initialized
-
-Ci sono: 0 isole nella mesh
-
-File saved as: test_000058_tumoredbrain.off
---------------------------------------------
-2024-11-26 15:36:34
---------------------------------------------
-DETAILS:
-Working on: test_000058_tumoredbrain
-vertices: 109307
-normals: 109307
-faces: 215129
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.00576776575672856 factor
-
-File saved as: test2_test_000058_tumoredbrain.off
---------------------------------------------
-2024-11-26 15:49:28
---------------------------------------------
-DETAILS:
-Working on: test2_test_000058_tumoredbrain
-vertices: 109307
-normals: 109307
-faces: 215129
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Repair Mesh Algorithm
-There are: 381 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 197081
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 70002
-File saved as: test_repaired_test2_test_000058_tumoredbrain.off
---------------------------------------------
-2024-12-03 13:33:20
---------------------------------------------
-DETAILS:
-Working on: 000058_tumoredbrain
-vertices: 111147
-normals: 111147
-faces: 222080
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Remove Zero Area Faces Algorithm
-Zero Area Faces removed: 8
-
-
-Mesh Initialized
-
-Ci sono: 0 isole nella mesh
-
-
-Applied: Remove Not Connected Component Algorithm
-
-Mesh Initialized
-
-Ci sono: 0 isole nella mesh
-
-File saved as: testp0_000058_tumoredbrain.off
---------------------------------------------
-2024-12-03 13:34:49
---------------------------------------------
-DETAILS:
-Working on: testp0_000058_tumoredbrain
-vertices: 109307
-normals: 109307
-faces: 215129
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.00576776575672856 factor
-
-File saved as: scale_testp0_000058_tumoredbrain.off
---------------------------------------------
-2024-12-03 13:43:28
---------------------------------------------
-DETAILS:
-Working on: MNI_clean
-vertices: 32510
-normals: 0
-faces: 65016
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.00547206701312147 factor
-
-File saved as: scale_MNI_clean.off
---------------------------------------------
-2024-12-28 17:41:31
---------------------------------------------
-DETAILS:
-Working on: 000059_tumoredbrain
-vertices: 112122
-normals: 112122
-faces: 224228
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Remove Zero Area Faces Algorithm
-Zero Area Faces removed: 16
-
-
-Mesh Initialized
-
-Ci sono: 1 isole nella mesh
-
-
-Applied: Remove Not Connected Component Algorithm
-
-Mesh Initialized
-
-Ci sono: 0 isole nella mesh
-
-File saved as: proc0_000059_tumoredbrain.off
---------------------------------------------
-2024-12-28 17:47:06
---------------------------------------------
-DETAILS:
-Working on: proc0_000059_tumoredbrain
-vertices: 110532
-normals: 110532
-faces: 218224
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Repair Mesh Algorithm
-There are: 329 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 190660
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 70006
-
-Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.005626730784997282 factor
-
-File saved as: proc1_proc0_000059_tumoredbrain.off
+File saved as: scale_000028_tumoredbrain.off
 --------------------------------------------
