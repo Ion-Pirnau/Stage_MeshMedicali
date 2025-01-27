@@ -1,40 +1,10 @@
-2025-01-22 11:57:16
+2025-01-27 15:56:03
 --------------------------------------------
 DETAILS:
-Working on: 001313_brain
-vertices: 77160
-normals: 77160
-faces: 154316
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Remove Zero Area Faces Algorithm
-Zero Area Faces removed: 0
-
-
-Mesh Initialized
-
-Ci sono: 0 isole nella mesh
-
-
-Applied: Remove Not Connected Component Algorithm
-
-Mesh Initialized
-
-Ci sono: 0 isole nella mesh
-
-File saved as: p0_001313_brain.off
---------------------------------------------
-2025-01-22 11:58:26
---------------------------------------------
-DETAILS:
-Working on: p0_001313_brain
-vertices: 27538
-normals: 27538
-faces: 54141
+Working on: p0_000058_tumoredbrain
+vertices: 109307
+normals: 109307
+faces: 215129
 
 
 Point Of Cloud Created
@@ -42,136 +12,12 @@ Point Of Cloud Created
 Mesh Initialized
 
 Applied: Repair Mesh Algorithm
-There are: 25 holes in the mesh
+There are: 381 holes in the mesh
 
 AFTER RECOSTRUCTION:
-Number of Points on Mesh: 79615
-There are: 1 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 70096
-File saved as: p1_p0_001313_brain.off
---------------------------------------------
-2025-01-22 11:59:45
---------------------------------------------
-DETAILS:
-Working on: 001313_brain
-vertices: 77160
-normals: 77160
-faces: 154316
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Remove Zero Area Faces Algorithm
-Zero Area Faces removed: 0
-
-
-Mesh Initialized
-
-Ci sono: 0 isole nella mesh
-
-
-Applied: Remove Not Connected Component Algorithm
-
-Mesh Initialized
-
-Ci sono: 7 isole nella mesh
-
-File saved as: p0_001313_brain.off
---------------------------------------------
-2025-01-22 12:00:07
---------------------------------------------
-DETAILS:
-File p0_001313_brain non trovato
---------------------------------------------
-2025-01-22 12:00:31
---------------------------------------------
-DETAILS:
-Working on: 001313_brain
-vertices: 77160
-normals: 77160
-faces: 154316
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Remove Zero Area Faces Algorithm
-Zero Area Faces removed: 0
-
-
-Mesh Initialized
-
-Ci sono: 0 isole nella mesh
-
-
-Applied: Remove Not Connected Component Algorithm
-
-Mesh Initialized
-
-Ci sono: 0 isole nella mesh
-
-File saved as: p0_001313_brain.off
---------------------------------------------
-2025-01-22 12:01:12
---------------------------------------------
-DETAILS:
-Working on: p0_001313_brain
-vertices: 77160
-normals: 77160
-faces: 154316
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Repair Mesh Algorithm
-There are: 0 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 187880
+Number of Points on Mesh: 197081
 There are: 0 holes in the mesh
 AFTER DECIMATION:
-Number of Points on Mesh: 70002
-File saved as: p1_p0_001313_brain.off
---------------------------------------------
-2025-01-22 12:01:54
---------------------------------------------
-DETAILS:
-Working on: p1_p0_001313_brain
-vertices: 70002
-normals: 70002
-faces: 140000
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.006493000180019856 factor
-
-File saved as: scale_p1_p0_001313_brain.off
---------------------------------------------
-2025-01-22 14:59:00
---------------------------------------------
-DETAILS:
-Working on: 000028_tumoredbrain
-vertices: 113162
-normals: 113162
-faces: 226320
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.005829336497341736 factor
-
-File saved as: scale_000028_tumoredbrain.off
+Number of Points on Mesh: 5002
+File saved as: p1_p0_000058_tumoredbrain.off
 --------------------------------------------
