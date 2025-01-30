@@ -1,21 +1,21 @@
 {
     "type_off_file": "noff",
-    "dataname": "p0_000058_tumoredbrain",
+    "dataname": "scale_p1_p0_000058_tumoredbrain",
     "logfile_name_processing": "logTprocessing",
     "logfile_name_blender": "logTBlender",
     "value_eps": 1.02,
     "value_minsamples": 5,
-    "value_decimation": 10000,
+    "value_decimation": 140000,
     "value_scalefactor": 1,
     "value_scalingtype": 1,
     "poisson_density": 12390,
-    "name_off_file": "p1",
+    "name_off_file": "scale",
     "processing_0": false,
     "processing_1": [
         false,
         false
     ],
-    "blend_file_ex": false,
+    "blend_file_ex": true,
     "fill_holes": false,
     "blend_file_name": "testBlend_",
     "plane_on_base_size": 300,
@@ -27,12 +27,12 @@
     "mesh_location": [
         0,
         0,
-        0.82
+        0
     ],
     "mesh_rotation": [
-        179.87,
-        3.0588,
-        6.8838
+        0,
+        0,
+        0
     ],
     "cube_size": 1,
     "cube_rotation": [
@@ -94,12 +94,12 @@
         1.0,
         1.0
     ],
-    "material_value": 0,
-    "color_map_value": 0,
+    "material_value": 5,
+    "color_map_value": 3,
     "mix_shader_fac": 1.0,
     "name_scalar_field_txt": "registered_fmap.txt",
     "name_scalar_labels_txt": "template_labels.txt",
-    "is_deformation_active": true,
+    "is_deformation_active": false,
     "median_coordinate": [
         [
             -0.051045,
@@ -108,9 +108,9 @@
         ]
     ],
     "number_deformation": 0,
-    "min_value": 0.1,
-    "max_value": 0.25,
-    "uv_scale_factor": 0.4,
+    "min_value": -0.35,
+    "max_value": 0.35,
+    "uv_scale_factor": 0.18,
     "material_plane_value": 0,
     "hex_color": [
         "000000",

@@ -254,7 +254,7 @@ class DeformMesh:
 
         deformation_random = 0 if self.number_deformation == 0 else self.number_deformation
         median_coord = [] if self.number_deformation > 0 else self.median_coordinate
-        self.log_message = (f"Applied Deformation on mesh: {self.obj_name}")
+        self.log_message = (f"Applied Deformation on mesh: {self.obj_name}\n")
         self.log_message += (f"Details:\n"
                             f"UV-SPHERE scale: {self.scale_uv_sphere}\n"
                             f"Range value (Min-Max): From {self.min_value} to {self.max_value}\n"

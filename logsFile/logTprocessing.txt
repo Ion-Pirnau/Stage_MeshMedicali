@@ -1,4 +1,87 @@
-2025-01-27 15:56:03
+2025-01-28 18:36:45
+--------------------------------------------
+DETAILS:
+Working on: 000058_tumoredbrain
+vertices: 111147
+normals: 111147
+faces: 222080
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Remove Zero Area Faces Algorithm
+Zero Area Faces removed: 8
+
+
+Mesh Initialized
+
+Ci sono: 0 isole nella mesh
+
+
+Applied: Remove Not Connected Component Algorithm
+
+Mesh Initialized
+
+Ci sono: 0 isole nella mesh
+
+File saved as: p1_000058_tumoredbrain.off
+--------------------------------------------
+2025-01-28 18:37:06
+--------------------------------------------
+DETAILS:
+Working on: p1_000058_tumoredbrain
+vertices: 109307
+normals: 109307
+faces: 215129
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Repair Mesh Algorithm
+There are: 381 holes in the mesh
+
+AFTER RECOSTRUCTION:
+Number of Points on Mesh: 197081
+There are: 0 holes in the mesh
+AFTER DECIMATION:
+Number of Points on Mesh: 6002
+File saved as: p1_p1_000058_tumoredbrain.off
+--------------------------------------------
+2025-01-30 12:12:50
+--------------------------------------------
+DETAILS:
+Working on: 000058_tumoredbrain
+vertices: 111147
+normals: 111147
+faces: 222080
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Remove Zero Area Faces Algorithm
+Zero Area Faces removed: 8
+
+
+Mesh Initialized
+
+Ci sono: 0 isole nella mesh
+
+
+Applied: Remove Not Connected Component Algorithm
+
+Mesh Initialized
+
+Ci sono: 0 isole nella mesh
+
+File saved as: p0_000058_tumoredbrain.off
+--------------------------------------------
+2025-01-30 12:13:34
 --------------------------------------------
 DETAILS:
 Working on: p0_000058_tumoredbrain
@@ -18,6 +101,24 @@ AFTER RECOSTRUCTION:
 Number of Points on Mesh: 197081
 There are: 0 holes in the mesh
 AFTER DECIMATION:
-Number of Points on Mesh: 5002
+Number of Points on Mesh: 70002
 File saved as: p1_p0_000058_tumoredbrain.off
+--------------------------------------------
+2025-01-30 12:13:58
+--------------------------------------------
+DETAILS:
+Working on: p1_p0_000058_tumoredbrain
+vertices: 70002
+normals: 70002
+faces: 140000
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Scaling Algorithm UNIT BOX
+Mesh scaled by: x0.005768545934655458 factor
+
+File saved as: scale_p1_p0_000058_tumoredbrain.off
 --------------------------------------------
