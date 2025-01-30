@@ -1,6 +1,6 @@
 {
     "type_off_file": "noff",
-    "dataname": "scale_p1_p0_000058_tumoredbrain",
+    "dataname": "000058_tumoredbrain",
     "logfile_name_processing": "logTprocessing",
     "logfile_name_blender": "logTBlender",
     "value_eps": 1.02,
