@@ -15,6 +15,7 @@ import numpy as np
 class SetEnvironmentBlender:
 
     output_blend_file = "BLEND_FILE_OUTPUT/"
+    output_fileOff_folder = "INPUT_SOURCE/"
     extension = ".blend"
     message_to_log = ""
     render_setup = None
@@ -611,6 +612,15 @@ class SetEnvironmentBlender:
             self.deformation_on_mesh.apply_deformation()
             self.deform_message = self.deformation_on_mesh.get_message_deform()
 
+        """
+            Step 9: Save the Mesh on OFF file after Deformation Applied
+        """
+        if self.is_deformation_active:
+            obj = bpy.data.objects.get(mesh_name)
+            obj_to_save = self.select_object(obj)
+            self.fetch_data_after_deformation(obj_to_save)
+
+
 
 
     def select_object(self, obj):
@@ -1096,6 +1106,25 @@ class SetEnvironmentBlender:
             raise IOError(f"Failed to save blend file at {file_path}") from e
 
 
+    def fetch_data_after_deformation(self, obj_to_save):
+        """
+            Fetch data from the obj_to_save after deformation is applied and save to the file
+
+            Args:
+                obj_to_save : bpy obj
+            Result:
+                None
+        """
+        vertices = np.array([[v.co.x, v.co.y, v.co.z] for v in obj_to_save.data.vertices])
+        normals =  np.array([[n.normal.x, n.normal.y, n.normal.z] for n in obj_to_save.data.vertices])
+        faces = np.array([p.vertices[:] for p in obj_to_save.data.polygons])
+
+        vertices = utl.convert_array_tofloat64(vertices)
+        normals = utl.convert_array_tofloat64(normals)
+        utl.save_off_format(self.nome_mesh+"_Deformed"+".off", vertices, normals, faces, self.output_fileOff_folder)
+        print(f"File: {self.nome_mesh}_Deformed - Salvato")
+        #print(vertices)
+        #print(faces)
 
     def create_file_log(self) -> None:
         """

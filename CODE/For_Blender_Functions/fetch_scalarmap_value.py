@@ -127,7 +127,7 @@ class ScalarFieldValue:
 
         normalized_values_scalar = self.normalize(fmap_values, new_min=0.0, new_max=1.0)
         #normalized_values_scalar = (fmap_values - np.min(fmap_values)) / (np.max(fmap_values) - np.min(fmap_values))
-        normalized_values_labels = self.normalize(labels_values, new_min=0.0, new_max=1.0)
+        #normalized_values_labels = self.normalize(labels_values, new_min=0.0, new_max=1.0)
 
         color_layer = mesh.vertex_colors['col'].data
 
@@ -135,7 +135,7 @@ class ScalarFieldValue:
 
         for i, vertex in enumerate(mesh.vertices):
             mesh.attributes['fmap_values'].data[i].value = normalized_values_scalar[i]
-            mesh.attributes['labels_values'].data[i].value = normalized_values_labels[i]
+            #mesh.attributes['labels_values'].data[i].value = normalized_values_labels[i]
 
             color_value = normalized_values_scalar[i]
             color = (color_value, color_value, color_value, 1.0)

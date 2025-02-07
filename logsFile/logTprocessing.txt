@@ -1,10 +1,10 @@
-2025-01-28 18:36:45
+2025-02-01 17:53:40
 --------------------------------------------
 DETAILS:
-Working on: 000058_tumoredbrain
-vertices: 111147
-normals: 111147
-faces: 222080
+Working on: 000052_tumoredbrain
+vertices: 125514
+normals: 125514
+faces: 251028
 
 
 Point Of Cloud Created
@@ -12,7 +12,7 @@ Point Of Cloud Created
 Mesh Initialized
 
 Applied: Remove Zero Area Faces Algorithm
-Zero Area Faces removed: 8
+Zero Area Faces removed: 0
 
 
 Mesh Initialized
@@ -24,40 +24,17 @@ Applied: Remove Not Connected Component Algorithm
 
 Mesh Initialized
 
-Ci sono: 0 isole nella mesh
+Ci sono: 1 isole nella mesh
 
-File saved as: p1_000058_tumoredbrain.off
+File saved as: p1_000052_tumoredbrain.off
 --------------------------------------------
-2025-01-28 18:37:06
---------------------------------------------
-DETAILS:
-Working on: p1_000058_tumoredbrain
-vertices: 109307
-normals: 109307
-faces: 215129
-
-
-Point Of Cloud Created
-
-Mesh Initialized
-
-Applied: Repair Mesh Algorithm
-There are: 381 holes in the mesh
-
-AFTER RECOSTRUCTION:
-Number of Points on Mesh: 197081
-There are: 0 holes in the mesh
-AFTER DECIMATION:
-Number of Points on Mesh: 6002
-File saved as: p1_p1_000058_tumoredbrain.off
---------------------------------------------
-2025-01-30 12:12:50
+2025-02-01 17:54:31
 --------------------------------------------
 DETAILS:
-Working on: 000058_tumoredbrain
-vertices: 111147
-normals: 111147
-faces: 222080
+Working on: 000052_tumoredbrain
+vertices: 125514
+normals: 125514
+faces: 251028
 
 
 Point Of Cloud Created
@@ -65,7 +42,7 @@ Point Of Cloud Created
 Mesh Initialized
 
 Applied: Remove Zero Area Faces Algorithm
-Zero Area Faces removed: 8
+Zero Area Faces removed: 0
 
 
 Mesh Initialized
@@ -77,17 +54,17 @@ Applied: Remove Not Connected Component Algorithm
 
 Mesh Initialized
 
-Ci sono: 0 isole nella mesh
+Ci sono: 3 isole nella mesh
 
-File saved as: p0_000058_tumoredbrain.off
+File saved as: p0_000052_tumoredbrain.off
 --------------------------------------------
-2025-01-30 12:13:34
+2025-02-01 17:55:10
 --------------------------------------------
 DETAILS:
-Working on: p0_000058_tumoredbrain
-vertices: 109307
-normals: 109307
-faces: 215129
+Working on: p0_000052_tumoredbrain
+vertices: 116711
+normals: 116711
+faces: 218581
 
 
 Point Of Cloud Created
@@ -95,19 +72,23 @@ Point Of Cloud Created
 Mesh Initialized
 
 Applied: Repair Mesh Algorithm
-There are: 381 holes in the mesh
+There are: 1392 holes in the mesh
 
 AFTER RECOSTRUCTION:
-Number of Points on Mesh: 197081
+Number of Points on Mesh: 211858
 There are: 0 holes in the mesh
 AFTER DECIMATION:
 Number of Points on Mesh: 70002
-File saved as: p1_p0_000058_tumoredbrain.off
+
+Applied: Scaling Algorithm UNIT BOX
+Mesh scaled by: x0.005647727033535814 factor
+
+File saved as: p1_p0_000052_tumoredbrain.off
 --------------------------------------------
-2025-01-30 12:13:58
+2025-02-01 17:55:53
 --------------------------------------------
 DETAILS:
-Working on: p1_p0_000058_tumoredbrain
+Working on: p1_p0_000052_tumoredbrain
 vertices: 70002
 normals: 70002
 faces: 140000
@@ -117,8 +98,105 @@ Point Of Cloud Created
 
 Mesh Initialized
 
-Applied: Scaling Algorithm UNIT BOX
-Mesh scaled by: x0.005768545934655458 factor
+Applied: Repair Mesh Algorithm
+There are: 0 holes in the mesh
 
-File saved as: scale_p1_p0_000058_tumoredbrain.off
+AFTER RECOSTRUCTION:
+Number of Points on Mesh: 197261
+There are: 0 holes in the mesh
+AFTER DECIMATION:
+Number of Points on Mesh: 6002
+File saved as: remeshed_p1_p0_000052_tumoredbrain.off
+--------------------------------------------
+2025-02-01 18:07:13
+--------------------------------------------
+DETAILS:
+Working on: p1_p0_000051_tumoredbrain_Deformed
+vertices: 70002
+normals: 70002
+faces: 140000
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Repair Mesh Algorithm
+There are: 0 holes in the mesh
+
+AFTER RECOSTRUCTION:
+Number of Points on Mesh: 196259
+There are: 0 holes in the mesh
+AFTER DECIMATION:
+Number of Points on Mesh: 6002
+File saved as: remeshed_p1_p0_000051_tumoredbrain_Deformed.off
+--------------------------------------------
+2025-02-01 18:08:18
+--------------------------------------------
+DETAILS:
+Working on: p1_p0_000051_tumoredbrain_Deformed2
+vertices: 70002
+normals: 70002
+faces: 140000
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Repair Mesh Algorithm
+There are: 0 holes in the mesh
+
+AFTER RECOSTRUCTION:
+Number of Points on Mesh: 196443
+There are: 0 holes in the mesh
+AFTER DECIMATION:
+Number of Points on Mesh: 6002
+File saved as: remeshed_p1_p0_000051_tumoredbrain_Deformed2.off
+--------------------------------------------
+2025-02-01 18:08:58
+--------------------------------------------
+DETAILS:
+Working on: p1_p0_000052_tumoredbrain_Deformed
+vertices: 70002
+normals: 70002
+faces: 140000
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Repair Mesh Algorithm
+There are: 0 holes in the mesh
+
+AFTER RECOSTRUCTION:
+Number of Points on Mesh: 196752
+There are: 0 holes in the mesh
+AFTER DECIMATION:
+Number of Points on Mesh: 6002
+File saved as: remeshed_p1_p0_000052_tumoredbrain_Deformed.off
+--------------------------------------------
+2025-02-01 18:09:48
+--------------------------------------------
+DETAILS:
+Working on: p1_p0_000052_tumoredbrain_Deformed2
+vertices: 70002
+normals: 70002
+faces: 140000
+
+
+Point Of Cloud Created
+
+Mesh Initialized
+
+Applied: Repair Mesh Algorithm
+There are: 0 holes in the mesh
+
+AFTER RECOSTRUCTION:
+Number of Points on Mesh: 195778
+There are: 0 holes in the mesh
+AFTER DECIMATION:
+Number of Points on Mesh: 6002
+File saved as: remeshed_p1_p0_000052_tumoredbrain_Deformed2.off
 --------------------------------------------
